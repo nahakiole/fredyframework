@@ -1,4 +1,4 @@
-fredyframework
+FredyFramework
 ==============
 
-A really simple framework for quick and simple webapp creation.
+A really simple framework for fast and simple website creation.

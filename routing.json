@@ -1,0 +1,19 @@
+{
+    "routes": [
+        {
+            "action": "indexAction",
+            "controller": "demo",
+            "match": "/^\\/$/"
+        },
+        {
+            "action": "notFound",
+            "controller": "error",
+            "match": "/^\\/Error\\/404/"
+        },
+        {
+            "action": "serverError",
+            "controller": "error",
+            "match": "/^\\/Error\\/500/"
+        }
+    ]
+}
