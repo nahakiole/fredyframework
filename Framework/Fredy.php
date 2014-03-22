@@ -2,7 +2,7 @@
 
 namespace Framework;
 
-use Exception\ControllerException;
+use Exception\PageNotFoundException;
 use Exception\ServerErrorException;
 
 class Fredy
@@ -11,25 +11,20 @@ class Fredy
     public function __construct()
     {
         $container = new \Pimple();
-        require_once 'config.php';
-        require_once 'services.php';
+        require_once '/Framework/config.php';
+        require_once '/Framework/services.php';
 
         $router = new Router();
         try {
             $controller = $container[$router->getControllerName()];
             $method = $router->getControllerMethod($controller);
             $this->callAction($controller, $method);
-        } catch (ServerErrorException $e) {
-            //echo $e->getFile().":".$e->getLine();
+        } catch (PageNotFoundException $e) {
             $controller = $container[$e->getController()];
-            /**
-             * @var $controller \Controller\Error
-             */
+            /** @var $controller \Controller\Error */
             $controller->setErrorMessage($e->getMessage());
             $this->callAction($controller, $e->getAction());
-        } catch (ControllerException $e) {
-            //echo $e->getFile().":".$e->getLine();
-
+        } catch (ServerErrorException $e) {
             $controller = $container[$e->getController()];
             $this->callAction($container[$e->getController()], $e->getAction());
         }

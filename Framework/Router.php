@@ -6,7 +6,6 @@ namespace Framework;
 
 use Exception\PageNotFoundException;
 use Model\Entity\Route;
-use Symfony\Component\Yaml\Yaml;
 
 class Router
 {
@@ -20,7 +19,7 @@ class Router
 
     public function __construct()
     {
-        $routes = file_get_contents('routing.json');
+        $routes = file_get_contents('Framework/routing.json');
         $routes = json_decode($routes, true);
         $this->routingTable = $routes['routes'];
         $this->requestURI = $_SERVER['REQUEST_URI'];

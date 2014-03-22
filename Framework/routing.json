@@ -3,7 +3,7 @@
         {
             "action": "indexAction",
             "controller": "demo",
-            "match": "/^\\/$/"
+            "match": "/^\\/(Test)?$/"
         },
         {
             "action": "notFound",

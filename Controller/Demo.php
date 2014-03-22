@@ -33,6 +33,7 @@ class Demo extends Controller
 
 <p>Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.</p>';
 
+
         for ($i = 1; $i < 6; $i++){
             $this->view->getTemplate('CONTENT')->setBlockVariable([
                 'CONTENT' => '<h3> '.$i.' '.$randomBlockOfText

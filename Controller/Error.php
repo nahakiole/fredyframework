@@ -3,6 +3,8 @@
 namespace Controller;
 
 
+use View\HTMLView;
+
 class Error extends Controller
 {
 
@@ -10,12 +12,12 @@ class Error extends Controller
 
     public function notFound()
     {
-        $this->view = new \View\HTMLView('View/Templates/index.html');
+        $this->view = new HTMLView('View/Templates/index.html');
         $this->view->setHeader('HTTP/1.0 404 Not Found');
         $this->view->template->setVariable(
             [
-                'SITE_TITLE' => 'Da ging etwas daneben.',
-                'SITE_DESC' => 'Diese Seite wurde nicht gefunden.'
+                'SITE_TITLE' => 'Diese Seite wurde nicht gefunden.',
+                'CONTENT' => 'Diese Seite wurde leider nicht gefunden. Möchtest du zurück auf die <a href="/">Startseite</a>?'
             ]
         );
         return $this->view;
@@ -23,15 +25,13 @@ class Error extends Controller
 
     public function serverError()
     {
-        $this->view = new \View\HTMLView('View/Templates/index.html');
+        $this->view = new HTMLView('View/Templates/index.html');
         $this->view->setHeader('HTTP/1.0 500');
         $this->view->template->setVariable(
             [
-                'SITE_TITLE' => 'Da ging etwas daneben.',
-                'SITE_DESC' => 'Ein Fehler ist aufgetreten.<br/>'.$this->errorMessage
+                'SITE_TITLE' => 'Da ging etwas daneben.'
             ]
         );
-        return $this->view;
     }
 
     /**

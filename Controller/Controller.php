@@ -2,8 +2,6 @@
 
 namespace Controller;
 
-use View\HTMLTemplate;
-use View\HTMLView;
 
 abstract class Controller
 {
@@ -12,10 +10,6 @@ abstract class Controller
      */
     public $view;
 
-    public function __construct()
-    {
-
-    }
 
     abstract function indexAction();
-} 
+}
