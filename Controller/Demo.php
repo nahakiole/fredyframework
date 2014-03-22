@@ -23,25 +23,36 @@ class Demo extends Controller
             'SITE_DESC' => 'This is the demonstration controller.'
 
         ]);
-        $this->view->addTemplate('CONTENT', new HTMLTemplate('View/Templates/feature_block.html'));
-        $randomBlockOfText = 'Lorem Ipsum</h3>
-<p>Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte.</p>
+        $this->view->addTemplate('CONTENT', new HTMLTemplate('View/Templates/demo.html'));
+        $features = [
+            [
+                'name' => 'Clean code',
+                'icon' => 'fa-code'
+            ],
+            [
+                'name' => 'Open source',
+                'icon' => 'fa-github'
+            ],
+            [
+                'name' => 'Blazing fast',
+                'icon' => 'fa-bolt'
+            ],
+            [
+                'name' => 'Made with coffee',
+                'icon' => 'fa-coffee'
+            ]
 
-<p>Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.</p>
-
-<p>Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.</p>
-
-<p>Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.</p>';
+        ];
 
 
-        for ($i = 1; $i < 6; $i++){
-            $this->view->getTemplate('CONTENT')->setBlockVariable([
-                'CONTENT' => '<h3> '.$i.' '.$randomBlockOfText
+        $this->view->addTemplate('FEATURES', new HTMLTemplate('View/Templates/features.html'));
+        foreach ($features as $feature) {
+            $this->view->getTemplate('FEATURES')->setBlockVariable([
+                'NAME' => $feature['name'],
+                'ICON' => $feature['icon']
             ]);
-            $this->view->getTemplate('CONTENT')->preRender();
+            $this->view->getTemplate('FEATURES')->preRender();
         }
-
-
 
 
     }

@@ -2,10 +2,167 @@
    Author's custom styles
    ========================================================================== */
 
+body {
+
+    font-family: "open-sans", "open sans", sans-serif;
+    font-weight: lighter;
+    font-size: 16px;
+}
+
 input, button, .form-control, .btn {
     border-radius: 0;
 }
 
+.fa-6x {
+    font-size: 6em;
+}
+
+.fa-7x {
+    font-size: 7em;
+}
+
+.top30 {
+    margin-top: 30px;
+}
+
+.top15 {
+    margin-top: 15px;
+}
+
+.feature h3 {
+    font-weight: lighter;
+    font-size: 28px;
+    margin: 0;
+}
+
 .nopadding {
     padding: 0;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header h1 a,
+header h1 a:hover {
+    font-family: "lobster";
+    font-size: 60px;
+    text-decoration: none;
+    color: #fff;
+}
+
+header {
+    margin: 0 0 10px 0;
+    background: #242f53;
+    color: #fff;
+}
+
+header .container {
+
+    padding: 40px 0 15px 0;
+    position: relative;
+}
+
+.navigation-right {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+}
+
+.nav > li {
+    float: left;
+}
+
+.nav > li > a {
+    color: #fff;
+    font-weight: normal;
+    font-size: 18px;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background: transparent;
+    color: #598fe8;
+}
+
+h2, h3 {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+footer .container {
+    padding: 5px 0;
+}
+
+footer a, footer a:hover {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 5px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    overflow-y: scroll;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 32px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 32px;
+    background: #393939;
+    color: #fff;
+    width: 100%;
+    font-weight: normal;
+}
+
+@media (max-width: 992px) {
+    header .container {
+        padding: 40px 0 30px 0;
+    }
+
+    .nav {
+        padding: 0 0 0 15px;
+    }
+
+    .nav > li > a {
+        padding: 5px;
+    }
+
+    header .container {
+        padding-bottom: 5px;
+    }
+
+    .navigation-right {
+        right: auto;
+        position: static;
+        left: 0;
+    }
+
+    footer {
+        position: static;
+        height: auto;
+    }
+
+    footer a {
+        text-align: center;
+        padding: 2px;
+    }
+
+    body {
+        margin-bottom: 0;
+    }
+
+}
+
+@media (max-width: 768px) {
+    header h1 a,
+    header h1 a:hover {
+        font-size: 40px;
+    }
 }
