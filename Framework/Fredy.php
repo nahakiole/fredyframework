@@ -11,8 +11,8 @@ class Fredy
     public function __construct()
     {
         $container = new \Pimple();
-        require_once '/Framework/config.php';
-        require_once '/Framework/services.php';
+        require_once 'Framework/config.php';
+        require_once 'Framework/services.php';
 
         $router = new Router();
         try {
