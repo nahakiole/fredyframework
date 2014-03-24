@@ -3,17 +3,17 @@
         {
             "action": "indexAction",
             "controller": "demo",
-            "match": "/^\\/(Test)?$/"
+            "match": ":^/(Test)?$:"
         },
         {
             "action": "notFound",
             "controller": "error",
-            "match": "/^\\/Error\\/404/"
+            "match": ":^/Error/404:"
         },
         {
             "action": "serverError",
             "controller": "error",
-            "match": "/^\\/Error\\/500/"
+            "match": ":^/Error/500:"
         }
     ]
 }
