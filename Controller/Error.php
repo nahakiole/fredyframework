@@ -42,7 +42,7 @@ class Error extends Controller
         $this->errorMessage = $errorMessage;
     }
 
-    function indexAction()
+    function indexAction($matches)
     {
         // TODO: Implement indexAction() method.
     }

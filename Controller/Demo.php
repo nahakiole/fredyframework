@@ -15,7 +15,7 @@ use View\HTMLView;
 class Demo extends Controller
 {
 
-    function indexAction()
+    function indexAction($matches)
     {
         $this->view = new HTMLView('View/Templates/index.html');
         $this->view->template->setVariable([
@@ -53,7 +53,5 @@ class Demo extends Controller
             ]);
             $this->view->getTemplate('FEATURES')->preRender();
         }
-
-
     }
 }

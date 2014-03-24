@@ -16,9 +16,9 @@ class Fredy
 
         $router = new Router();
         try {
-            $controller = $container[$router->getControllerName()];
-            $method = $router->getControllerMethod($controller);
-            $this->callAction($controller, $method);
+            $route = $router->getRoute();
+            $controller = $container[$route->controllerName];
+            $this->callAction($controller, $route->methodName, $route->matches);
         } catch (PageNotFoundException $e) {
             $controller = $container[$e->getController()];
             /** @var $controller \Controller\Error */
@@ -34,11 +34,16 @@ class Fredy
     /**
      * @param $controller
      * @param $method
-     *
+     * @param $matches
+     * @throws Exception\PageNotFoundException
      * @return \View\Viewable
      */
-    private function callAction($controller, $method)
+    private function callAction($controller, $method, $matches = null)
     {
-        return $controller->$method();
+        if (method_exists($controller, $method)) {
+            return $controller->$method($matches);
+        }
+        throw new PageNotFoundException("Method " . $method . " not found!");
     }
+
 }

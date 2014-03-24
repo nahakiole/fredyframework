@@ -11,5 +11,5 @@ abstract class Controller
     public $view;
 
 
-    abstract function indexAction();
+    abstract function indexAction($matches);
 }

@@ -6,18 +6,19 @@ namespace Model\Entity;
 
 class Route {
     private $route;
-    private $controller;
-    public  $method;
+    public $controllerName;
+    public $methodName;
+    public $matches;
 
     public function __construct($route, $controller,$method){
         $this->route = $route;
-        $this->controller = $controller;
-        $this->method = $method;
+        $this->controllerName = $controller;
+        $this->methodName = $method;
     }
 
     public function matchesRoute($localRoute){
-        if (preg_match($this->route, $localRoute)){
-            return $this->controller;
+        if (preg_match($this->route, $localRoute, $this->matches)){
+            return $this->controllerName;
         }
         return null;
     }
