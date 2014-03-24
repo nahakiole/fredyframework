@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Exception;
+namespace Framework\Exception;
 
 
 abstract class ControllerException extends \Exception

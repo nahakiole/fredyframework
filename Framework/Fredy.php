@@ -2,8 +2,8 @@
 
 namespace Framework;
 
-use Exception\PageNotFoundException;
-use Exception\ServerErrorException;
+use Framework\Exception\PageNotFoundException;
+use Framework\Exception\ServerErrorException;
 
 class Fredy
 {

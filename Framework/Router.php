@@ -4,7 +4,7 @@
 namespace Framework;
 
 
-use Exception\PageNotFoundException;
+use Framework\Exception\PageNotFoundException;
 use Model\Entity\Route;
 
 class Router
@@ -26,7 +26,7 @@ class Router
     }
 
     /**
-     * @throws \Exception\PageNotFoundException
+     * @throws Exception\PageNotFoundException
      * @return mixed
      */
     public function getControllerName()
@@ -46,7 +46,7 @@ class Router
     /**
      * @param $controller
      *
-     * @throws \Exception\PageNotFoundException
+     * @throws Exception\PageNotFoundException
      * @return string
      */
     public function getControllerMethod($controller)

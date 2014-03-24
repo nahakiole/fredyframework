@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Exception;
+namespace Framework\Exception;
 
 class ServerErrorException extends ControllerException
 {
