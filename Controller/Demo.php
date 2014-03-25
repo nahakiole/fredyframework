@@ -9,8 +9,10 @@
 namespace Controller;
 
 
+use Framework\Configuration;
 use View\HTMLTemplate;
 use View\HTMLView;
+use View\Redirect;
 
 class Demo extends Controller
 {
@@ -21,13 +23,10 @@ class Demo extends Controller
      */
     function indexAction($request)
     {
-        $this->view = new HTMLView('View/Templates/index.html');
-        $this->view->template->setVariable([
-            'SITE_TITLE' => 'Demo Controller',
-            'SITE_DESC' => 'This is the demonstration controller.'
 
-        ]);
-        $this->view->addTemplate('CONTENT', new HTMLTemplate('View/Templates/demo.html'));
+        $loader = new \Twig_Loader_Filesystem('View/Templates');
+        $twig = new \Twig_Environment($loader);
+        $this->view = $twig->loadTemplate('demo.twig');
         $features = [
             [
                 'name' => 'Clean code',
@@ -48,15 +47,8 @@ class Demo extends Controller
 
         ];
 
+        return array('features' => $features, 'offset' => Configuration::$OFFSETPATH);
 
-        $this->view->addTemplate('FEATURES', new HTMLTemplate('View/Templates/features.html'));
-        foreach ($features as $feature) {
-            $this->view->getTemplate('FEATURES')->setBlockVariable([
-                'NAME' => $feature['name'],
-                'ICON' => $feature['icon']
-            ]);
-            $this->view->getTemplate('FEATURES')->preRender();
-        }
     }
 
     /**
@@ -65,12 +57,6 @@ class Demo extends Controller
      */
     function postAction($request)
     {
-        $this->view = new HTMLView('View/Templates/index.html');
-        $this->view->template->setVariable([
-            'SITE_TITLE' => 'Demo Controller',
-            'SITE_DESC' => 'This is the demonstration controller.',
-            'CONTENT' => 'Post method'
-
-        ]);
+        $this->view = new Redirect('Location: /Error/404');
     }
 }

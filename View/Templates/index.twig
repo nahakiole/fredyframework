@@ -9,8 +9,8 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <link rel="stylesheet" href="{OFFSET}/View/Templates/css/main.css">
-    <script src="{OFFSET}/View/Templates/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <link rel="stylesheet" href="{{ offset }}/View/Templates/css/main.css">
+    <script src="{{ offset }}/View/Templates/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     <script type="text/javascript" src="//use.typekit.net/tef7fbw.js"></script>
     <script type="text/javascript">try {
         Typekit.load();
@@ -38,7 +38,7 @@
 </header>
 <div class="container">
 
-    {CONTENT}
+    {% block content %}{% endblock %}
 
     <div class="clearfix"></div>
 
@@ -61,6 +61,6 @@
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="{OFFSET}/View/Templates/js/main.js"></script>
+<script src="{{ offset }}/View/Templates/js/main.js"></script>
 </body>
 </html>
