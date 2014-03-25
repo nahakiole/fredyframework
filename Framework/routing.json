@@ -3,7 +3,14 @@
         {
             "action": "indexAction",
             "controller": "demo",
-            "match": ":^/(Test/(?P<id>[0-9]+))?$:"
+            "match": ":^/(Test/(?P<id>[0-9]+))?$:",
+            "method": "GET"
+        },
+        {
+            "action": "postAction",
+            "controller": "demo",
+            "match": ":^/(Test/(?P<id>[0-9]+))?$:",
+            "method": "POST"
         },
         {
             "action": "notFound",

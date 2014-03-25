@@ -25,7 +25,7 @@ class Router
      * Essentially it is the output of the matches parameter in preg_match.
      * @var $matches Array
      */
-    private $matches;
+    private $matches = [];
 
     public function __construct($requestURL)
     {
@@ -43,7 +43,7 @@ class Router
     {
         foreach ($this->routingTable as $route) {
             $matches = [];
-            if ($this->matchesRequest($this->requestURI, $route['match'], $matches)) {
+            if ($this->matchesRequest($this->requestURI, $route)) {
                 return $this->buildRequest($route, $matches);
             }
         }
@@ -61,9 +61,13 @@ class Router
     /**
      *
      */
-    private function matchesRequest($localRoute, $route, &$matches)
+    private function matchesRequest($localRoute, $route)
     {
-        return preg_match($route, $localRoute, $this->matches);
+        if (isset($route['method']) && $route['method'] != $_SERVER['REQUEST_METHOD'])
+        {
+            return false;
+        }
+        return preg_match($route['match'], $localRoute, $this->matches);
     }
 
 }

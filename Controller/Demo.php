@@ -58,4 +58,19 @@ class Demo extends Controller
             $this->view->getTemplate('FEATURES')->preRender();
         }
     }
+
+    /**
+     * @param $request \Model\Entity\Request
+     * @return null
+     */
+    function postAction($request)
+    {
+        $this->view = new HTMLView('View/Templates/index.html');
+        $this->view->template->setVariable([
+            'SITE_TITLE' => 'Demo Controller',
+            'SITE_DESC' => 'This is the demonstration controller.',
+            'CONTENT' => 'Post method'
+
+        ]);
+    }
 }
