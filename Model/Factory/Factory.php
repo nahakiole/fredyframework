@@ -3,7 +3,18 @@
 
 namespace Model\Factory;
 
+use Model\Entity;
 
 abstract class Factory {
-    abstract function build($data);
+
+    public function build($data)
+    {
+        $entities = [];
+
+        foreach ($data as $key => $entity) {
+            $entities[] = new $this->Entity($entity);
+        }
+
+        return $entities;
+    }
 } 

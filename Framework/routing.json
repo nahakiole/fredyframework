@@ -13,6 +13,11 @@
             "method": "POST"
         },
         {
+            "action": "indexAction",
+            "controller": "journal",
+            "match": ":^/journal$:"
+        },
+        {
             "action": "notFound",
             "controller": "error",
             "match": ":^/Error/404:"

@@ -21,12 +21,12 @@ abstract class Repository
     /**
      * @var $database \PDO
      */
-    protected  $database;
+    protected $database;
 
     /**
      * @var $db \PDO
      */
-    protected  $factory;
+    protected $factory;
 
     /**
      * @internal param \PDO $database
