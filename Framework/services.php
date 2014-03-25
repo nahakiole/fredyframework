@@ -1,8 +1,11 @@
 <?php
 /** @var $container Pimple */
 
-$container['mysqli'] = function($c){
-    return new mysqli($c['db.host']);
+$container['PDO'] = function($c){
+    return new PDO(
+        'mysql:host='.$c['db.host'].';dbname='.$c['db.dbname'].';'
+        ,$c['db.user']
+        ,$c['db.password']);
 };
 
 $container['demo'] = function(){
@@ -11,5 +14,9 @@ $container['demo'] = function(){
 
 $container['error'] = function(){
     return new \Controller\Error();
+};
+
+$container['journal'] = function($c){
+    return new \Controller\JournalController($c['PDO']);
 };
 
