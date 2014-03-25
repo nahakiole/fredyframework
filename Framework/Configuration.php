@@ -26,15 +26,18 @@ class Configuration
 
     function loadConfiguration(){
 
-        $this->container['db.host'] = 'localhost';
-        $this->container['db.user'] = 'localhost';
-        $this->container['db.password'] = 'localhost';
-        $this->container['db.dbname'] = 'fredyframework';
+        $container['db.host'] = 'localhost';
+        $container['db.user'] = 'root';
+        $container['db.password'] = '';
+        $container['db.dbname'] = 'fredyframework';
     }
 
     function loadServices(){
-        $this->container['PDO'] = function($c){
-            return new PDO($c['db.host']);
+        $container['PDO'] = function($c){
+            return new PDO(
+                'mysql:host='.$c['db.host'].';dbname='.$c['db.dbname'].';'
+                ,$c['db.user']
+                ,$c['db.password']);
         };
 
         $this->container['demo'] = function(){
@@ -44,6 +47,12 @@ class Configuration
         $this->container['error'] = function(){
             return new \Controller\Error();
         };
+
+        $container['journal'] = function($c){
+            return new \Controller\JournalController($c['PDO']);
+        };
+
+
 
     }
 
