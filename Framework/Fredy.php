@@ -32,10 +32,11 @@ class Fredy
     }
 
     /**
-     * @param $controller
-     * @param $method
-     * @param $matches
+     * @param $controller string
+     * @param $actionName string
+     * @param $matches string
      * @throws Exception\PageNotFoundException
+     *
      * @return \View\Viewable
      */
     private function callAction($controller, $actionName, $matches = null)
