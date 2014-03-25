@@ -3,8 +3,7 @@
         {
             "action": "indexAction",
             "controller": "demo",
-            "match": ":^/(Test/(?P<id>[0-9]+))?$:",
-            "method": "GET"
+            "match": ":^/$:"
         },
         {
             "action": "postAction",
