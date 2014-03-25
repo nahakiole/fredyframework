@@ -26,7 +26,7 @@ class JournalController extends Controller
         $this->view->addTemplate('CONTENT', new HTMLTemplate('View/Templates/journal.html'));
         $journalRepository = new JournalRepository($this->database);
         $journalFactory = new JournalFactory();
-        $journals = $journalFactory->build($journalRepository->findAll());
+        $journals = $journalFactory->buildAll($journalRepository->findAll());
 
         $this->view->addTemplate('JOURNALS', new HTMLTemplate('View/Templates/journals.html'));
         foreach ($journals as $journal) {
