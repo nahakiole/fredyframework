@@ -21,7 +21,7 @@ class Configuration
 
         $this->container = new \Pimple();
         self::$ROOTPATH = substr(__DIR__,0, -9);
-        self::$OFFSETPATH = 'fredyframework';
+        self::$OFFSETPATH = '';
     }
 
     function loadConfiguration(){
