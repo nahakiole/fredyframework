@@ -27,12 +27,16 @@ class Router
      */
     private $matches = [];
 
-    public function __construct($requestURL)
+    /**
+     * @var
+     */
+    private $routingFilePath;
+
+    public function __construct($requestURL, $routingFilePath = 'Framework/routing.json')
     {
-        $routes = file_get_contents('Framework/routing.json');
-        $routes = json_decode($routes, true);
-        $this->routingTable = $routes['routes'];
+
         $this->requestURI = $requestURL;
+        $this->routingFilePath = $routingFilePath;
     }
 
     /**
@@ -41,6 +45,9 @@ class Router
      */
     public function getRequest()
     {
+        $routes = file_get_contents($this->routingFilePath);
+        $routes = json_decode($routes, true);
+        $this->routingTable = $routes['routes'];
         foreach ($this->routingTable as $route) {
             $matches = [];
             if ($this->matchesRequest($this->requestURI, $route)) {
