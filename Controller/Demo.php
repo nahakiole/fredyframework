@@ -10,6 +10,8 @@ namespace Controller;
 
 
 use Framework\Configuration;
+use Model\Entity\DataType\Integer;
+use Model\Entity\Journal;
 use View\HTMLTemplate;
 use View\HTMLView;
 use View\Redirect;
@@ -47,7 +49,18 @@ class Demo extends Controller
 
         ];
 
-        return array('features' => $features, 'offset' => Configuration::$OFFSETPATH);
+        $journal = new Journal('Test', 5, 'Testdsf');
+
+
+        foreach ($journal as $key => $field) {
+            /**
+             * @var $field \Model\Entity\Field
+             */
+            echo $field->name . ":" . $field->value . "<br/>";
+        }
+
+
+        return array('features' => $features, 'offset' => Configuration::$OFFSETPATH, 'title' => 'Demo');
 
     }
 
