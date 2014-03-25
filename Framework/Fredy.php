@@ -15,7 +15,7 @@ class Fredy
         require_once 'Framework/config.php';
         require_once 'Framework/services.php';
 
-        $router = new Router($_SERVER['REQUEST_URI']);
+        $router = new Router($_SERVER['REQUEST_URI'], 'Framework/routing.json', $_SERVER['REQUEST_METHOD']);
         try {
             $request = $router->getRequest();
             $controller = $container[$request->controllerName];

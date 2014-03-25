@@ -27,16 +27,16 @@ class Router
      */
     private $matches = [];
 
-    /**
-     * @var
-     */
-    private $routingFilePath;
 
-    public function __construct($requestURL, $routingFilePath = 'Framework/routing.json')
+    private $routingFilePath;
+    private $requestMethod;
+
+    public function __construct($requestURL, $routingFilePath = 'Framework/routing.json', $requestMethod = 'GET')
     {
 
         $this->requestURI = $requestURL;
         $this->routingFilePath = $routingFilePath;
+        $this->requestMethod = $requestMethod;
     }
 
     /**
@@ -70,7 +70,7 @@ class Router
      */
     private function matchesRequest($localRoute, $route)
     {
-        if (isset($route['method']) && $route['method'] != $_SERVER['REQUEST_METHOD'])
+        if (isset($route['method']) && $route['method'] != $this->requestMethod)
         {
             return false;
         }

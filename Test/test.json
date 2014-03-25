@@ -1,0 +1,26 @@
+{
+    "routes": [
+        {
+            "action": "indexAction",
+            "controller": "demo",
+            "match": ":^/(Test/(?P<id>[0-9]+))?$:",
+            "method": "GET"
+        },
+        {
+            "action": "postAction",
+            "controller": "demo",
+            "match": ":^/(Test/(?P<id>[0-9]+))?$:",
+            "method": "POST"
+        },
+        {
+            "action": "notFound",
+            "controller": "error",
+            "match": ":^/Error/404:"
+        },
+        {
+            "action": "serverError",
+            "controller": "error",
+            "match": ":^/Error/500:"
+        }
+    ]
+}
