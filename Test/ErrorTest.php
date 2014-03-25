@@ -2,7 +2,9 @@
 
 use Model\Entity\Request;
 
+require_once '/Framework/Configuration.php';
 require_once '/Framework/Autoloader.php';
+
 
 class ErrorTest extends \PHPUnit_Framework_TestCase {
 

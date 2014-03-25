@@ -5,6 +5,8 @@
  * Date: 25.03.14
  * Time: 11:01
  */
+
+require_once '/Framework/Configuration.php';
 require_once '/Framework/Autoloader.php';
 
 class RouterTest extends PHPUnit_Framework_TestCase {

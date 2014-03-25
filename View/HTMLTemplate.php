@@ -9,6 +9,8 @@
 namespace View;
 
 
+use Framework\Configuration;
+
 class HTMLTemplate implements Viewable
 {
 
@@ -31,6 +33,9 @@ class HTMLTemplate implements Viewable
     public function __construct($templateFile)
     {
         $this->templateFile = $templateFile;
+        $this->setVariable([
+            'OFFSET' => Configuration::$OFFSETPATH
+        ]);
     }
 
 

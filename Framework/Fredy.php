@@ -9,25 +9,26 @@ use Model\Entity\Request;
 class Fredy
 {
 
-    public function __construct()
+    /**
+     * @param $configuration Configuration
+     */
+    public function __construct($configuration)
     {
-        $container = new \Pimple();
-        require_once 'Framework/config.php';
-        require_once 'Framework/services.php';
-
+        $configuration->loadConfiguration();
+        $configuration->loadServices();
         $router = new Router($_SERVER['REQUEST_URI'], 'Framework/routing.json', $_SERVER['REQUEST_METHOD']);
         try {
             $request = $router->getRequest();
-            $controller = $container[$request->controllerName];
+            $controller = $configuration->container[$request->controllerName];
             $this->callAction($controller, $request->actionName, $request);
         } catch (PageNotFoundException $e) {
-            $controller = $container[$e->getController()];
+            $controller = $configuration->container[$e->getController()];
             /** @var $controller \Controller\Error */
             $controller->setErrorMessage($e->getMessage());
             $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
         } catch (ServerErrorException $e) {
-            $controller = $container[$e->getController()];
-            $this->callAction($container[$e->getController()], $e->getAction(), new Request(null, null, null, null));
+            $controller = $configuration->container[$e->getController()];
+            $this->callAction($configuration->container[$e->getController()], $e->getAction(), new Request(null, null, null, null));
         }
         echo $controller->view->render();
     }

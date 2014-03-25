@@ -39,8 +39,7 @@ class Router
 
     public function __construct($requestURL, $routingFilePath = 'Framework/routing.json', $requestMethod = 'GET')
     {
-
-        $this->requestURL = $requestURL;
+        $this->requestURL = substr($requestURL, strlen(Configuration::$OFFSETPATH)+1);
         $this->routingFilePath = $routingFilePath;
         $this->requestMethod = $requestMethod;
     }
