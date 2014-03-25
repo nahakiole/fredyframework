@@ -4,6 +4,7 @@ namespace Framework;
 
 use Framework\Exception\PageNotFoundException;
 use Framework\Exception\ServerErrorException;
+use Model\Entity\Request;
 
 class Fredy
 {
@@ -23,10 +24,10 @@ class Fredy
             $controller = $container[$e->getController()];
             /** @var $controller \Controller\Error */
             $controller->setErrorMessage($e->getMessage());
-            $this->callAction($controller, $e->getAction());
+            $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
         } catch (ServerErrorException $e) {
             $controller = $container[$e->getController()];
-            $this->callAction($container[$e->getController()], $e->getAction());
+            $this->callAction($container[$e->getController()], $e->getAction(), new Request(null, null, null, null));
         }
         echo $controller->view->render();
     }

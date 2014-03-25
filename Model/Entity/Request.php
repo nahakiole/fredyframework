@@ -3,7 +3,13 @@
 
 namespace Model\Entity;
 
-
+/**
+ * Class Request
+ * @package Model\Entity
+ *
+ * Request Class to prevent usage of global Variables like $_POST, $_GET in the Controller.
+ * This is essentially to make the controller testable and not depended on the global Variables.
+ */
 class Request {
     private $route;
     public $controllerName;
@@ -26,7 +32,8 @@ class Request {
         $this->FILES = $_FILES;
         $this->SERVER = $_SERVER;
         $this->COOKIES = $_COOKIE;
-        $this->SESSION = $_SESSION;
+
+        $this->SESSION = isset($_SESSION) ? $_SESSION : null;
     }
 
 }
