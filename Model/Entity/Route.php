@@ -7,13 +7,13 @@ namespace Model\Entity;
 class Route {
     private $route;
     public $controllerName;
-    public $methodName;
+    public $actionName;
     public $matches;
 
-    public function __construct($route, $controller,$method){
+    public function __construct($route, $controller,$actionName){
         $this->route = $route;
         $this->controllerName = $controller;
-        $this->methodName = $method;
+        $this->actionName = $actionName;
     }
 
     public function matchesRoute($localRoute){
