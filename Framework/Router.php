@@ -10,7 +10,8 @@ use Model\Entity\Request;
 class Router
 {
     /**
-     * @var \Model\Entity\Request[]
+     * The decoded routing file as a array.
+     * @var array
      */
     private $routingTable = [];
 
@@ -18,7 +19,7 @@ class Router
      * The URL which was requested by
      * @var array
      */
-    private $requestURI = [];
+    public  $requestURL = [];
 
     /**
      * Array with matches for the request.
@@ -29,12 +30,17 @@ class Router
 
 
     private $routingFilePath;
-    private $requestMethod;
+
+    /**
+     * The request method. Either POST or GET in most cases.
+     * @var string
+     */
+    public $requestMethod;
 
     public function __construct($requestURL, $routingFilePath = 'Framework/routing.json', $requestMethod = 'GET')
     {
 
-        $this->requestURI = $requestURL;
+        $this->requestURL = $requestURL;
         $this->routingFilePath = $routingFilePath;
         $this->requestMethod = $requestMethod;
     }
@@ -50,15 +56,16 @@ class Router
         $this->routingTable = $routes['routes'];
         foreach ($this->routingTable as $route) {
             $matches = [];
-            if ($this->matchesRequest($this->requestURI, $route)) {
+            if ($this->matchesRequest($route)) {
                 return $this->buildRequest($route, $matches);
             }
         }
-        throw new PageNotFoundException("No Page under $this->requestURI found");
+        throw new PageNotFoundException("No Page under $this->requestURL found");
     }
 
     /**
-     *
+     * @param $route array
+     * @return \Model\Entity\Request
      */
     private function buildRequest($route)
     {
@@ -66,15 +73,17 @@ class Router
     }
 
     /**
-     *
+     * Checks if route matches the request URL
+     * @param $route
+     * @return boolean
      */
-    private function matchesRequest($localRoute, $route)
+    private function matchesRequest($route)
     {
         if (isset($route['method']) && $route['method'] != $this->requestMethod)
         {
             return false;
         }
-        return preg_match($route['match'], $localRoute, $this->matches);
+        return preg_match($route['match'], $this->requestURL, $this->matches);
     }
 
 }
