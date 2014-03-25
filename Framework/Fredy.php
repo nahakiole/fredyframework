@@ -14,11 +14,11 @@ class Fredy
         require_once 'Framework/config.php';
         require_once 'Framework/services.php';
 
-        $router = new Router();
+        $router = new Router($_SERVER['REQUEST_URI']);
         try {
-            $route = $router->getRoute();
-            $controller = $container[$route->controllerName];
-            $this->callAction($controller, $route->actionName, $route->matches);
+            $request = $router->getRequest();
+            $controller = $container[$request->controllerName];
+            $this->callAction($controller, $request->actionName, $request);
         } catch (PageNotFoundException $e) {
             $controller = $container[$e->getController()];
             /** @var $controller \Controller\Error */
@@ -34,15 +34,15 @@ class Fredy
     /**
      * @param $controller string
      * @param $actionName string
-     * @param $matches string
+     * @param $request string
      * @throws Exception\PageNotFoundException
      *
      * @return \View\Viewable
      */
-    private function callAction($controller, $actionName, $matches = null)
+    private function callAction($controller, $actionName, $request = null)
     {
         if (method_exists($controller, $actionName)) {
-            return $controller->$actionName($matches);
+            return $controller->$actionName($request);
         }
         throw new PageNotFoundException("Method " . $actionName . " not found!");
     }

@@ -15,7 +15,11 @@ use View\HTMLView;
 class Demo extends Controller
 {
 
-    function indexAction($matches)
+    /**
+     * @param $request \Model\Entity\Request
+     * @return null
+     */
+    function indexAction($request)
     {
         $this->view = new HTMLView('View/Templates/index.html');
         $this->view->template->setVariable([

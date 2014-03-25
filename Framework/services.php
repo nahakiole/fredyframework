@@ -1,8 +1,10 @@
 <?php
-/** @var $container Pimple */
+/** @var $container Pimple
+ * @return \PDO
+ */
 
-$container['mysqli'] = function($c){
-    return new mysqli($c['db.host']);
+$container['PDO'] = function($c){
+    return new PDO($c['db.host']);
 };
 
 $container['demo'] = function(){

@@ -5,37 +5,65 @@ namespace Framework;
 
 
 use Framework\Exception\PageNotFoundException;
-use Model\Entity\Route;
+use Model\Entity\Request;
 
 class Router
 {
     /**
-     * @var \Model\Entity\Route[]
+     * @var \Model\Entity\Request[]
      */
     private $routingTable = [];
+
+    /**
+     * The URL which was requested by
+     * @var array
+     */
     private $requestURI = [];
 
-    public function __construct()
+    /**
+     * Array with matches for the request.
+     * Essentially it is the output of the matches parameter in preg_match.
+     * @var $matches Array
+     */
+    private $matches;
+
+    public function __construct($requestURL)
     {
         $routes = file_get_contents('Framework/routing.json');
         $routes = json_decode($routes, true);
         $this->routingTable = $routes['routes'];
-        $this->requestURI = $_SERVER['REQUEST_URI'];
+        $this->requestURI = $requestURL;
     }
 
     /**
      * @throws Exception\PageNotFoundException
-     * @return \Model\Entity\Route
+     * @return \Model\Entity\Request
      */
-    public function getRoute()
+    public function getRequest()
     {
         foreach ($this->routingTable as $route) {
-            $route = new Route($route['match'],$route['controller'],$route['action']);
-            if ($route->matchesRoute($this->requestURI)){
-                return $route;
+            $matches = [];
+            if ($this->matchesRequest($this->requestURI, $route['match'], $matches)) {
+                return $this->buildRequest($route, $matches);
             }
         }
         throw new PageNotFoundException("No Page under $this->requestURI found");
+    }
+
+    /**
+     *
+     */
+    private function buildRequest($route)
+    {
+        return new Request($route['match'], $route['controller'], $route['action'], $this->matches);
+    }
+
+    /**
+     *
+     */
+    private function matchesRequest($localRoute, $route, &$matches)
+    {
+        return preg_match($route, $localRoute, $this->matches);
     }
 
 }

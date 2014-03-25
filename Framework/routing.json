@@ -3,7 +3,7 @@
         {
             "action": "indexAction",
             "controller": "demo",
-            "match": ":^/(?P<name>Test)?$:"
+            "match": ":^/Test/(?P<id>[0-9]+)?$:"
         },
         {
             "action": "notFound",

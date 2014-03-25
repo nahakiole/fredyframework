@@ -10,6 +10,9 @@ abstract class Controller
      */
     public $view;
 
-
-    abstract function indexAction($matches);
+    /**
+     * @param $request \Model\Entity\Request
+     * @return null
+     */
+    abstract function indexAction($request);
 }

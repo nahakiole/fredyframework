@@ -42,7 +42,11 @@ class Error extends Controller
         $this->errorMessage = $errorMessage;
     }
 
-    function indexAction($matches)
+    /**
+     * @param $request \Model\Entity\Request
+     * @return null
+     */
+    function indexAction($request)
     {
         // TODO: Implement indexAction() method.
     }
