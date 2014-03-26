@@ -10,6 +10,9 @@ abstract class Controller
      */
     public $view;
 
+    /**
+     * @param  string $templatePath path to template
+     */
     public function loadTemplate($templatePath)
     {
         $loader = new \Twig_Loader_Filesystem('View/Templates');
