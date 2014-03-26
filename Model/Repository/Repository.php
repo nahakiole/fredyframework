@@ -3,6 +3,8 @@
 
 namespace Model\Repository;
 
+// #@todo: createAll, updateAll, removeAll
+
 
 abstract class Repository
 {
@@ -95,15 +97,24 @@ abstract class Repository
 
     }
 
+    public function create($entity)
+    {
+        $this->applyEntityToDatabase($entity,false);
+    }
+
+    public function update($entity)
+    {
+        $this->applyEntityToDatabase($entity,true);
+    }
+
     /**
      * @param $entity
      *
      * @return void
      */
-    public function create($entity,$update=false)
+    private function applyEntityToDatabase($entity,$update)
     {
         $databaseNameArray = $entity->getFieldDatabaseNameArray();
-
 
         if ($update) {
             $command = 'REPLACE INTO';
@@ -121,25 +132,18 @@ abstract class Repository
 
         $stmt = $this->database->prepare($query);
 
-        var_dump($query);
-        echo '<br>';
-
         $valueArray = $entity->getValueArray();
         foreach ($databaseNameArray as $index => $paramName) {
             $stmt->bindParam(':' . $paramName, $valueArray[$index]);
-            echo ':' . $paramName . ': ' . $valueArray[$index] . '<br>';
         }
 
         $stmt->execute();
 
-        var_dump($stmt->errorInfo());
+        // #@todo throw and exception if $stmt->errorInfo() has an error?
+        // var_dump($stmt->errorInfo());
 
     }
 
-    public function update($entity)
-    {
-        $this->create($entity,true);
-    }
 
     /**
      * @param $entity
@@ -148,7 +152,20 @@ abstract class Repository
      */
     public function remove($entity)
     {
+        if (is_numeric($entity['id']->value)) {
+            $query = 'DELETE FROM `' . $this->tableName . '` WHERE `id`=:id';
 
+            $stmt = $this->database->prepare($query);
+
+            $stmt->bindParam(':id',$entity['id']->value);
+
+            $stmt->execute();
+
+            // #@todo throw and exception if $stmt->errorInfo() has an error?
+            // var_dump($stmt->errorInfo());
+        } else {
+            // #@todo: handle somehow
+        }
     }
 }
 
