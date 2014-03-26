@@ -1,18 +1,28 @@
-<?php 
+<?php
 
 namespace Model\Entity;
 
+use Model\Entity\DataType\Integer;
+use Model\Entity\DataType\Text;
+
 class Journal extends Entity
 {
-    public $id;
-    public $title;
-    public $content;
-    
-    public function __construct($data)
+
+
+    function __construct($content, $id, $title)
     {
-        $this->id = $data['id'];
-        $this->title = $data['title'];
-        $this->content = $data['content'];
+        $textDataType = new Text();
+        $integerDataType = new Integer();
+        $this->fields[] = new Field($textDataType, 'textarea', true, 'content', $content, 3);
+        $this->fields[] = new Field($integerDataType, 'input', true, 'id', $id, 1);
+        $this->fields[] = new Field($textDataType, 'textarea', true, 'title', $title, 2);
+        uksort($this->fields, array($this, 'sortByFieldsIndex'));
     }
+
+    function sortByFieldsIndex($a, $b)
+    {
+        return $this->fields[$a]->index >= $this->fields[$b]->index ? 1 : -1;
+    }
+
 
 }

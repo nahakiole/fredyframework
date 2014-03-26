@@ -27,7 +27,7 @@ class View implements Viewable
                 $extendFile = $arguments[0];
                 $containerName = $arguments[2];
 
-                $newOutputFile = file_get_contents('View/Templates/index.html');
+                $newOutputFile = file_get_contents('View/Templates/index.twig');
 
                 var_dump($extendFile);
                 echo '<br>';

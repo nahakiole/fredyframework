@@ -16,7 +16,7 @@ class Error extends Controller
      */
     public function notFound($request)
     {
-        $this->view = new HTMLView('View/Templates/index.html');
+        $this->view = new HTMLView('View/Templates/index.twig');
         $this->view->setHeader('HTTP/1.0 404 Not Found');
 
         $this->view->template->setVariable(
@@ -34,7 +34,7 @@ class Error extends Controller
      */
     public function serverError($request)
     {
-        $this->view = new HTMLView('View/Templates/index.html');
+        $this->view = new HTMLView('View/Templates/index.twig');
         $this->view->setHeader('HTTP/1.0 500');
         $this->view->template->setVariable(
             [

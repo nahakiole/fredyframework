@@ -18,7 +18,7 @@ class JournalController extends Controller
 
     function indexAction($matches)
     {
-        $this->view = new HTMLView('View/Templates/index.html');
+        $this->view = new HTMLView('View/Templates/index.twig');
         $this->view->template->setVariable([
             'SITE_TITLE' => 'Journal test',
             'SITE_DESC' => ''

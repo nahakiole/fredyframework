@@ -9,11 +9,23 @@
 namespace Controller;
 
 
+use Framework\Configuration;
+use Model\Entity\DataType\Integer;
+use Model\Entity\Journal;
+use Model\Factory\JournalFactory;
+use Model\Repository\JournalRepository;
 use View\HTMLTemplate;
 use View\HTMLView;
+use View\Redirect;
 
 class Demo extends Controller
 {
+
+    public function __construct($database)
+    {
+        $this->database = $database;
+    }
+
 
     /**
      * @param $request \Model\Entity\Request
@@ -21,13 +33,10 @@ class Demo extends Controller
      */
     function indexAction($request)
     {
-        $this->view = new HTMLView('View/Templates/index.html');
-        $this->view->template->setVariable([
-            'SITE_TITLE' => 'Demo Controller',
-            'SITE_DESC' => 'This is the demonstration controller.'
 
-        ]);
-        $this->view->addTemplate('CONTENT', new HTMLTemplate('View/Templates/demo.html'));
+        $loader = new \Twig_Loader_Filesystem('View/Templates');
+        $twig = new \Twig_Environment($loader);
+        $this->view = $twig->loadTemplate('demo.twig');
         $features = [
             [
                 'name' => 'Clean code',
@@ -48,15 +57,24 @@ class Demo extends Controller
 
         ];
 
+        $journal = new Journal('Test', 5, 'Testdsf');
 
-        $this->view->addTemplate('FEATURES', new HTMLTemplate('View/Templates/features.html'));
-        foreach ($features as $feature) {
-            $this->view->getTemplate('FEATURES')->setBlockVariable([
-                'NAME' => $feature['name'],
-                'ICON' => $feature['icon']
-            ]);
-            $this->view->getTemplate('FEATURES')->preRender();
+
+        $journalRepository = new JournalRepository($this->database);
+        $journals = $journalRepository->findAll(1);
+
+        foreach ($journals as $key => $journal) {
+            foreach ($journal as $field) {
+                echo '<br/>';
+                echo $field->toSelectString();
+                echo '<br/>';
+                echo $field->toInsertString();
+            }
         }
+
+
+        return array('features' => $features, 'offset' => Configuration::$OFFSETPATH, 'title' => 'Demo');
+
     }
 
     /**
@@ -65,12 +83,6 @@ class Demo extends Controller
      */
     function postAction($request)
     {
-        $this->view = new HTMLView('View/Templates/index.html');
-        $this->view->template->setVariable([
-            'SITE_TITLE' => 'Demo Controller',
-            'SITE_DESC' => 'This is the demonstration controller.',
-            'CONTENT' => 'Post method'
-
-        ]);
+        $this->view = new Redirect('Location: /Error/404');
     }
 }

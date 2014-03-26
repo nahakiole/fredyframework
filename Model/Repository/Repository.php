@@ -14,9 +14,9 @@ abstract class Repository
     protected $tableName = '';
 
     /**
-     * Array with all fields
+     * @var \Model\Entity\Entity
      */
-    protected $fields = [];
+    protected $entity;
 
     /**
      * @var $database \PDO
@@ -24,7 +24,7 @@ abstract class Repository
     protected $database;
 
     /**
-     * @var $db \PDO
+     * @var $factory \Model\Factory\Factory
      */
     protected $factory;
 
@@ -33,11 +33,8 @@ abstract class Repository
      */
     public function __construct($database)
     {
-        if (empty($this->tableName)){
+        if (empty($this->tableName)) {
             throw new NoTableNameDefinedException();
-        }
-        if (count($this->fields) == 0){
-            throw new NoFieldsDefinedException();
         }
         $this->database = $database;
     }
@@ -48,7 +45,23 @@ abstract class Repository
      *
      * @return \Model\Entity\Entity[]
      */
-    public function findAll($limit = 0, $offset = 0){
+    public function findAll($limit = 0, $offset = 0)
+    {
+        if ($limit != 0) {
+            $limit = 'LIMIT ' . intval($offset) . ', ' . intval($limit);
+
+        } else {
+            $limit = '';
+        }
+
+        $query = 'SELECT ' . join(", ", $this->entity->getFieldDatabaseNameArray()) . ' FROM ' . $this->tableName . '  '.$limit.' ;';
+        var_dump($query);
+        $stmt = $this->database->prepare($query);
+
+        $stmt->execute();
+
+
+        return $this->factory->buildAll($stmt->fetchAll());
 
     }
 
@@ -57,7 +70,8 @@ abstract class Repository
      *
      * @return \Model\Entity\Entity
      */
-    public function findById($id){
+    public function findById($id)
+    {
 
     }
 
@@ -66,7 +80,8 @@ abstract class Repository
      *
      * @return \Model\Entity\Entity
      */
-    public function findByFilter($filter){
+    public function findByFilter($filter)
+    {
 
     }
 
@@ -75,7 +90,8 @@ abstract class Repository
      *
      * @return void
      */
-    public function create($entity){
+    public function create($entity)
+    {
 
     }
 
@@ -84,15 +100,18 @@ abstract class Repository
      *
      * @return void
      */
-    public function remove($entity){
+    public function remove($entity)
+    {
 
     }
 }
 
-Class NoTableNameDefinedException extends \Exception {
+Class NoTableNameDefinedException extends \Exception
+{
 
 }
 
-Class NoFieldsDefinedException extends \Exception {
+Class NoFieldsDefinedException extends \Exception
+{
 
 }

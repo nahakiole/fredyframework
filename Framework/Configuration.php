@@ -40,8 +40,8 @@ class Configuration
                 ,$c['db.password']);
         };
 
-        $this->container['demo'] = function(){
-            return new \Controller\Demo();
+        $this->container['demo'] = function($c){
+            return new \Controller\Demo($c['PDO']);
         };
 
         $this->container['error'] = function(){

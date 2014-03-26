@@ -1,3 +1,6 @@
+{% extends "index.twig" %}
+
+{% block content %}
 <div class="col-md-12">
     <h2>About this Framework</h2>
 
@@ -11,7 +14,9 @@
 </div>
 <div class="clearfix"></div>
 <div class="features">
-    {FEATURES}
+    {% for feature in features %}
+        {% include "features.twig" %}
+    {% endfor %}
 </div>
 
 <div class="col-md-12 top15">
@@ -47,3 +52,4 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua.  </p>
 </div>
+{% endblock %}
