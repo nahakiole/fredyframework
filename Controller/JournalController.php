@@ -24,8 +24,11 @@ class JournalController extends Controller
         $journalRepository = new JournalRepository($this->database);
         $journals = $journalRepository->findAll();
 
+        $journal = $journalRepository->findById(3);
+
         $twigContext = array(
-            'journals' => $journals
+            'journals' => $journals,
+            'singleJournal' => $journal
             );
 
         return $twigContext;
