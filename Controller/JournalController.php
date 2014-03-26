@@ -11,30 +11,25 @@ class JournalController extends Controller
 {
     private $database;
 
+    protected $templatePath = 'journal.twig';
+
     public function __construct($database)
     {
+        parent::__construct();
         $this->database = $database;
     }
 
     function indexAction($matches)
     {
-        $this->view = new HTMLView('View/Templates/index.twig');
-        $this->view->template->setVariable([
-            'SITE_TITLE' => 'Journal test',
-            'SITE_DESC' => ''
-        ]);
-        $this->view->addTemplate('CONTENT', new HTMLTemplate('View/Templates/journal.html'));
-        $journalRepository = new JournalRepository($this->database);
-        $journalFactory = new JournalFactory();
-        $journals = $journalFactory->buildAll($journalRepository->findAll());
 
-        $this->view->addTemplate('JOURNALS', new HTMLTemplate('View/Templates/journals.html'));
-        foreach ($journals as $journal) {
-            $this->view->getTemplate('JOURNALS')->setBlockVariable([
-                'TITLE' => $journal->title,
-                'CONTENT' => $journal->content
-            ]);
-            $this->view->getTemplate('JOURNALS')->preRender();
-        }
+        $journalRepository = new JournalRepository($this->database);
+        $journals = $journalRepository->findAll();
+
+        $twigContext = array(
+            'journals' => $journals
+            );
+
+        return $twigContext;
+
     }
 }

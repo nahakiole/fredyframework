@@ -55,7 +55,6 @@ abstract class Repository
         }
 
         $query = 'SELECT ' . join(", ", $this->entity->getFieldDatabaseNameArray()) . ' FROM ' . $this->tableName . '  '.$limit.' ;';
-        var_dump($query);
         $stmt = $this->database->prepare($query);
 
         $stmt->execute();
