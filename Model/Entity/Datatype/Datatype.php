@@ -9,6 +9,9 @@
 namespace Model\Entity\Datatype;
 
 
-class Datatype {
+abstract class Datatype {
+
+    abstract function isValid(&$value);
+
 
 } 
