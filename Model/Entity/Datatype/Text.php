@@ -10,5 +10,9 @@ namespace Model\Entity\DataType;
 
 
 class Text {
-
+    function isValid(&$value)
+    {
+        htmlentities($value);
+        return true;
+    }
 } 

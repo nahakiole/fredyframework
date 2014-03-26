@@ -9,6 +9,9 @@
 namespace Model\Entity\DataType;
 
 
-class Integer {
-
+class Integer extends Datatype {
+    function isValid(&$value)
+    {
+        return filter_var($value, FILTER_VALIDATE_INT);
+    }
 } 
