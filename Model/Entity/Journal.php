@@ -13,9 +13,9 @@ class Journal extends Entity
     {
         $textDataType = new Text();
         $integerDataType = new Integer();
-        $this->fields[] = new Field($textDataType, 'textarea', true, 'content', $content, 3);
-        $this->fields[] = new Field($integerDataType, 'input', true, 'id', $id, 1);
-        $this->fields[] = new Field($textDataType, 'textarea', true, 'title', $title, 2);
+        $this->addField(new Field($textDataType, 'textarea', true, 'content', $content, 3));
+        $this->addField(new Field($integerDataType, 'input', true, 'id', $id, 1));
+        $this->addField(new Field($textDataType, 'textarea', true, 'title', $title, 2));
         uksort($this->fields, array($this, 'sortByFieldsIndex'));
     }
 

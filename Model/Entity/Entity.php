@@ -11,6 +11,12 @@ abstract class Entity implements \ArrayAccess, \Iterator
      */
     protected $fields;
 
+    public function addField($field)
+    {
+        $this->fields[] = $field;
+        $this->fields[$field->name] = $field;
+    }
+
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Whether a offset exists
