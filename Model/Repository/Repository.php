@@ -3,6 +3,8 @@
 
 namespace Model\Repository;
 
+// #@todo: createAll, updateAll, removeAll
+
 
 abstract class Repository
 {
@@ -99,7 +101,7 @@ abstract class Repository
     {
         $this->applyEntityToDatabase($entity,false);
     }
-    
+
     public function update($entity)
     {
         $this->applyEntityToDatabase($entity,true);
@@ -110,7 +112,7 @@ abstract class Repository
      *
      * @return void
      */
-    public function applyEntityToDatabase($entity,$update)
+    private function applyEntityToDatabase($entity,$update)
     {
         $databaseNameArray = $entity->getFieldDatabaseNameArray();
 
@@ -150,7 +152,20 @@ abstract class Repository
      */
     public function remove($entity)
     {
+        if (is_numeric($entity['id']->value)) {
+            $query = 'DELETE FROM `' . $this->tableName . '` WHERE `id`=:id';
 
+            $stmt = $this->database->prepare($query);
+
+            $stmt->bindParam(':id',$entity['id']->value);
+
+            $stmt->execute();
+
+            // #@todo throw and exception if $stmt->errorInfo() has an error?
+            // var_dump($stmt->errorInfo());
+        } else {
+            // #@todo: handle somehow
+        }
     }
 }
 
