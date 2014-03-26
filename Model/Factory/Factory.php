@@ -10,6 +10,10 @@ abstract class Factory
 
     protected $Entity;
 
+    /**
+     * @param $rawEntityData
+     * @return array
+     */
     public function buildAll($rawEntityData)
     {
         $entities = [];
@@ -19,5 +23,9 @@ abstract class Factory
         return $entities;
     }
 
+    /**
+     * @param $data
+     * @return \Model\Entity\Entity
+     */
     abstract public function build($data);
 } 
