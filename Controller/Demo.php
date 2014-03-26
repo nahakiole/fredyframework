@@ -12,12 +12,20 @@ namespace Controller;
 use Framework\Configuration;
 use Model\Entity\DataType\Integer;
 use Model\Entity\Journal;
+use Model\Factory\JournalFactory;
+use Model\Repository\JournalRepository;
 use View\HTMLTemplate;
 use View\HTMLView;
 use View\Redirect;
 
 class Demo extends Controller
 {
+
+    public function __construct($database)
+    {
+        $this->database = $database;
+    }
+
 
     /**
      * @param $request \Model\Entity\Request
@@ -52,11 +60,16 @@ class Demo extends Controller
         $journal = new Journal('Test', 5, 'Testdsf');
 
 
-        foreach ($journal as $key => $field) {
-            /**
-             * @var $field \Model\Entity\Field
-             */
-            echo $field->name . ":" . $field->value . "<br/>";
+        $journalRepository = new JournalRepository($this->database);
+        $journals = $journalRepository->findAll(1);
+
+        foreach ($journals as $key => $journal) {
+            foreach ($journal as $field) {
+                echo '<br/>';
+                echo $field->toSelectString();
+                echo '<br/>';
+                echo $field->toInsertString();
+            }
         }
 
 

@@ -5,23 +5,19 @@ namespace Model\Factory;
 
 use Model\Entity;
 
-abstract class Factory {
+abstract class Factory
+{
 
     protected $Entity;
 
-    public function buildAll($data)
+    public function buildAll($rawEntityData)
     {
         $entities = [];
-
-        foreach ($data as $key => $entity) {
-            $entities[] = new $this->build($entity);
+        foreach ($rawEntityData as $key => $singleRawEntityData) {
+            $entities[] = $this->build($singleRawEntityData);
         }
-
         return $entities;
     }
 
-    public function build($data)
-    {
-        return new $this->Entity($data);
-    }
+    abstract public function build($data);
 } 

@@ -35,7 +35,7 @@ abstract class Entity implements \ArrayAccess, \Iterator
      * @param mixed $offset <p>
      * The offset to retrieve.
      * </p>
-     * @return mixed Can return all value types.
+     * @return Field
      */
     public function offsetGet($offset)
     {
@@ -129,4 +129,18 @@ abstract class Entity implements \ArrayAccess, \Iterator
     {
         reset($this->fields);
     }
+
+    /**
+     * Gets a array with the database name for all the fields of the entity for the repository.
+     * @return array
+     */
+    public function getFieldDatabaseNameArray(){
+        $fields = [];
+        foreach ($this->fields as $field) {
+            $fields[] = $field->toSelectString();
+        }
+        return $fields;
+    }
+
+
 }

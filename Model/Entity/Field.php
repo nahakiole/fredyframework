@@ -12,6 +12,7 @@ namespace Model\Entity;
 class Field
 {
     public $name;
+    public $databaseField;
     public $value;
     /**
      * @var DataType\DataType
@@ -27,10 +28,19 @@ class Field
         $this->element = $element;
         $this->isRequired = $isRequired;
         $this->name = $name;
+        $this->databaseField = strtolower($name);
         $this->value = $value;
         $this->index = $index;
     }
 
+    public function toSelectString()
+    {
+        return $this->databaseField;
+    }
 
+    public function toInsertString()
+    {
+        return isset($this->value) ? $this->value : null;
+    }
 
 } 
