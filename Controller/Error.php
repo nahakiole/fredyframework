@@ -16,16 +16,13 @@ class Error extends Controller
      */
     public function notFound($request)
     {
-        $this->view = new HTMLView('View/Templates/index.twig');
-        $this->view->setHeader('HTTP/1.0 404 Not Found');
+        $this->loadTemplate('error.twig');
 
-        $this->view->template->setVariable(
-            [
-                'SITE_TITLE' => 'Die Seite unter '.$request->SERVER['REQUEST_URI'].' wurde nicht gefunden.',
-                'CONTENT' => 'Die Seite unter '.$request->SERVER['REQUEST_URI'].' wurde nicht gefunden. Möchtest du zurück auf die <a href="/">Startseite</a>?'
-            ]
-        );
-        return $this->view;
+
+        return [
+            'title' => 'Die Seite unter ' . $request->SERVER['REQUEST_URI'] . ' wurde nicht gefunden.',
+            'message' => 'Die Seite unter ' . $request->SERVER['REQUEST_URI'] . ' wurde nicht gefunden. Möchtest du zurück auf die <a href="/">Startseite</a>?'
+        ];
     }
 
     /**
@@ -34,13 +31,12 @@ class Error extends Controller
      */
     public function serverError($request)
     {
-        $this->view = new HTMLView('View/Templates/index.twig');
-        $this->view->setHeader('HTTP/1.0 500');
-        $this->view->template->setVariable(
-            [
-                'SITE_TITLE' => 'Da ging etwas daneben.'
-            ]
-        );
+        $this->loadTemplate('error.twig');
+
+        return [
+            'title' => $this->errorMessage,
+            'message' => 'Da ging etwas daneben'
+        ];
     }
 
     /**
