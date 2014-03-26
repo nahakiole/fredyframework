@@ -43,4 +43,9 @@ class Field
         return isset($this->value) ? $this->value : null;
     }
 
+    public function __get()
+    {
+        return $this->value;
+    }
+
 } 
