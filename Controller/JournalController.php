@@ -4,6 +4,8 @@ namespace Controller;
 
 use View\HTMLTemplate;
 use View\HTMLView;
+use Model\Repository\Filter;
+use Model\Repository\Condition;
 use Model\Repository\JournalRepository;
 use Model\Factory\JournalFactory;
 
@@ -30,6 +32,12 @@ class JournalController extends Controller
         $journal = $journalRepository->findById(3);
 
         $journalRepository->remove($journal);
+
+        $filter = new Filter($this->database);
+
+        $filter->addCondition(new Condition('content','<>','content'));
+
+        $journals = $journalRepository->findByFilter($filter);
 
         $twigContext = array(
             'journals' => $journals,

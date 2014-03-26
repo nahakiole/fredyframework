@@ -49,7 +49,7 @@ abstract class Repository
      */
     public function findAll($limit = 0, $offset = 0)
     {
-        if ($limit != 0) {
+        if (!($limit == 0 && $offset == 0)) {
             $limit = 'LIMIT ' . intval($offset) . ', ' . intval($limit);
 
         } else {
@@ -92,9 +92,32 @@ abstract class Repository
      *
      * @return \Model\Entity\Entity
      */
-    public function findByFilter($filter)
+    public function findByFilter($filter, $limit = 0, $offset = 0)
     {
 
+        if (!($limit == 0 && $offset==0)) {
+            $limit = 'LIMIT ' . intval($offset) . ', ' . intval($limit);
+        } else {
+            $limit = '';
+        }
+
+        $query = 
+            'SELECT ' . 
+                join(", ", $this->entity->getFieldDatabaseNameArray()) . 
+            ' FROM ' . 
+                $this->tableName . 
+            ' WHERE ' .
+                join(" AND ", $filter->getConditionArray()) .
+            ' '.$limit.';';
+        $stmt = $this->database->prepare($query);
+
+        var_dump($query);
+
+        $stmt->execute();
+
+        return $this->factory->buildAll($stmt->fetchAll());
+
+    ay();
     }
 
     public function create($entity)

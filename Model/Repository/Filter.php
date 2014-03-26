@@ -11,20 +11,26 @@ namespace Model\Repository;
 
 class Filter {
 
-    private $field;
-    private $operator;
-    private $value;
+    private $database;
+    private $conditions;
 
-    function __construct($field, $operator,$value)
+    function __construct($database)
     {
-        $this->field = $field;
-        $this->operator = $operator;
-        $this->value = $value;
+        $this->database = $database;
     }
 
-    function __toString()
+    public function addCondition($condition)
     {
-        return "$this->field $this->operator '$this->value'";
+        $this->conditions[] = $condition;
+    }
+
+    function getConditionArray()
+    {
+        $quotedConditions = [];
+        foreach ($this->conditions as $index => $condition) {
+            $quotedConditions[] = $condition->getQuotedCondition($this->database);
+        }
+        return $quotedConditions;
     }
 
 
