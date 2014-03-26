@@ -14,7 +14,7 @@ abstract class Factory {
         $entities = [];
 
         foreach ($data as $key => $entity) {
-            $entities[] = new $this->build($entity);
+            $entities[] = $this->build($entity);
         }
 
         return $entities;
