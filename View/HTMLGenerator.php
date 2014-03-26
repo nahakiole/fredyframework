@@ -20,7 +20,7 @@ interface HTMLGenerator
      * @param $helperText String Text under the input field
      * @param $required Boolean
      * @param $options Array
-     * @return String
+     * @return HTMLElement
      */
     function getTextfield($id, $label, $value, $placeholder, $helperText, $required, $options);
 
@@ -30,7 +30,7 @@ interface HTMLGenerator
      * @param $value String
      * @param $placeholder String Placeholder html attribute
      * @param $options Array
-     * @return String
+     * @return HTMLElement
      */
     function getTextarea($id, $label, $value, $placeholder, $options);
 
@@ -41,7 +41,7 @@ interface HTMLGenerator
      * @param $helperText String Text under the input field
      * @param $required Boolean
      * @param $options Array
-     * @return String
+     * @return HTMLElement
      */
     function getCheckbox($id, $label, $checked, $helperText, $required, $options);
 
@@ -52,7 +52,7 @@ interface HTMLGenerator
      * @param $helperText String Text under the input field
      * @param $required Boolean
      * @param $options
-     * @return String
+     * @return HTMLElement
      */
     function getCheckboxes($id, $label, $values, $helperText, $required, $options);
 
@@ -63,7 +63,7 @@ interface HTMLGenerator
      * @param $helperText String Text under the input field
      * @param $required Boolean
      * @param $options
-     * @return String
+     * @return HTMLElement
      */
     function getRadiobuttons($id, $label, $values, $helperText, $required, $options);
 
@@ -72,7 +72,7 @@ interface HTMLGenerator
      * @param $label String The label for the input field
      * @param $value
      * @param $options
-     * @return String
+     * @return HTMLElement
      */
     function getButton($id, $label, $value, $options);
 
@@ -80,9 +80,8 @@ interface HTMLGenerator
      * @param $id
      * @param $action
      * @param string $method
-     * @param $content String Inner html of the form
-     * @param $options
-     * @return String
+     * @param array $options
+     * @return HTMLElement
      */
-    function getForm($id, $action, $method = 'POST', $content, $options);
+    function getForm($id, $action, $method = 'POST', $options = []);
 }

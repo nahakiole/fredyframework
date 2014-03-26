@@ -14,6 +14,7 @@ use Model\Entity\DataType\Integer;
 use Model\Entity\Journal;
 use Model\Factory\JournalFactory;
 use Model\Repository\JournalRepository;
+use View\BootstrapHTMLGenerator;
 use View\HTMLTemplate;
 use View\HTMLView;
 use View\Redirect;
@@ -55,24 +56,46 @@ class Demo extends Controller
             ]
 
         ];
+        $HTMlGenerator = new BootstrapHTMLGenerator();
 
-        $journal = new Journal(5, 'Testdsf','Test');
+        $form = $HTMlGenerator->getForm('test', $request->matches[0]);
+        $form->addChildren( $HTMlGenerator->getTextfield('title', 'Title', '', 'Type in your title', 'This is where you have to type in your Title', true, []));
+        $form->addChildren(  $HTMlGenerator->getTextarea('content', 'Content', '', 'Here goes your content', []));
+        $form->addChildren( $HTMlGenerator->getRadiobuttons(
+            'radio',
+            'Radiobuttons',
+            [
+                1 => [
+                    'label' => 'Test'
+                ],
+                2 => [
+                    'label' => 'Test'
+                ],
+                3 => [
+                    'label' => 'Test'
+                ]
+            ],
+            'Type in your title',
+            'This is where you have to type in your Title',
 
+            []
+        ));
+        $form->addChildren( $HTMlGenerator->getCheckbox('scheckbox', 'Single Checkbox', '', 'Type in your title', 'This is where you have to type in your Title', true, []));
+        $form->addChildren( $HTMlGenerator->getCheckboxes('mscheckbox', 'Checkboxes', [
+            1 => [
+                'label' => 'Test'
+            ],
+            2 => [
+                'label' => 'Test'
+            ],
+            3 => [
+                'label' => 'Test'
+            ]
+        ], 'Type in your title', 'This is where you have to type in your Title', true, []));
 
-        $journalRepository = new JournalRepository($this->database);
-        $journals = $journalRepository->findAll(1);
+        $form->addChildren($HTMlGenerator->getButton('test', '', 'Absenden', []));
 
-        foreach ($journals as $key => $journal) {
-            foreach ($journal as $field) {
-                echo '<br/>';
-                echo $field->toSelectString();
-                echo '<br/>';
-                echo $field->toInsertString();
-            }
-        }
-
-
-        return array('features' => $features, 'offset' => Configuration::$OFFSETPATH, 'title' => 'Demo');
+        return array('features' => $features, 'offset' => Configuration::$OFFSETPATH, 'title' => 'Demo', 'form' => $form->render());
 
     }
 
@@ -82,6 +105,9 @@ class Demo extends Controller
      */
     function postAction($request)
     {
-        $this->view = new Redirect('Location: /Error/404');
+        $this->loadTemplate('response.twig');
+
+        var_dump($request->POST);
+        return array('response' => ['success' => true]);
     }
 }
