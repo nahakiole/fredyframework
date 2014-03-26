@@ -9,7 +9,7 @@ class Journal extends Entity
 {
 
 
-    function __construct($content, $id, $title)
+    function __construct($id, $title, $content)
     {
         $textDataType = new Text();
         $integerDataType = new Integer();

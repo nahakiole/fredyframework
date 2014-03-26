@@ -56,7 +56,7 @@ class Demo extends Controller
 
         ];
 
-        $journal = new Journal('Test', 5, 'Testdsf');
+        $journal = new Journal(5, 'Testdsf','Test');
 
 
         $journalRepository = new JournalRepository($this->database);

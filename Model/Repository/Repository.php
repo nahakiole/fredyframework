@@ -100,9 +100,40 @@ abstract class Repository
      *
      * @return void
      */
-    public function create($entity)
+    public function create($entity, $update=false)
     {
+        $databaseNameArray = $entity->getFieldDatabaseNameArray();
 
+        $command = $update ? 'REPLACE INTO' : 'INSERT INTO';
+        $query =
+            $command . ' `' . $this->tableName . '` (`' . 
+                join("`, `", $databaseNameArray) . 
+            '`) VALUES (:' .
+                join(", :", $databaseNameArray) . 
+            ');';
+
+
+        $stmt = $this->database->prepare($query);
+
+        var_dump($query);
+        echo '<br>';
+
+        $valueArray = $entity->getValueArray();
+        foreach ($valueArray as $index => $value) {
+            $paramName = $databaseNameArray[$index];
+            $stmt->bindParam(':' . $paramName, $value);
+            echo ':' . $paramName . ': ' . $value . '<br>';
+        }
+
+        $stmt->execute();
+
+        var_dump($stmt->errorInfo());
+
+    }
+
+    public function update($entity)
+    {
+        $this->create($entity,true);
     }
 
     /**

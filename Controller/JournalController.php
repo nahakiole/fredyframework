@@ -19,6 +19,8 @@ class JournalController extends Controller
     function indexAction($matches)
     {
 
+        (new JournalRepository($this->database))->create(new \Model\Entity\Journal(2,'title','content'));
+
         $this->loadTemplate('journal.twig');
 
         $journalRepository = new JournalRepository($this->database);

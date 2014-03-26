@@ -9,6 +9,6 @@ use Model\Entity\Journal;
 class JournalFactory extends Factory {
     public function build($data)
     {
-        return new Journal($data['content'], $data['id'], $data['title']);
+        return new Journal($data['id'], $data['title'], $data['content']);
     }
 }

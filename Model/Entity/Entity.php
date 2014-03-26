@@ -13,7 +13,6 @@ abstract class Entity implements \ArrayAccess, \Iterator
 
     public function addField($field)
     {
-        $this->fields[] = $field;
         $this->fields[$field->name] = $field;
     }
 
@@ -144,6 +143,15 @@ abstract class Entity implements \ArrayAccess, \Iterator
         $fields = [];
         foreach ($this->fields as $field) {
             $fields[] = $field->toSelectString();
+        }
+        return $fields;
+    }
+
+    public function getValueArray()
+    {
+        $fields = [];
+        foreach ($this->fields as $key => $field) {
+            $fields[] = $field->toInsertString();
         }
         return $fields;
     }
