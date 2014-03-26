@@ -9,16 +9,17 @@ class JournalRepository extends Repository
 {
 
     /**
-     *
      * @var string
      */
     protected $tableName = 'journal';
 
+    /**
+     * @param $db \PDO
+     */
     public function __construct($db){
-        parent::__construct($db);
         $this->entity = new Journal('','','');
         $this->factory = new JournalFactory();
+        parent::__construct($db);
     }
 
-    
 }
