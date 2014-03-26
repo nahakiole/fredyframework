@@ -88,8 +88,10 @@ abstract class Repository
     }
 
     /**
-     * @param $filter \Model\Repository\Filter[]
+     * @param $filter \Model\Repository\Filter
      *
+     * @param int $limit
+     * @param int $offset
      * @return \Model\Entity\Entity
      */
     public function findByFilter($filter, $limit = 0, $offset = 0)
@@ -111,13 +113,9 @@ abstract class Repository
             ' '.$limit.';';
         $stmt = $this->database->prepare($query);
 
-        var_dump($query);
-
         $stmt->execute();
 
         return $this->factory->buildAll($stmt->fetchAll());
-
-    ay();
     }
 
     public function create($entity)
@@ -131,8 +129,9 @@ abstract class Repository
     }
 
     /**
-     * @param $entity
+     * @param $entity \Model\Entity\Entity
      *
+     * @param $update
      * @return void
      */
     private function applyEntityToDatabase($entity,$update)
@@ -164,7 +163,6 @@ abstract class Repository
 
         // #@todo throw and exception if $stmt->errorInfo() has an error?
         // var_dump($stmt->errorInfo());
-
     }
 
 
@@ -193,11 +191,6 @@ abstract class Repository
 }
 
 Class NoTableNameDefinedException extends \Exception
-{
-
-}
-
-Class NoFieldsDefinedException extends \Exception
 {
 
 }
