@@ -20,6 +20,8 @@ abstract class Repository
      */
     protected $entity;
 
+    protected $entityFields;
+
     /**
      * @var $database \PDO
      */
@@ -39,6 +41,7 @@ abstract class Repository
             throw new NoTableNameDefinedException();
         }
         $this->database = $database;
+        $this->entityFields = $this->entity->getFieldDatabaseNameArray();
     }
 
     /**
@@ -49,20 +52,13 @@ abstract class Repository
      */
     public function findAll($limit = 0, $offset = 0)
     {
-        if (!($limit == 0 && $offset == 0)) {
-            $limit = 'LIMIT ' . intval($offset) . ', ' . intval($limit);
-
-        } else {
-            $limit = '';
-        }
-
-        $query = 'SELECT ' . join(", ", $this->entity->getFieldDatabaseNameArray()) . ' FROM ' . $this->tableName . '  '.$limit.' ;';
-        $stmt = $this->database->prepare($query);
-
-        $stmt->execute();
-
-        return $this->factory->buildAll($stmt->fetchAll());
-
+        $limit = $this->getLimit($limit, $offset);
+        $query = 'SELECT ' . $this->getFields(", ") . '
+                  FROM ' . $this->tableName . '
+                  ' . $limit . ' ;';
+        $statement = $this->database->prepare($query);
+        $statement->execute();
+        return $this->factory->buildAll($statement->fetchAll());
     }
 
     /**
@@ -72,103 +68,88 @@ abstract class Repository
      */
     public function findById($id)
     {
-        $query = 
-            'SELECT `' . 
-                join("`, `", $this->entity->getFieldDatabaseNameArray()) . 
-            '` FROM ' . $this->tableName . 
-            ' WHERE `id`=:id' . 
-            ';';
-        $stmt = $this->database->prepare($query);
-
-        $stmt->bindParam(':id', $id);
-
-        $stmt->execute();
-
-        return $this->factory->build($stmt->fetch());
+        $query =
+            'SELECT `' .
+            $this->getFields("`, `") . '`
+            FROM ' . $this->tableName .
+            ' WHERE `id`=:id LIMIT 1';
+        $statement = $this->database->prepare($query);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        return $this->factory->build($statement->fetch());
     }
 
     /**
-     * @param $filter \Model\Repository\Filter[]
+     * @param $filter \Model\Repository\Filter
      *
+     * @param int $limit
+     * @param int $offset
      * @return \Model\Entity\Entity
      */
     public function findByFilter($filter, $limit = 0, $offset = 0)
     {
-
-        if (!($limit == 0 && $offset==0)) {
-            $limit = 'LIMIT ' . intval($offset) . ', ' . intval($limit);
-        } else {
-            $limit = '';
-        }
-
-        $query = 
-            'SELECT ' . 
-                join(", ", $this->entity->getFieldDatabaseNameArray()) . 
-            ' FROM ' . 
-                $this->tableName . 
+        $limit = $this->getLimit($limit, $offset);
+        $query =
+            'SELECT ' .
+            $this->getFields(", ") .
+            ' FROM ' .
+            $this->tableName .
             ' WHERE ' .
-                join(" AND ", $filter->getConditionArray()) .
-            ' '.$limit.';';
-        $stmt = $this->database->prepare($query);
-
-        var_dump($query);
-
-        $stmt->execute();
-
-        return $this->factory->buildAll($stmt->fetchAll());
-
-    ay();
-    }
-
-    public function create($entity)
-    {
-        $this->applyEntityToDatabase($entity,false);
-    }
-
-    public function update($entity)
-    {
-        $this->applyEntityToDatabase($entity,true);
+            join(" AND ", $filter->getConditionArray()) .
+            ' ' . $limit . ';';
+        $statement = $this->database->prepare($query);
+        $statement->execute();
+        return $this->factory->buildAll($statement->fetchAll());
     }
 
     /**
-     * @param $entity
+     * @param $entity \Model\Entity\Entity
+     */
+    public function create($entity)
+    {
+        $this->applyEntityToDatabase($entity, false);
+    }
+
+    /**
+     * @param $entity \Model\Entity\Entity
+     */
+    public function update($entity)
+    {
+        $this->applyEntityToDatabase($entity, true);
+    }
+
+    /**
+     * @param $entity \Model\Entity\Entity
      *
+     * @param $update
      * @return void
      */
-    private function applyEntityToDatabase($entity,$update)
+    private function applyEntityToDatabase($entity, $update)
     {
-        $databaseNameArray = $entity->getFieldDatabaseNameArray();
-
         if ($update) {
             $command = 'REPLACE INTO';
         } else {
             $command = 'INSERT INTO';
         }
-
         $query =
-            $command . ' `' . $this->tableName . '` (`' . 
-                join("`, `", $databaseNameArray) . 
+            $command . ' `' . $this->tableName . '` (`' .
+            $this->getFields("`, `") .
             '`) VALUES (:' .
-                join(", :", $databaseNameArray) . 
+            $this->getFields(", :") .
             ');';
-
-
-        $stmt = $this->database->prepare($query);
-
+        $statement = $this->database->prepare($query);
         $valueArray = $entity->getValueArray();
-        foreach ($databaseNameArray as $index => $paramName) {
-            $stmt->bindParam(':' . $paramName, $valueArray[$index]);
+        foreach ($this->entityFields as $index => $paramName) {
+            $statement->bindParam(':' . $paramName, $valueArray[$index]);
         }
-
-        $stmt->execute();
-
+        $statement->execute();
         // #@todo throw and exception if $stmt->errorInfo() has an error?
         // var_dump($stmt->errorInfo());
-
     }
 
 
     /**
+     * Remove an entity from the database by using the id of the entity.
      * @param $entity
      *
      * @return void
@@ -177,27 +158,37 @@ abstract class Repository
     {
         if (is_numeric($entity['id']->value)) {
             $query = 'DELETE FROM `' . $this->tableName . '` WHERE `id`=:id';
-
-            $stmt = $this->database->prepare($query);
-
-            $stmt->bindParam(':id',$entity['id']->value);
-
-            $stmt->execute();
-
+            $statement = $this->database->prepare($query);
+            $statement->bindParam(':id', $entity['id']->value);
+            $statement->execute();
             // #@todo throw and exception if $stmt->errorInfo() has an error?
             // var_dump($stmt->errorInfo());
         } else {
             // #@todo: handle somehow
         }
     }
+
+    /**
+     * @param $limit integer
+     * @param $offset integer
+     * @return string
+     */
+    private function getLimit($limit, $offset)
+    {
+        if (!($limit == 0 && $offset == 0)) {
+            return 'LIMIT ' . intval($offset) . ', ' . intval($limit);
+        } else {
+            return '';
+        }
+    }
+
+    private function getFields($glue)
+    {
+        return join($glue, $this->entityFields);
+    }
 }
 
 Class NoTableNameDefinedException extends \Exception
-{
-
-}
-
-Class NoFieldsDefinedException extends \Exception
 {
 
 }

@@ -9,6 +9,11 @@ class Condition {
     private $operator;
     private $value;
 
+    /**
+     * @param $field string
+     * @param $operator string
+     * @param $value string
+     */
     function __construct($field, $operator,$value)
     {
         $this->field = $field;
@@ -16,6 +21,10 @@ class Condition {
         $this->value = $value;
     }
 
+    /**
+     * @param $database \PDO
+     * @return string
+     */
     public function getQuotedCondition($database)
     {
         $value = $database->quote($this->value);
