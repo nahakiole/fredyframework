@@ -9,13 +9,12 @@ abstract class Controller
      * @var \View\Viewable
      */
     public $view;
-    protected $templatePath;
 
-
-    public function __construct(){
+    public function loadTemplate($templatePath)
+    {
         $loader = new \Twig_Loader_Filesystem('View/Templates');
         $twig = new \Twig_Environment($loader);
-        $this->view = $twig->loadTemplate($this->templatePath);
+        $this->view = $twig->loadTemplate($templatePath);
     }
 
     /**

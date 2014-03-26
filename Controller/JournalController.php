@@ -11,16 +11,15 @@ class JournalController extends Controller
 {
     private $database;
 
-    protected $templatePath = 'journal.twig';
-
     public function __construct($database)
     {
-        parent::__construct();
         $this->database = $database;
     }
 
     function indexAction($matches)
     {
+
+        $this->loadTemplate('journal.twig');
 
         $journalRepository = new JournalRepository($this->database);
         $journals = $journalRepository->findAll();
