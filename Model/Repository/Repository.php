@@ -59,7 +59,6 @@ abstract class Repository
 
         $stmt->execute();
 
-
         return $this->factory->buildAll($stmt->fetchAll());
 
     }
@@ -71,7 +70,19 @@ abstract class Repository
      */
     public function findById($id)
     {
+        $query = 
+            'SELECT `' . 
+                join("`, `", $this->entity->getFieldDatabaseNameArray()) . 
+            '` FROM ' . $this->tableName . 
+            ' WHERE `id`=:id' . 
+            ';';
+        $stmt = $this->database->prepare($query);
 
+        $stmt->bindParam(':id', $id);
+
+        $stmt->execute();
+
+        return $this->factory->build($stmt->fetch());
     }
 
     /**
