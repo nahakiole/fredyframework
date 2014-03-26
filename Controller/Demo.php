@@ -21,11 +21,9 @@ use View\Redirect;
 class Demo extends Controller
 {
 
-    protected $templatePath = 'demo.twig';
 
     public function __construct($database)
     {
-        parent::__construct();
         $this->database = $database;
     }
 
@@ -36,6 +34,7 @@ class Demo extends Controller
      */
     function indexAction($request)
     {
+        $this->loadTemplate('demo.twig');
 
         $features = [
             [
