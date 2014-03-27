@@ -9,14 +9,14 @@ class Redirect implements Viewable
 
     private $header;
 
-    public function __construct($header)
+    public function __construct($url)
     {
-        $this->setHeader($header);
+        $this->setHeader($url);
     }
 
-    public function setHeader($header)
+    public function setHeader($url)
     {
-        $this->header = $header;
+        $this->header = 'Location: ' . $url;
     }
 
     public function render()
