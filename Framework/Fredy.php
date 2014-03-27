@@ -20,18 +20,17 @@ class Fredy
         try {
             $request = $router->getRequest();
             $controller = $configuration->container[$request->controllerName];
-            $context = $this->callAction($controller, $request->actionName, $request);
+            $response = $this->callAction($controller, $request->actionName, $request);
         } catch (PageNotFoundException $e) {
             $controller = $configuration->container[$e->getController()];
             /** @var $controller \Controller\Error */
             $controller->setErrorMessage($e->getMessage());
-            $context = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
+            $response = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
         } catch (ServerErrorException $e) {
             $controller = $configuration->container[$e->getController()];
-            $context = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
+            $response = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
         }
-        echo $controller->view->render($context);
-
+        $response->render();
     }
 
     /**
@@ -40,7 +39,7 @@ class Fredy
      * @param $request string
      * @throws Exception\PageNotFoundException
      *
-     * @return \View\Viewable
+     * @return \View\Response
      */
     private function callAction($controller, $actionName, $request = null)
     {
