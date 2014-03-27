@@ -10,7 +10,6 @@ abstract class Entity implements \ArrayAccess, \Iterator
      * @var $fields Field[]
      */
     protected $fields;
-    public $errors;
 
     public function addField($field)
     {
@@ -19,16 +18,13 @@ abstract class Entity implements \ArrayAccess, \Iterator
 
     public function isValid()
     {
-        $this->errors = [];
+        $valid = true;
         foreach ($this->fields as $name => $field) {
             if (!$field->isValid()) {
-                $this->errors[] = 'invalid_' . $name;
+                $valid = false;
             }
         }
-        if (count($this->errors)>0) {
-            return false;
-        }
-        return true;
+        return $valid;
     }
 
     public function __get($property)

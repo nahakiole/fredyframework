@@ -6,8 +6,10 @@ use View\HTMLTemplate;
 use View\HTMLView;
 use Model\Repository\Filter;
 use Model\Repository\Condition;
+use Model\Entity\Journal;
 use Model\Repository\JournalRepository;
 use Model\Factory\JournalFactory;
+use View\BootstrapHTMLGenerator;
 
 class JournalController extends Controller
 {
@@ -21,7 +23,7 @@ class JournalController extends Controller
     function indexAction($request)
     {
 
-        $this->loadTemplate('journalList.twig');
+        $this->loadTemplate('journal/journalList.twig');
 
         $journalRepository = new JournalRepository($this->database);
 
@@ -48,7 +50,7 @@ class JournalController extends Controller
 
     public function journalAction($request)
     {
-        $this->loadTemplate('journal.twig');
+        $this->loadTemplate('journal/journal.twig');
 
         $journalRepository = new JournalRepository($this->database);
 
@@ -62,8 +64,51 @@ class JournalController extends Controller
         return $twigContext;
     }
 
+    public function formAction($request, $entity = null)
+    {
+        $this->loadTemplate('journal/journalForm.twig');
+
+        $bootstrapHTMLGenerator = new BootstrapHTMLGenerator();
+
+        $form = $bootstrapHTMLGenerator->getForm('journal','');
+
+        $buttonText = 'Send';
+        if ($entity!=null && $entity['id']!=null ) {
+            // #@todo: add $bootstrapHTMLGenerator->getHidden()
+            $buttonText = 'Update';
+        }
+
+        $title = $entity!=null ? $entity['title'] : null;
+        echo $title;
+        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title','Title',$title,'Title',null,true));
+
+        $content = $entity!=null ? $entity['content'] : null;
+        echo $content;
+        $form->addChildren($bootstrapHTMLGenerator->getTextarea('content','Content',$content,'Content',null,true));
+
+        $form->addChildren($bootstrapHTMLGenerator->getButton('submit',null,'Send'));
+
+        $twigContext = array('form' => $form->render());
+
+        return $twigContext;
+
+    }
+
     public function submitAction($request)
     {
-        json_encode($request,JSON_PRETTY_PRINT);
+        $id = array_key_exists('id', $request->POST) ? $request->POST['id']:null;
+        $title = $request->POST['title'];
+        $content = $request->POST['content'];
+
+        $journal = new Journal($id,$title,$content);
+        $repo = new JournalRepository($this->database);
+        $success = $repo->update($journal);
+        if ($success) {
+            echo 'success: ' . $repo->lastInsertId;
+            $this->setRedirect('/journal/'.$repo->lastInsertId);
+        } else {
+            echo 'fail: ';
+            return $this->formAction($request,$journal);
+        }
     }
 }

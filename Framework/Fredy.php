@@ -20,17 +20,17 @@ class Fredy
         try {
             $request = $router->getRequest();
             $controller = $configuration->container[$request->controllerName];
-            $variables = $this->callAction($controller, $request->actionName, $request);
+            $context = $this->callAction($controller, $request->actionName, $request);
         } catch (PageNotFoundException $e) {
             $controller = $configuration->container[$e->getController()];
             /** @var $controller \Controller\Error */
             $controller->setErrorMessage($e->getMessage());
-            $variables = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
+            $context = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
         } catch (ServerErrorException $e) {
             $controller = $configuration->container[$e->getController()];
-            $variables = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
+            $context = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
         }
-        echo $controller->view->render($variables);
+        echo $controller->view->render($context);
 
     }
 
@@ -45,7 +45,11 @@ class Fredy
     private function callAction($controller, $actionName, $request = null)
     {
         if (method_exists($controller, $actionName)) {
-            return $controller->$actionName($request);
+            $context = $controller->$actionName($request);
+            if ($context==null) {
+                $context = [];
+            }
+            return $context;
         }
         throw new PageNotFoundException("Method " . $actionName . " not found!");
     }
