@@ -1,11 +1,15 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: Robin
+ * Date: 27.03.14
+ * Time: 23:46
+ */
 
 namespace View;
 
 
-class Redirect implements Viewable
-{
+class RedirectResponse  extends Response {
 
     private $header;
 

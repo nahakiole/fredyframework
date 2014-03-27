@@ -11,14 +11,8 @@ namespace Controller;
 
 use Framework\Configuration;
 use Framework\LanguageLoader;
-use Model\Entity\DataType\Integer;
-use Model\Entity\Journal;
-use Model\Factory\JournalFactory;
-use Model\Repository\JournalRepository;
 use View\BootstrapHTMLGenerator;
-use View\HTMLTemplate;
-use View\HTMLView;
-use View\Redirect;
+use View\HTMLResponse;
 
 class Demo extends Controller
 {
@@ -33,14 +27,14 @@ class Demo extends Controller
 
     /**
      * @param $request \Model\Entity\Request
-     * @return null
+     * @return \View\Response
      */
     function indexAction($request)
     {
-        $this->loadTemplate('demo.twig');
+        $response = new HTMLResponse('demo.twig');
         $languageContainer = $this->languageLoader->loadLanguageFile('demo');
-        echo $languageContainer->getString('password_too_short');
-        echo $languageContainer->getStringWithAttributes('integer_min_max',[ 10, 11]);
+        //echo $languageContainer->getString('password_too_short');
+        //echo $languageContainer->getStringWithAttributes('integer_min_max',[ 10, 11]);
         $features = [
             [
                 'name' => 'Clean code',
@@ -64,7 +58,7 @@ class Demo extends Controller
 
         $form = $HTMlGenerator->getForm('test', $request->matches[0], 'POST');
         $form->addChildren( $HTMlGenerator->getTextfield('title', 'Title', '', 'Type in your title', 'This is where you have to type in your Title', true, []));
-        $form->addChildren(  $HTMlGenerator->getTextarea('content', 'Content', '', 'Here goes your content', 'This is where you have to type in your content', true, []));
+        $form->addChildren(  $HTMlGenerator->getTextarea('content', 'Content', 'Test', 'Here goes your content', 'This is where you have to type in your content', true, []));
         $form->addChildren( $HTMlGenerator->getRadiobuttons(
             'radio',
             'Radiobuttons',
@@ -98,24 +92,26 @@ class Demo extends Controller
 
         $form->addChildren($HTMlGenerator->getButton('test', '', 'Absenden', []));
 
-        return array('features' => $features, 'offset' => Configuration::$OFFSETPATH, 'title' => 'Demo', 'form' => $form->render());
+
+        $response->setTwigVariables(['features' => $features, 'offset' => Configuration::$OFFSETPATH, 'title' => 'Demo', 'form' => $form->render()]);
+        return $response;
 
     }
 
     /**
      * @param $request \Model\Entity\Request
-     * @return null
+     * @return \View\Response
      */
     function postAction($request)
     {
-        $this->loadTemplate('response.twig');
+        $this->loadTemplate('demo.twig');
 
         return array('response' => ['success' => true]);
     }
 
     /**
      * @param $request \Model\Entity\Request
-     * @return null
+     * @return \View\Response
      */
     function subdomainAction($request)
     {

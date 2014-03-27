@@ -2,14 +2,17 @@
 
 namespace Controller;
 
-use View\HTMLTemplate;
-use View\HTMLView;
+use View\HTMLResponse;
+use View\RedirectResponse;
+
+use View\BootstrapHTMLGenerator;
+
 use Model\Repository\Filter;
 use Model\Repository\Condition;
-use Model\Entity\Journal;
+
 use Model\Repository\JournalRepository;
 use Model\Factory\JournalFactory;
-use View\BootstrapHTMLGenerator;
+use Model\Entity\Journal;
 
 class JournalController extends Controller
 {
@@ -38,7 +41,7 @@ class JournalController extends Controller
     function indexAction($request)
     {
 
-        $this->loadTemplate('journal/journalList.twig');
+        $response = new HTMLResponse('journal/journalList.twig');
 
         $journalRepository = new JournalRepository($this->database);
 
@@ -55,33 +58,33 @@ class JournalController extends Controller
 
         $journals = $journalRepository->findAll();
 
-        $twigContext = array(
+        $response->setTwigVariables([
             'journals' => $journals
-            );
+            ]);
 
-        return $twigContext;
+        return $response;
 
     }
 
     public function journalAction($request)
     {
-        $this->loadTemplate('journal/journal.twig');
+        $response = new HTMLResponse('journal/journal.twig');
 
         $journalRepository = new JournalRepository($this->database);
 
         $id = $request->matches['id'];
         $journal = $journalRepository->findById($id);
 
-        $twigContext = array(
+        $response->setTwigVariables([
             'journal' => $journal
-            );
+            ]);
 
-        return $twigContext;
+        return $response;
     }
 
     public function formAction($request, $entity = NULL)
     {
-        $this->loadTemplate('journal/journalForm.twig');
+        $response = new HTMLResponse('journal/journalForm.twig');
 
         $languageContainer = $this->languageLoader->loadLanguageFile('journal');
 
@@ -116,9 +119,9 @@ class JournalController extends Controller
 
         $form->addChildren($bootstrapHTMLGenerator->getButton('submit',NULL,$buttonText));
 
-        $twigContext = array('form' => $form->render());
+        $response->setTwigVariables(['form' => $form->render()]);
 
-        return $twigContext;
+        return $response;
 
     }
 
@@ -143,7 +146,7 @@ class JournalController extends Controller
         $success = $repo->update($journal);
         if ($success) {
             $redirectId = $id==NULL ? $repo->lastInsertId : $id;
-            $this->setRedirect('/journal/'.$redirectId);
+            return new RedirectResponse('/journal/' . $redirectId);
         } else {
             return $this->formAction($request,$journal);
         }
