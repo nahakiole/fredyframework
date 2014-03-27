@@ -100,12 +100,11 @@ class BootstrapHTMLGenerator implements HTMLGenerator
             'name' => $id,
             'id' => $id,
             'class' => 'form-control',
-            'value' => $value,
             'placeholder' => $placeholder,
         ];
 
         $element = new HTMLElement('textarea', false, $attributes);
-
+        $element->addChildren(new HTMLText($value));
         $colInput->addChildren($element);
 
         return $formGroup;
