@@ -14,20 +14,24 @@ class Field
     public $name;
     public $databaseField;
     public $value;
+
+    public $error;
+    public $valid;
+
     /**
      * @var DataType\DataType
      */
-    private $dataType;
-    private $element;
-    private $isRequired;
+    public $dataType;
+    public $element;
+    public $isRequired;
     public $index;
 
-    function __construct($dataType, $element, $isRequired, $name, $value, $index)
+    function __construct($name, $dataType, $element, $isRequired, $value, $index)
     {
+        $this->name = $name;
         $this->dataType = $dataType;
         $this->element = $element;
         $this->isRequired = $isRequired;
-        $this->name = $name;
         $this->databaseField = strtolower($name);
         $this->value = $value;
         $this->index = $index;
@@ -50,6 +54,8 @@ class Field
 
     public function isValid()
     {
-        return $this->dataType->isValid($this->value);
+        $this->valid = $this->dataType->parentIsValid($this->value,$this)
+                    || $this->dataType->isValid($this->value,$this);
+        return $this->valid;
     }
-} 
+}

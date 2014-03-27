@@ -25,8 +25,8 @@ class JournalController extends Controller
 
         $journalRepository = new JournalRepository($this->database);
 
-        // $insertJournal = new \Model\Entity\Journal(null,'title','content');
-        // $journalRepository->update($insertJournal);
+        $insertJournal = new \Model\Entity\Journal(null,'title','content');
+        $journalRepository->update($insertJournal);
 
 
         // $journal = $journalRepository->findById(1);

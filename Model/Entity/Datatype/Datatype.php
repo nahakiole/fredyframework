@@ -11,7 +11,15 @@ namespace Model\Entity\Datatype;
 
 abstract class Datatype {
 
-    abstract function isValid(&$value);
+    abstract function isValid($value,$parentField);
 
+    public function parentIsValid($value,$parentField)
+    {
+        if ($value==null && !$parentField->isRequired) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 } 

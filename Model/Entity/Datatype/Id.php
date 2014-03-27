@@ -3,8 +3,13 @@
 namespace Model\Entity\DataType;
 
 class Id extends Datatype {
-    function isValid(&$value)
+    function isValid($value,$parentField)
     {
-        return $value == null || filter_var($value, FILTER_VALIDATE_INT);
+        if (!($value == null || filter_var($value, FILTER_VALIDATE_INT))) {
+            $parentField->error = 'id_not_valid';
+        } else {
+            return true;
+        }
+        return false;
     }
 } 
