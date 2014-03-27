@@ -9,6 +9,8 @@ namespace Model\Repository;
 abstract class Repository
 {
 
+    public $lastInsertId;
+
     /**
      *
      * @var string
@@ -107,7 +109,7 @@ abstract class Repository
      */
     public function create($entity)
     {
-        $this->applyEntityToDatabase($entity, false);
+        return $this->applyEntityToDatabase($entity, false);
     }
 
     /**
@@ -115,7 +117,7 @@ abstract class Repository
      */
     public function update($entity)
     {
-        $this->applyEntityToDatabase($entity, true);
+        return $this->applyEntityToDatabase($entity, true);
     }
 
     /**
@@ -148,7 +150,9 @@ abstract class Repository
         }
         $isSuccessful = $statement->execute();
         // #@discuss throw and exception if $stmt->errorInfo() has an error?
-        // var_dump($stmt->errorInfo());
+        // var_dump($statement->errorInfo());
+
+        $this->lastInsertId = $this->database->lastInsertId();
 
         return $isSuccessful;
     }

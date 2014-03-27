@@ -20,8 +20,20 @@
         {
             "action": "journalAction",
             "controller": "journal",
-            "match": ":^/journal/(?P<id>\\d+)$:"
+            "match": ":^/journal/(?P<id>\\d+)/?$:"
         
+        },
+        {
+            "action": "formAction",
+            "controller": "journal",
+            "match": ":^/journal/new/?$:",
+            "method": "GET"
+        },
+        {
+            "action": "submitAction",
+            "controller": "journal",
+            "match": ":^/journal/new/?$:",
+            "method": "POST"
         },
         {
             "action": "notFound",
