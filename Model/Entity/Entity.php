@@ -40,7 +40,7 @@ abstract class Entity implements \ArrayAccess, \Iterator
     public function __isset($property)
     {
         if (property_exists($this, $property) 
-            || array_key_exists($propertyn, $this->fields)) {
+            || array_key_exists($property, $this->fields)) {
             return true;
         }
         return false;

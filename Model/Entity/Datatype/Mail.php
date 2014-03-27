@@ -11,8 +11,13 @@ namespace Model\Entity\DataType;
 
 class Mail extends Datatype {
     
-    function isValid(&$value)
+    function isValid($value,$parentField)
     {
-        return filter_var($value, FILTER_VALIDATE_EMAIL);
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            $parentField->error = 'invalid_mail';
+        } else {
+            return true;
+        }
+        return false;
     }
 } 
