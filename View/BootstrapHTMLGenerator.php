@@ -43,14 +43,14 @@ class BootstrapHTMLGenerator implements HTMLGenerator
         $formGroup->addChildren($labelElement);
         $formGroup->addChildren($colInput);
 
-        $attributes = [
+        $attributes = array_merge([
             'name' => $id,
             'id' => $id,
             'class' => 'form-control input-md',
             'value' => $value,
             'placeholder' => $placeholder,
             'type' => 'text'
-        ];
+        ], $options);
 
         if ($required) {
             $attributes['required'] = '';
@@ -324,7 +324,7 @@ class BootstrapHTMLGenerator implements HTMLGenerator
         return new HTMLElement('form', false, array_merge([
             'action' => $action,
             'method' => $method,
-            'class' => 'form-horizontal '.$id.'_form'
+            'class' => 'form-horizontal ' . $id . '_form'
         ], $options));
     }
 }
