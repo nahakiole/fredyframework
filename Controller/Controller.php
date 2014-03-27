@@ -20,6 +20,11 @@ abstract class Controller
         $this->view = $twig->loadTemplate($templatePath);
     }
 
+    public function setRedirect()
+    {
+        $this->view = new Redirect($url);
+    }
+
     /**
      * @param $request \Model\Entity\Request
      * @return null

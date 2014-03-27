@@ -25,8 +25,8 @@ class JournalController extends Controller
 
         $journalRepository = new JournalRepository($this->database);
 
-        $insertJournal = new \Model\Entity\Journal(null,'title','content');
-        $journalRepository->update($insertJournal);
+        // $insertJournal = new \Model\Entity\Journal(null,'title','content');
+        // $journalRepository->update($insertJournal);
 
 
         // $journal = $journalRepository->findById(1);
@@ -60,5 +60,10 @@ class JournalController extends Controller
             );
 
         return $twigContext;
+    }
+
+    public function submitAction($request)
+    {
+        json_encode($request,JSON_PRETTY_PRINT);
     }
 }

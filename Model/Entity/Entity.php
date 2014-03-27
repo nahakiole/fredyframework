@@ -23,7 +23,6 @@ abstract class Entity implements \ArrayAccess, \Iterator
         foreach ($this->fields as $name => $field) {
             if (!$field->isValid()) {
                 $this->errors[] = 'invalid_' . $name;
-                echo $name.'<br>';
             }
         }
         if (count($this->errors)>0) {
