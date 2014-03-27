@@ -100,12 +100,11 @@ class BootstrapHTMLGenerator implements HTMLGenerator
             'name' => $id,
             'id' => $id,
             'class' => 'form-control',
-            'value' => $value,
             'placeholder' => $placeholder,
         ];
 
         $element = new HTMLElement('textarea', false, $attributes);
-
+        $element->addChildren(new HTMLText($value));
         $colInput->addChildren($element);
 
         return $formGroup;
@@ -198,8 +197,8 @@ class BootstrapHTMLGenerator implements HTMLGenerator
             ]);
 
             $attributes = [
-                'name' => $id."_".$checkboxId,
-                'id' => $id."_".$checkboxId,
+                'name' => $id . "_" . $checkboxId,
+                'id' => $id . "_" . $checkboxId,
                 'type' => 'checkbox'
             ];
 
@@ -322,9 +321,10 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      */
     function getForm($id, $action, $method = 'POST', $options = [])
     {
-        return new HTMLElement('form', false, [
+        return new HTMLElement('form', false, array_merge([
             'action' => $action,
-            'method' => $method
-        ]);
+            'method' => $method,
+            'class' => 'form-horizontal '.$id.'_form'
+        ], $options));
     }
 }

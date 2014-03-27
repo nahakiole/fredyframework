@@ -41,11 +41,11 @@ class HTMLElement
     {
         $attributes = $this->renderAttributes($this->attributes);
         if ($this->selfClosing) {
-            return "<$this->name $attributes>\n";
+            return "<$this->name $attributes>";
         }
         $children = '';
         foreach ($this->children as $child) {
-            $children .= "\n\t".$child->render()."\n";
+            $children .= $child->render();
         }
         return "<$this->name $attributes>$children</$this->name>";
 

@@ -4,6 +4,8 @@ namespace Controller;
 
 use View\Redirect;
 
+use View\Redirect;
+
 abstract class Controller
 {
     /**
@@ -21,6 +23,9 @@ abstract class Controller
         $this->view = $twig->loadTemplate($templatePath);
     }
 
+    /**
+     * @param $url string
+     */
     public function setRedirect($url)
     {
         $this->view = new Redirect($url);
