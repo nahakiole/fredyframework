@@ -41,6 +41,18 @@
             "method": "POST"
         },
         {
+            "action": "editAction",
+            "controller": "journal",
+            "match": ":^/journal/edit/(?P<id>\\d+)/?$:",
+            "method": "GET"
+        },
+        {
+            "action": "submitAction",
+            "controller": "journal",
+            "match": ":^/journal/edit/(\\d+)/?$:",
+            "method": "POST"
+        },
+        {
             "action": "notFound",
             "controller": "error",
             "match": ":^/Error/404:"

@@ -5,8 +5,11 @@
 <div class="col-sm-offset-2 col-sm-8">
     <div class="col-md-12">
         <h3>{{ journal.title }}</h3>
-        <p>{{ journal.content }}</p>
+        <p>{{ journal.content | nl2br }}</p>
     </div>
+    <a href="/journal/edit/{{ journal.id }}">Edit this journal</a><br>
+    <a href="/journal/new">Create another journal</a><br>
+    <a href="/journal">Go back to the journal list</a><br>
 </div>
 
 {% endblock %}

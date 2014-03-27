@@ -24,6 +24,8 @@ interface HTMLGenerator
      */
     function getTextfield($id, $label, $value, $placeholder, $helperText, $required, $options);
 
+    function getHidden($id, $value, $options);
+
     /**
      * @param $id String The Id and the name attribute for the input field
      * @param $label String The label for the input field
@@ -32,7 +34,7 @@ interface HTMLGenerator
      * @param $options Array
      * @return HTMLElement
      */
-    function getTextarea($id, $label, $value, $placeholder, $options);
+    function getTextarea($id, $label, $value, $placeholder, $helperText, $required, $options);
 
     /**
      * @param $id String The Id and the name attribute for the input field

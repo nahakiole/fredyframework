@@ -69,6 +69,21 @@ class BootstrapHTMLGenerator implements HTMLGenerator
         return $formGroup;
     }
 
+    function getHidden($id, $value, $options = [])
+    {
+
+        $attributes = array_merge([
+            'name' => $id,
+            'id' => $id,
+            'value' => $value,
+            'type' => 'hidden',
+        ], $options);
+
+        $element = new HTMLElement('input', false, $attributes);
+
+        return $element;
+    }
+
     /**
      * @param $id String The Id and the name attribute for the input field
      * @param $label String The label for the input field
@@ -77,7 +92,7 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      * @param $options Array
      * @return HTMLElement
      */
-    function getTextarea($id, $label, $value, $placeholder, $options = [])
+    function getTextarea($id, $label, $value, $placeholder, $helperText, $required, $options = [])
     {
         $formGroup = new HTMLElement('div', false, [
             'class' => 'form-group'
@@ -96,16 +111,28 @@ class BootstrapHTMLGenerator implements HTMLGenerator
         $formGroup->addChildren($labelElement);
         $formGroup->addChildren($colInput);
 
-        $attributes = [
+        $attributes = array_merge([
             'name' => $id,
             'id' => $id,
             'class' => 'form-control',
             'placeholder' => $placeholder,
-        ];
+        ], $options);
+
+        if ($required) {
+            $attributes['required'] = '';
+        }
 
         $element = new HTMLElement('textarea', false, $attributes);
         $element->addChildren(new HTMLText($value));
         $colInput->addChildren($element);
+
+        if (!empty($helperText)) {
+            $helperTextElement = new HTMLElement('span', false, [
+                'class' => 'help-block'
+            ]);
+            $helperTextElement->addChildren(new HTMLText($helperText));
+            $colInput->addChildren($helperTextElement);
+        }
 
         return $formGroup;
     }

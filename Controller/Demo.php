@@ -39,7 +39,7 @@ class Demo extends Controller
     {
         $this->loadTemplate('demo.twig');
         $languageContainer = $this->languageLoader->loadLanguageFile('demo');
-        echo $languageContainer->getString('password_too_show');
+        echo $languageContainer->getString('password_too_short');
         echo $languageContainer->getStringWithAttributes('integer_min_max',[ 10, 11]);
         $features = [
             [
@@ -64,7 +64,7 @@ class Demo extends Controller
 
         $form = $HTMlGenerator->getForm('test', $request->matches[0], 'POST');
         $form->addChildren( $HTMlGenerator->getTextfield('title', 'Title', '', 'Type in your title', 'This is where you have to type in your Title', true, []));
-        $form->addChildren(  $HTMlGenerator->getTextarea('content', 'Content', '', 'Here goes your content', []));
+        $form->addChildren(  $HTMlGenerator->getTextarea('content', 'Content', '', 'Here goes your content', 'This is where you have to type in your content', true, []));
         $form->addChildren( $HTMlGenerator->getRadiobuttons(
             'radio',
             'Radiobuttons',

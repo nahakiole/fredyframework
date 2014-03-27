@@ -19,12 +19,15 @@ class JournalController extends Controller
      */
     private $database;
 
+    private $languageLoader;
+
     /**
      * @param \PDO $database
      */
-    public function __construct($database)
+    public function __construct($database,$languageLoader)
     {
         $this->database = $database;
+        $this->languageLoader = $languageLoader;
     }
 
     /**
@@ -39,7 +42,7 @@ class JournalController extends Controller
 
         $journalRepository = new JournalRepository($this->database);
 
-        // $insertJournal = new \Model\Entity\Journal(null,'title','content');
+        // $insertJournal = new \Model\Entity\Journal(NULL,'title','content');
         // $journalRepository->update($insertJournal);
 
 
@@ -76,27 +79,42 @@ class JournalController extends Controller
         return $twigContext;
     }
 
-    public function formAction($request, $entity = null)
+    public function formAction($request, $entity = NULL)
     {
         $this->loadTemplate('journal/journalForm.twig');
+
+        $languageContainer = $this->languageLoader->loadLanguageFile('journal');
 
         $bootstrapHTMLGenerator = new BootstrapHTMLGenerator();
 
         $form = $bootstrapHTMLGenerator->getForm('journal','');
 
         $buttonText = 'Send';
-        if ($entity!=null && $entity['id']!=null ) {
-            // #@todo: add $bootstrapHTMLGenerator->getHidden()
+        if ($entity!=NULL && $entity['id']!=NULL ) {
+            $form->addChildren($bootstrapHTMLGenerator->getHidden('id',$entity['id']));
             $buttonText = 'Update';
         }
 
-        $title = $entity!=null ? $entity['title'] : null;
-        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title','Title',$title,'Title',null,true,['autofocus'=>true]));
+        if ($entity!=NULL) {
+            $title = $entity['title'];
 
-        $content = $entity!=null ? $entity['content'] : null;
-        $form->addChildren($bootstrapHTMLGenerator->getTextarea('content','Content',$content,'Content',null,true));
+            $content = $entity['content'];
+            $contentHelpText = $content->valid||$content->valid==NULL ? 
+                NULL :
+                $languageContainer->getStringWithAttributes(
+                    'content_too_short',
+                    [
+                        $content->dataType->minLength
+                    ]);
+        } else {
+            $title = $content = $contentHelpText = NULL;
+        }
+        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title','Title',$title,'Title',NULL,true,['autofocus'=>true]));
 
-        $form->addChildren($bootstrapHTMLGenerator->getButton('submit',null,'Send'));
+        $content = $entity!=NULL ? $entity['content'] : NULL;
+        $form->addChildren($bootstrapHTMLGenerator->getTextarea('content','Content',$content,'Content',$contentHelpText,true));
+
+        $form->addChildren($bootstrapHTMLGenerator->getButton('submit',NULL,$buttonText));
 
         $twigContext = array('form' => $form->render());
 
@@ -104,9 +122,19 @@ class JournalController extends Controller
 
     }
 
+    public function editAction($request)
+    {
+        $journalRepository = new JournalRepository($this->database);
+
+        $id = $request->matches['id'];
+        $journal = $journalRepository->findById($id);
+
+        return $this->formAction($request,$journal);
+    }
+
     public function submitAction($request)
     {
-        $id = array_key_exists('id', $request->POST) ? $request->POST['id']:null;
+        $id = array_key_exists('id', $request->POST) ? $request->POST['id']:NULL;
         $title = $request->POST['title'];
         $content = $request->POST['content'];
 
@@ -114,10 +142,9 @@ class JournalController extends Controller
         $repo = new JournalRepository($this->database);
         $success = $repo->update($journal);
         if ($success) {
-            echo 'success: ' . $repo->lastInsertId;
-            $this->setRedirect('/journal/'.$repo->lastInsertId);
+            $redirectId = $id==NULL ? $repo->lastInsertId : $id;
+            $this->setRedirect('/journal/'.$redirectId);
         } else {
-            echo 'fail: ';
             return $this->formAction($request,$journal);
         }
     }

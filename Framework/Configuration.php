@@ -57,7 +57,7 @@ class Configuration
         };
 
         $this->container['journal'] = function ($c) {
-            return new \Controller\JournalController($c['PDO']);
+            return new \Controller\JournalController($c['PDO'],$c['languageLoader']);
         };
 
         $this->container['languageLoader'] = function ($c) {
