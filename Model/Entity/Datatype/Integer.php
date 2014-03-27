@@ -23,7 +23,7 @@ class Integer extends Datatype {
     function isValid($value)
     {
         return filter_var($value, FILTER_VALIDATE_INT) 
-            && ($min == null || intval($value) >= $min)
-            && ($max == null || intval($value) <= $max);
+            && ($this->min == null || intval($value) >= $this->min)
+            && ($this->max == null || intval($value) <= $this->max);
     }
 } 
