@@ -10,6 +10,7 @@ namespace Model\Entity\DataType;
 
 
 class Mail extends Datatype {
+    
     function isValid(&$value)
     {
         return filter_var($value, FILTER_VALIDATE_EMAIL);

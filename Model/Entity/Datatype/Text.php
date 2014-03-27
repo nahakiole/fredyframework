@@ -10,8 +10,20 @@ namespace Model\Entity\DataType;
 
 
 class Text {
-    function isValid(&$value)
+
+    public $minLength;
+    public $maxLength;
+
+    public function __construct($minLength = 0,$maxLength = 0)
     {
-        return is_string($value);
+        $this->minLength = $minLength;
+        $this->maxLength = $maxLength;
+    }
+
+    public function isValid($value)
+    {
+        return is_string($value) 
+            && strlen($value) >= $this->minLength 
+            && ($this->maxLength==0 || strlen($value) <= $this->maxLength);
     }
 } 

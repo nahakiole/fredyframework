@@ -10,8 +10,20 @@ namespace Model\Entity\DataType;
 
 
 class Integer extends Datatype {
-    function isValid(&$value)
+
+    public $min;
+    public $max;
+
+    public function __construct($min = null, $max = null)
     {
-        return filter_var($value, FILTER_VALIDATE_INT);
+        $this->min = $min;
+        $this->max = $max;
+    }
+
+    function isValid($value)
+    {
+        return filter_var($value, FILTER_VALIDATE_INT) 
+            && ($min == null || intval($value) >= $min)
+            && ($max == null || intval($value) <= $max);
     }
 } 
