@@ -20,38 +20,49 @@ class Configuration
     {
 
         $this->container = new \Pimple();
-        self::$ROOTPATH = substr(__DIR__,0, -9);
+        self::$ROOTPATH = substr(__DIR__, 0, -9);
         self::$OFFSETPATH = '';
     }
 
-    function loadConfiguration(){
+    function loadConfiguration()
+    {
 
         $this->container['db.host'] = 'localhost';
         $this->container['db.user'] = 'root';
         $this->container['db.password'] = '';
         $this->container['db.dbname'] = 'fredyframework';
+        $this->container['language.default'] = 'en';
+        $this->container['language.directory'] = self::$ROOTPATH.'View/Language/';
+        $this->container['language.array'] = [
+            'en',
+            'de'
+        ];
     }
 
-    function loadServices(){
-        $this->container['PDO'] = function($c){
+    function loadServices()
+    {
+        $this->container['PDO'] = function ($c) {
             return new \PDO(
-                'mysql:host='.$c['db.host'].';dbname='.$c['db.dbname'].';'
-                ,$c['db.user']
-                ,$c['db.password']);
+                'mysql:host=' . $c['db.host'] . ';dbname=' . $c['db.dbname'] . ';'
+                , $c['db.user']
+                , $c['db.password']);
         };
 
-        $this->container['demo'] = function($c){
-            return new \Controller\Demo($c['PDO']);
+        $this->container['demo'] = function ($c) {
+            return new \Controller\Demo($c['PDO'],$c['languageLoader'] );
         };
 
-        $this->container['error'] = function(){
+        $this->container['error'] = function () {
             return new \Controller\Error();
         };
 
-        $this->container['journal'] = function($c){
+        $this->container['journal'] = function ($c) {
             return new \Controller\JournalController($c['PDO']);
         };
 
+        $this->container['languageLoader'] = function ($c) {
+            return new \Framework\LanguageLoader($c['language.default'],$c['language.array'],$c['language.directory'], $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        };
 
 
     }

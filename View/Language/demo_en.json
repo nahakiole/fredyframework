@@ -1,0 +1,4 @@
+{
+    "password_too_show" : "Your password is too short. Please enter a with minimum 8 letters.",
+    "integer_min_max" : "Please enter another number between %s and %s"
+}

@@ -10,6 +10,7 @@ namespace Controller;
 
 
 use Framework\Configuration;
+use Framework\LanguageLoader;
 use Model\Entity\DataType\Integer;
 use Model\Entity\Journal;
 use Model\Factory\JournalFactory;
@@ -23,9 +24,10 @@ class Demo extends Controller
 {
 
 
-    public function __construct($database)
+    public function __construct($database,LanguageLoader $languageLoader)
     {
         $this->database = $database;
+        $this->languageLoader = $languageLoader;
     }
 
 
@@ -36,7 +38,9 @@ class Demo extends Controller
     function indexAction($request)
     {
         $this->loadTemplate('demo.twig');
-
+        $languageContainer = $this->languageLoader->loadLanguageFile('demo');
+        echo $languageContainer->getString('password_too_show');
+        echo $languageContainer->getStringWithAttributes('integer_min_max',[ 10, 11]);
         $features = [
             [
                 'name' => 'Clean code',
