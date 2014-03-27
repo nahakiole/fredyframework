@@ -1,0 +1,14 @@
+{% extends 'index.twig' %}
+
+{% block content %}
+    
+<div class="col-sm-offset-2 col-sm-8">
+    {% for journal in journals %}
+        <div class="col-md-12">
+            <h3>{{ journal.title }}</h3>
+            <p>{{ journal.content }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -18,41 +18,47 @@ class JournalController extends Controller
         $this->database = $database;
     }
 
-    function indexAction($matches)
+    function indexAction($request)
     {
 
-        $this->loadTemplate('journal.twig');
+        $this->loadTemplate('journalList.twig');
 
         $journalRepository = new JournalRepository($this->database);
 
-        // $journalRepository->update(new \Model\Entity\Journal(2,'title','content'));
-        $insertJournal = new \Model\Entity\Journal(null,'<asdf>','content');
-        echo $insertJournal->isValid();
-        echo '<br>';
-        var_dump($insertJournal->errors);
-        echo '<br>';
-        $journalRepository->create($insertJournal);
+        // $insertJournal = new \Model\Entity\Journal(null,'title','content');
+        // $journalRepository->update($insertJournal);
+
+
+        // $journal = $journalRepository->findById(1);
+        // $journalRepository->remove($journal);
+
+        // $filter = new Filter($this->database);
+        // $filter->addCondition(new Condition('content','<>','content'));
+        // $journals = $journalRepository->findByFilter($filter);
 
         $journals = $journalRepository->findAll();
 
-        $journal = $journalRepository->findById(1);
-
-        // $journalRepository->remove($journal);
-
-        $filter = new Filter($this->database);
-
-        $filter->addCondition(new Condition('content','<>','content'));
-
-        // $journals = $journalRepository->findByFilter($filter);
-
-
-
         $twigContext = array(
-            'journals' => $journals,
-            'singleJournal' => $journal
+            'journals' => $journals
             );
 
         return $twigContext;
 
+    }
+
+    public function journalAction($request)
+    {
+        $this->loadTemplate('journal.twig');
+
+        $journalRepository = new JournalRepository($this->database);
+
+        $id = $request->matches['id'];
+        $journal = $journalRepository->findById($id);
+
+        $twigContext = array(
+            'journal' => $journal
+            );
+
+        return $twigContext;
     }
 }

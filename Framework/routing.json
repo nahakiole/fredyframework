@@ -21,7 +21,13 @@
         {
             "action": "indexAction",
             "controller": "journal",
-            "match": ":^/journal$:"
+            "match": ":^/journal/?$:"
+        },
+        {
+            "action": "journalAction",
+            "controller": "journal",
+            "match": ":^/journal/(?P<id>\\d+)$:"
+        
         },
 
         {
