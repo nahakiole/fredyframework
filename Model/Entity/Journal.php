@@ -2,6 +2,7 @@
 
 namespace Model\Entity;
 
+use Model\Entity\DataType\Id;
 use Model\Entity\DataType\Integer;
 use Model\Entity\DataType\Text;
 
@@ -11,11 +12,9 @@ class Journal extends Entity
 
     function __construct($id, $title, $content)
     {
-        $textDataType = new Text();
-        $integerDataType = new Integer();
-        $this->addField(new Field($textDataType, 'textarea', true, 'content', $content, 3));
-        $this->addField(new Field($integerDataType, 'input', true, 'id', $id, 1));
-        $this->addField(new Field($textDataType, 'textarea', true, 'title', $title, 2));
+        $this->addField(new Field(new Text(), 'textarea', true, 'content', $content, 3));
+        $this->addField(new Field(new Id(), 'input', true, 'id', $id, 1));
+        $this->addField(new Field(new Text(), 'textarea', true, 'title', $title, 2));
         uksort($this->fields, array($this, 'sortByFieldsIndex'));
     }
 

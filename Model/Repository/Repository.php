@@ -126,6 +126,10 @@ abstract class Repository
      */
     private function applyEntityToDatabase($entity, $update)
     {
+        if (!$entity->isValid()) {
+            // #@discuss handle somehow, maybe throw exception?
+            return false;
+        }
         if ($update) {
             $command = 'REPLACE INTO';
         } else {
@@ -142,21 +146,23 @@ abstract class Repository
         foreach ($this->entityFields as $index => $paramName) {
             $statement->bindParam(':' . $paramName, $valueArray[$index]);
         }
-        $statement->execute();
-        // #@todo throw and exception if $stmt->errorInfo() has an error?
+        $isSuccessful = $statement->execute();
+        // #@discuss throw and exception if $stmt->errorInfo() has an error?
         // var_dump($stmt->errorInfo());
+
+        return $isSuccessful;
     }
 
 
     /**
-     * Remove an entity from the database by using the id of the entity.
+     * Remove an entity from the database using the id of the entity.
      * @param $entity
      *
      * @return void
      */
     public function remove($entity)
     {
-        if (is_numeric($entity['id']->value)) {
+        if ($entity->isValid()&&is_numeric($entity['id']->value)) {
             $query = 'DELETE FROM `' . $this->tableName . '` WHERE `id`=:id';
             $statement = $this->database->prepare($query);
             $statement->bindParam(':id', $entity['id']->value);
@@ -164,7 +170,8 @@ abstract class Repository
             // #@todo throw and exception if $stmt->errorInfo() has an error?
             // var_dump($stmt->errorInfo());
         } else {
-            // #@todo: handle somehow
+            // #@todo: handle invalid entity
+            // #@todo: handle invalid id
         }
     }
 

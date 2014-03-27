@@ -17,8 +17,8 @@
 <div class="features">
     {% for journal in journals %}
         <div class="col-md-12">
-            <h3>{{ journal.title.value }}</h3>
-            <p>{{ journal.content.value }}</p>
+            <h3>{{ journal.title }}</h3>
+            <p>{{ journal.content }}</p>
         </div>
     {% endfor %}
 </div>
@@ -26,9 +26,9 @@
 <div class="col-md-12 top15">
     <h2>Start using it</h2>
 
-    <p>{{ singleJournal.id.value }}</p>
-    <p>{{ singleJournal.title.value }}</p>
-    <p>{{ singleJournal.content.value }}</p>
+    <p>{{ singleJournal.id }}</p>
+    <p>{{ singleJournal.title }}</p>
+    <p>{{ singleJournal.content }}</p>
 
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
