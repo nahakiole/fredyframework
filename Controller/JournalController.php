@@ -79,11 +79,9 @@ class JournalController extends Controller
         }
 
         $title = $entity!=null ? $entity['title'] : null;
-        echo $title;
-        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title','Title',$title,'Title',null,true));
+        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title','Title',$title,'Title',null,true,['autofocus'=>true]));
 
         $content = $entity!=null ? $entity['content'] : null;
-        echo $content;
         $form->addChildren($bootstrapHTMLGenerator->getTextarea('content','Content',$content,'Content',null,true));
 
         $form->addChildren($bootstrapHTMLGenerator->getButton('submit',null,'Send'));

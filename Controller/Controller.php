@@ -4,8 +4,6 @@ namespace Controller;
 
 use View\Redirect;
 
-use View\Redirect;
-
 abstract class Controller
 {
     /**
