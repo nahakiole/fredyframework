@@ -129,7 +129,7 @@ abstract class Repository
     private function applyEntityToDatabase($entity, $update)
     {
         if (!$entity->isValid()) {
-            // #@discuss handle somehow, maybe throw exception?
+            // #@todo handle somehow, maybe throw exception?
             return false;
         }
         if ($update) {
@@ -149,7 +149,7 @@ abstract class Repository
             $statement->bindParam(':' . $paramName, $valueArray[$index]);
         }
         $isSuccessful = $statement->execute();
-        // #@discuss throw and exception if $stmt->errorInfo() has an error?
+        // #@todo throw and exception if $stmt->errorInfo() has an error?
         // var_dump($statement->errorInfo());
 
         $this->lastInsertId = $this->database->lastInsertId();

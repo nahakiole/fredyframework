@@ -13,13 +13,25 @@ use View\BootstrapHTMLGenerator;
 
 class JournalController extends Controller
 {
+
+    /**
+     * @var \PDO
+     */
     private $database;
 
+    /**
+     * @param \PDO $database
+     */
     public function __construct($database)
     {
         $this->database = $database;
     }
 
+    /**
+     * [indexAction description]
+     * @param  \Model\Entity\Request $request
+     * @return array    TwigContext
+     */
     function indexAction($request)
     {
 

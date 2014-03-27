@@ -27,9 +27,7 @@
             "action": "journalAction",
             "controller": "journal",
             "match": ":^/journal/(?P<id>\\d+)/?$:"
-        
         },
-
         {
             "action": "formAction",
             "controller": "journal",
