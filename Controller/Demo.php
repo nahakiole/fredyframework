@@ -58,7 +58,7 @@ class Demo extends Controller
         ];
         $HTMlGenerator = new BootstrapHTMLGenerator();
 
-        $form = $HTMlGenerator->getForm('test', $request->matches[0]);
+        $form = $HTMlGenerator->getForm('test', $request->matches[0], 'POST');
         $form->addChildren( $HTMlGenerator->getTextfield('title', 'Title', '', 'Type in your title', 'This is where you have to type in your Title', true, []));
         $form->addChildren(  $HTMlGenerator->getTextarea('content', 'Content', '', 'Here goes your content', []));
         $form->addChildren( $HTMlGenerator->getRadiobuttons(
@@ -77,7 +77,6 @@ class Demo extends Controller
             ],
             'Type in your title',
             'This is where you have to type in your Title',
-
             []
         ));
         $form->addChildren( $HTMlGenerator->getCheckbox('scheckbox', 'Single Checkbox', '', 'Type in your title', 'This is where you have to type in your Title', true, []));
@@ -107,7 +106,16 @@ class Demo extends Controller
     {
         $this->loadTemplate('response.twig');
 
-        var_dump($request->POST);
         return array('response' => ['success' => true]);
+    }
+
+    /**
+     * @param $request \Model\Entity\Request
+     * @return null
+     */
+    function subdomainAction($request)
+    {
+        $this->loadTemplate('subdomain.twig');
+        return array('subdomain' => $request->matches['subdomain']);
     }
 }

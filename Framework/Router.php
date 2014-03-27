@@ -16,10 +16,16 @@ class Router
     private $routingTable = [];
 
     /**
-     * The URL which was requested by
-     * @var array
+     * The URL which was requested by the user. eg. /Test
+     * @var string
      */
-    public  $requestURL = [];
+    public  $requestURL = '';
+
+    /**
+     * The full URL which was requested by the user. eg. http://test.test.ch/Test
+     * @var string
+     */
+    public  $fullRequestURL = '';
 
     /**
      * Array with matches for the request.
@@ -37,11 +43,12 @@ class Router
      */
     public $requestMethod;
 
-    public function __construct($requestURL, $routingFilePath = 'Framework/routing.json', $requestMethod = 'GET')
+    public function __construct($serverOptions, $routingFilePath = 'Framework/routing.json')
     {
-        $this->requestURL = substr($requestURL, strlen(Configuration::$OFFSETPATH));
+        $this->requestURL = substr($serverOptions['REQUEST_URI'], strlen(Configuration::$OFFSETPATH));
         $this->routingFilePath = $routingFilePath;
-        $this->requestMethod = $requestMethod;
+        $this->requestMethod = $serverOptions['REQUEST_METHOD'];
+        $this->fullRequestURL = $this->getFullURL($serverOptions);
     }
 
     /**
@@ -78,11 +85,26 @@ class Router
      */
     private function matchesRequest($route)
     {
+        $requestURL = $this->requestURL;
+        if (isset($route['fullDomainMatch']) && $route['fullDomainMatch'] == true){
+            $requestURL = $this->fullRequestURL;
+        }
         if (isset($route['method']) && $route['method'] != $this->requestMethod)
         {
             return false;
         }
-        return preg_match($route['match'], $this->requestURL, $this->matches);
+        return preg_match($route['match'], $requestURL, $this->matches);
+    }
+
+    private function getFullURL($serverOptions)
+    {
+        $ssl = (!empty($serverOptions['HTTPS']) && $serverOptions['HTTPS'] == 'on') ? true:false;
+        $sp = strtolower($serverOptions['SERVER_PROTOCOL']);
+        $protocol = substr($sp, 0, strpos($sp, '/')) . (($ssl) ? 's' : '');
+        $port = $serverOptions['SERVER_PORT'];
+        $port = ((!$ssl && $port=='80') || ($ssl && $port=='443')) ? '' : ':'.$port;
+        $host = isset($serverOptions['HTTP_X_FORWARDED_HOST']) ? $serverOptions['HTTP_X_FORWARDED_HOST'] : isset($serverOptions['HTTP_HOST']) ? $serverOptions['HTTP_HOST'] : $serverOptions['SERVER_NAME'];
+        return $protocol . '://' . $host . $port . $serverOptions['REQUEST_URI'];
     }
 
 }

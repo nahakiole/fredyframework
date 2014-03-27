@@ -1,6 +1,12 @@
 {
     "routes": [
         {
+            "action": "subdomainAction",
+            "controller": "demo",
+            "match": ":(?P<subdomain>[a-zA-Z0-9]+)\\.fredyframework:",
+            "fullDomainMatch": true
+        },
+        {
             "action": "indexAction",
             "controller": "demo",
             "match": ":^/(Test/(?P<id>[0-9]+))?$:",
@@ -17,6 +23,7 @@
             "controller": "journal",
             "match": ":^/journal$:"
         },
+
         {
             "action": "notFound",
             "controller": "error",
