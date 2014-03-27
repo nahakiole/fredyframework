@@ -25,19 +25,21 @@ class JournalController extends Controller
 
         $journalRepository = new JournalRepository($this->database);
 
-        $journalRepository->update(new \Model\Entity\Journal(2,'title','content'));
+        // $journalRepository->update(new \Model\Entity\Journal(2,'title','content'));
 
         $journals = $journalRepository->findAll();
 
-        $journal = $journalRepository->findById(3);
+        $journal = $journalRepository->findById(1);
 
-        $journalRepository->remove($journal);
+        // $journalRepository->remove($journal);
 
         $filter = new Filter($this->database);
 
         $filter->addCondition(new Condition('content','<>','content'));
 
-        $journals = $journalRepository->findByFilter($filter);
+        set_magic_quotes_runtime(0);
+
+        // $journals = $journalRepository->findByFilter($filter);
 
         $twigContext = array(
             'journals' => $journals,

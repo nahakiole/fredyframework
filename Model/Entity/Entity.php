@@ -10,10 +10,26 @@ abstract class Entity implements \ArrayAccess, \Iterator
      * @var $fields Field[]
      */
     protected $fields;
+    public $errors;
 
     public function addField($field)
     {
         $this->fields[$field->name] = $field;
+    }
+
+    public function __get($property)
+    {
+        return $this->fields[$property];
+    }
+
+    public function __isset($property)
+    {
+        if (property_exists($this, $property) 
+            || array_key_exists($propertyn, $this->fields)) {
+            return true;
+        }
+        return false;
+
     }
 
     /**

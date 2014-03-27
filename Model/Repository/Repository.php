@@ -111,13 +111,10 @@ abstract class Repository
             ' '.$limit.';';
         $stmt = $this->database->prepare($query);
 
-        var_dump($query);
-
         $stmt->execute();
 
         return $this->factory->buildAll($stmt->fetchAll());
 
-    ay();
     }
 
     public function create($entity)
