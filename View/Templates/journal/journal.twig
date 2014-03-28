@@ -1,16 +1,19 @@
 {% extends 'index.twig' %}
 
 {% block content %}
-<div class="container">
-<div class="row">
-    <div class="col-sm-8">
-        <h3>{{ journal.title }}</h3>
-        <p>{{ journal.content | nl2br }}</p>
-        <a class="btn btn-primary" href="{{ offset }}/journal/edit/{{ journal.id }}"><i class="fa fa-pencil-square-o"></i> Edit this journal</a>
-        <a class="btn btn-default" href="{{ offset }}/journal"><i class="fa fa-arrow-left"></i> Go back to the journal list</a><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h3>{{ journal.title }}</h3>
+
+                <p>{{ journal.content | nl2br }}</p>
+                <a class="btn btn-primary" href="{{ offset }}/journal/edit/{{ journal.id }}"><i
+                            class="fa fa-pencil-square-o"></i> Edit this journal</a>
+                <a class="btn btn-default" href="{{ offset }}/journal"><i class="fa fa-arrow-left"></i> Go back to the
+                    journal list</a><br>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 {% endblock %}
 
 {% block header %}

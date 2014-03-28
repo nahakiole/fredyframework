@@ -166,7 +166,7 @@ abstract class Repository
      */
     public function remove($entity)
     {
-        if ($entity->isValid()&&is_numeric($entity['id']->value)) {
+        if ($entity->isValid() && is_numeric($entity['id']->value)) {
             $query = 'DELETE FROM `' . $this->tableName . '` WHERE `id`=:id';
             $statement = $this->database->prepare($query);
             $statement->bindParam(':id', $entity['id']->value);

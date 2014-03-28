@@ -9,13 +9,14 @@
 namespace Framework;
 
 
-class LanguageLoader {
+class LanguageLoader
+{
     private $defaultLanguage;
     private $activeLanguage;
     private $languageArray;
     private $languageDirectory;
 
-    function __construct($defaultLanguage, $languageArray , $languageDirectory, $acceptLanguage)
+    function __construct($defaultLanguage, $languageArray, $languageDirectory, $acceptLanguage)
     {
         $this->defaultLanguage = $defaultLanguage;
         $this->activeLanguage = $this->setUserLanguage($acceptLanguage, $defaultLanguage);
@@ -23,22 +24,23 @@ class LanguageLoader {
         $this->languageDirectory = $languageDirectory;
     }
 
-    function loadLanguageFile($languageFile){
-        if (file_exists($this->languageDirectory.$languageFile.'_'.$this->activeLanguage.'.json')){
-            return new LanguageContainer(json_decode( file_get_contents($this->languageDirectory.$languageFile.'_'.$this->activeLanguage.'.json'), true) );
-        }
-        else {
-            return new LanguageContainer(json_decode( file_get_contents($this->languageDirectory.$languageFile.'_'.$this->defaultLanguage.'.json'), true) );
+    function loadLanguageFile($languageFile)
+    {
+        if (file_exists($this->languageDirectory . $languageFile . '_' . $this->activeLanguage . '.json')) {
+            return new LanguageContainer(json_decode(file_get_contents($this->languageDirectory . $languageFile . '_' . $this->activeLanguage . '.json'), true));
+        } else {
+            return new LanguageContainer(json_decode(file_get_contents($this->languageDirectory . $languageFile . '_' . $this->defaultLanguage . '.json'), true));
         }
     }
 
-    function setUserLanguage($acceptLanguage, $defaultLanguage){
-        if(isset($acceptLanguage) && strlen($acceptLanguage) > 1)  {
+    function setUserLanguage($acceptLanguage, $defaultLanguage)
+    {
+        if (isset($acceptLanguage) && strlen($acceptLanguage) > 1) {
             # Split possible languages into array
-            $x = explode(",",$acceptLanguage);
+            $x = explode(",", $acceptLanguage);
             foreach ($x as $val) {
                 #check for q-value and create associative array. No q-value means 1 by rule
-                if(preg_match("/(.*);q=([0-1]{0,1}\.\d{0,4})/i",$val,$matches))
+                if (preg_match("/(.*);q=([0-1]{0,1}\.\d{0,4})/i", $val, $matches))
                     $lang[$matches[1]] = (float)$matches[2];
                 else
                     $lang[$val] = 1.0;

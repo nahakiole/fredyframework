@@ -3,7 +3,8 @@
 namespace Model\Repository;
 
 
-class Condition {
+class Condition
+{
 
     private $field;
     private $operator;
@@ -14,7 +15,7 @@ class Condition {
      * @param $operator string
      * @param $value string
      */
-    function __construct($field, $operator,$value)
+    function __construct($field, $operator, $value)
     {
         $this->field = $field;
         $this->operator = $operator;

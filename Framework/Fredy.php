@@ -45,7 +45,7 @@ class Fredy
     {
         if (method_exists($controller, $actionName)) {
             $context = $controller->$actionName($request);
-            if ($context==null) {
+            if ($context == null) {
                 $context = [];
             }
             return $context;

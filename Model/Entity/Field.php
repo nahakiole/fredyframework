@@ -49,13 +49,13 @@ class Field
 
     public function __tostring()
     {
-        return (string) $this->value;
+        return (string)$this->value;
     }
 
     public function isValid()
     {
-        $this->valid = $this->dataType->parentIsValid($this->value,$this)
-                    || $this->dataType->isValid($this->value,$this);
+        $this->valid = $this->dataType->parentIsValid($this->value, $this)
+            || $this->dataType->isValid($this->value, $this);
         return $this->valid;
     }
 }

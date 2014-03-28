@@ -19,13 +19,13 @@ class Router
      * The URL which was requested by the user. eg. /Test
      * @var string
      */
-    public  $requestURL = '';
+    public $requestURL = '';
 
     /**
      * The full URL which was requested by the user. eg. http://test.test.ch/Test
      * @var string
      */
-    public  $fullRequestURL = '';
+    public $fullRequestURL = '';
 
     /**
      * Array with matches for the request.
@@ -86,11 +86,10 @@ class Router
     private function matchesRequest($route)
     {
         $requestURL = $this->requestURL;
-        if (isset($route['fullDomainMatch']) && $route['fullDomainMatch'] == true){
+        if (isset($route['fullDomainMatch']) && $route['fullDomainMatch'] == true) {
             $requestURL = $this->fullRequestURL;
         }
-        if (isset($route['method']) && $route['method'] != $this->requestMethod)
-        {
+        if (isset($route['method']) && $route['method'] != $this->requestMethod) {
             return false;
         }
         return preg_match($route['match'], $requestURL, $this->matches);
@@ -98,11 +97,11 @@ class Router
 
     private function getFullURL($serverOptions)
     {
-        $ssl = (!empty($serverOptions['HTTPS']) && $serverOptions['HTTPS'] == 'on') ? true:false;
+        $ssl = (!empty($serverOptions['HTTPS']) && $serverOptions['HTTPS'] == 'on') ? true : false;
         $sp = strtolower($serverOptions['SERVER_PROTOCOL']);
         $protocol = substr($sp, 0, strpos($sp, '/')) . (($ssl) ? 's' : '');
         $port = $serverOptions['SERVER_PORT'];
-        $port = ((!$ssl && $port=='80') || ($ssl && $port=='443')) ? '' : ':'.$port;
+        $port = ((!$ssl && $port == '80') || ($ssl && $port == '443')) ? '' : ':' . $port;
         $host = isset($serverOptions['HTTP_X_FORWARDED_HOST']) ? $serverOptions['HTTP_X_FORWARDED_HOST'] : isset($serverOptions['HTTP_HOST']) ? $serverOptions['HTTP_HOST'] : $serverOptions['SERVER_NAME'];
         return $protocol . '://' . $host . $port . $serverOptions['REQUEST_URI'];
     }

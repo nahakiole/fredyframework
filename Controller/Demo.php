@@ -18,7 +18,7 @@ class Demo extends Controller
 {
 
 
-    public function __construct($database,LanguageLoader $languageLoader)
+    public function __construct($database, LanguageLoader $languageLoader)
     {
         $this->database = $database;
         $this->languageLoader = $languageLoader;

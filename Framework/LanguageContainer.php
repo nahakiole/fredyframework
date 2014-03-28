@@ -9,19 +9,22 @@
 namespace Framework;
 
 
-class LanguageContainer {
-    private $stringArray =  [];
+class LanguageContainer
+{
+    private $stringArray = [];
 
     function __construct($stringArray)
     {
         $this->stringArray = $stringArray;
     }
 
-    function getString($title){
+    function getString($title)
+    {
         return $this->stringArray[$title];
     }
 
-    function getStringWithAttributes($title, $attributes = []){
+    function getStringWithAttributes($title, $attributes = [])
+    {
         return vsprintf($this->stringArray[$title], $attributes);
     }
 

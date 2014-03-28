@@ -7,7 +7,8 @@ require_once '/Framework/Autoloader.php';
 require_once '/Framework/vendor/autoload.php';
 
 
-class ErrorTest extends \PHPUnit_Framework_TestCase {
+class ErrorTest extends \PHPUnit_Framework_TestCase
+{
 
     public function testnotFound()
     {

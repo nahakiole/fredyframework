@@ -9,7 +9,8 @@
 namespace View;
 
 
-class RedirectResponse  extends Response {
+class RedirectResponse extends Response
+{
 
     private $header;
 

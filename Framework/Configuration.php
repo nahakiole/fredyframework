@@ -32,7 +32,7 @@ class Configuration
         $this->container['db.password'] = '';
         $this->container['db.dbname'] = 'fredyframework';
         $this->container['language.default'] = 'en';
-        $this->container['language.directory'] = self::$ROOTPATH.'View/Language/';
+        $this->container['language.directory'] = self::$ROOTPATH . 'View/Language/';
         $this->container['language.array'] = [
             'en',
             'de'
@@ -49,7 +49,7 @@ class Configuration
         };
 
         $this->container['demo'] = function ($c) {
-            return new \Controller\Demo($c['PDO'],$c['languageLoader'] );
+            return new \Controller\Demo($c['PDO'], $c['languageLoader']);
         };
 
         $this->container['error'] = function () {
@@ -57,15 +57,14 @@ class Configuration
         };
 
         $this->container['journal'] = function ($c) {
-            return new \Controller\JournalController($c['PDO'],$c['languageLoader']);
+            return new \Controller\JournalController($c['PDO'], $c['languageLoader']);
         };
 
         $this->container['languageLoader'] = function ($c) {
-            return new \Framework\LanguageLoader($c['language.default'],$c['language.array'],$c['language.directory'], $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+            return new \Framework\LanguageLoader($c['language.default'], $c['language.array'], $c['language.directory'], $_SERVER['HTTP_ACCEPT_LANGUAGE']);
         };
 
-        $this->container['test'] = function ($c)
-        {
+        $this->container['test'] = function ($c) {
             return new \Controller\TestController();
         };
 

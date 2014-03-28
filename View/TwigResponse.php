@@ -9,29 +9,33 @@
 namespace View;
 
 
-abstract class TwigResponse extends Response {
+abstract class TwigResponse extends Response
+{
 
     /**
      * @var \Twig_TemplateInterface
      */
-    protected  $view;
+    protected $view;
 
     /**
      * @var array
      */
     protected $variables = [];
 
-    public function __construct($templatePath){
+    public function __construct($templatePath)
+    {
         $loader = new \Twig_Loader_Filesystem('View/Templates');
         $twig = new \Twig_Environment($loader);
         $this->view = $twig->loadTemplate($templatePath);
     }
 
-    public function setTwigVariables($variables){
+    public function setTwigVariables($variables)
+    {
         $this->variables = array_merge($this->variables, $variables);
     }
 
-    public function render(){
+    public function render()
+    {
         echo $this->view->render($this->variables);
     }
 }

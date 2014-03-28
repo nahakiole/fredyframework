@@ -16,8 +16,9 @@ class JournalRepository extends Repository
     /**
      * @param $db \PDO
      */
-    public function __construct($db){
-        $this->entity = new Journal(null,null,null);
+    public function __construct($db)
+    {
+        $this->entity = new Journal(null, null, null);
         $this->factory = new JournalFactory();
         parent::__construct($db);
     }

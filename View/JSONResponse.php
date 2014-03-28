@@ -9,10 +9,12 @@
 namespace View;
 
 
-class JSONResponse extends TwigResponse {
+class JSONResponse extends TwigResponse
+{
 
 
-    public function __construct($templatePath){
+    public function __construct($templatePath)
+    {
         parent::__construct($templatePath);
     }
 

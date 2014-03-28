@@ -10,7 +10,8 @@ namespace Model\Entity;
  * Request Class to prevent usage of global Variables like $_POST, $_GET in the Controller.
  * This is essentially to make the controller testable and not depended on the global Variables.
  */
-class Request {
+class Request
+{
     private $route;
     public $controllerName;
     public $actionName;
@@ -22,7 +23,8 @@ class Request {
     public $COOKIES;
     public $SESSION;
 
-    public function __construct($route, $controller,$actionName, $matches){
+    public function __construct($route, $controller, $actionName, $matches)
+    {
         $this->route = $route;
         $this->controllerName = $controller;
         $this->actionName = $actionName;

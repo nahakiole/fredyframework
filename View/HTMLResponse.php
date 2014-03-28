@@ -11,10 +11,12 @@
 namespace View;
 
 
-class HTMLResponse extends TwigResponse {
+class HTMLResponse extends TwigResponse
+{
 
 
-    public function __construct($templatePath){
+    public function __construct($templatePath)
+    {
         parent::__construct($templatePath);
     }
 

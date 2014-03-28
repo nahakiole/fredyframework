@@ -9,7 +9,8 @@
 namespace Model\Entity\DataType;
 
 
-class Integer extends Datatype {
+class Integer extends Datatype
+{
 
     public $min;
     public $max;
@@ -20,7 +21,7 @@ class Integer extends Datatype {
         $this->max = $max;
     }
 
-    function isValid($value,$parentField)
+    function isValid($value, $parentField)
     {
         if (!filter_var($value, FILTER_VALIDATE_INT)) {
             $parentField->error = 'must_be_integer';

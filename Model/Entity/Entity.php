@@ -39,8 +39,9 @@ abstract class Entity implements \ArrayAccess, \Iterator
 
     public function __isset($property)
     {
-        if (property_exists($this, $property) 
-            || array_key_exists($property, $this->fields)) {
+        if (property_exists($this, $property)
+            || array_key_exists($property, $this->fields)
+        ) {
             return true;
         }
         return false;
@@ -169,7 +170,8 @@ abstract class Entity implements \ArrayAccess, \Iterator
      * Gets a array with the database name for all the fields of the entity for the repository.
      * @return array
      */
-    public function getFieldDatabaseNameArray(){
+    public function getFieldDatabaseNameArray()
+    {
         $fields = [];
         foreach ($this->fields as $field) {
             $fields[] = $field->toSelectString();

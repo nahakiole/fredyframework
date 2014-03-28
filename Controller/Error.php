@@ -19,7 +19,7 @@ class Error extends Controller
     {
         $response = new HTMLResponse('error.twig');
 
-        $response->setTwigVariables( [
+        $response->setTwigVariables([
             'title' => 'Die Seite unter ' . $request->SERVER['REQUEST_URI'] . ' wurde nicht gefunden.',
             'message' => 'Die Seite unter ' . $request->SERVER['REQUEST_URI'] . ' wurde nicht gefunden. Möchtest du zurück auf die <a href="/">Startseite</a>?'
         ]);
@@ -34,7 +34,7 @@ class Error extends Controller
     {
         $response = new HTMLResponse('error.twig');
 
-        $response->setTwigVariables( [
+        $response->setTwigVariables([
             'title' => $this->errorMessage,
             'message' => 'Da ging etwas daneben'
         ]);

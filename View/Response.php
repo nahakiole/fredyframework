@@ -9,6 +9,7 @@
 namespace View;
 
 
-abstract class Response implements Viewable {
+abstract class Response implements Viewable
+{
     abstract function render();
 } 

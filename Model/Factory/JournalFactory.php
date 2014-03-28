@@ -6,7 +6,8 @@ namespace Model\Factory;
 
 use Model\Entity\Journal;
 
-class JournalFactory extends Factory {
+class JournalFactory extends Factory
+{
 
     /**
      * @param $data

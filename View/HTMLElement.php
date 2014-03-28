@@ -63,14 +63,16 @@ class HTMLElement
     /**
      * @param $child HTMLElement
      */
-    public function addChildren($child){
+    public function addChildren($child)
+    {
         array_push($this->children, $child);
     }
 
     /**
      * @return HTMLElement
      */
-    public function getChildren(){
+    public function getChildren()
+    {
         return $this->children;
     }
 

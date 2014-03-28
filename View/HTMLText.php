@@ -11,7 +11,8 @@ namespace View;
 
 use View\HTMLElement;
 
-class HTMLText extends HTMLElement {
+class HTMLText extends HTMLElement
+{
 
     private $text;
 
@@ -21,7 +22,8 @@ class HTMLText extends HTMLElement {
     }
 
 
-    public function render(){
+    public function render()
+    {
         return $this->text;
     }
 } 

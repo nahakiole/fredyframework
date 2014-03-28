@@ -9,7 +9,8 @@
 namespace Model\Repository;
 
 
-class Filter {
+class Filter
+{
 
     /**
      * @var \PDO

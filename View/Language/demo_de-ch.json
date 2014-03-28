@@ -1,4 +1,4 @@
 {
-    "password_too_show" : "Dein Passwort ist zu kurz. Bitte gib ein längeres ein.",
-    "integer_min_max" : "Bitte schreibe eine Nummer zwischen %s und %s"
+    "password_too_show": "Dein Passwort ist zu kurz. Bitte gib ein längeres ein.",
+    "integer_min_max": "Bitte schreibe eine Nummer zwischen %s und %s"
 }

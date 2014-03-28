@@ -28,7 +28,7 @@ class JournalController extends Controller
      * @param \PDO $database
      * @param \Framework\LanguageLoader $languageLoader
      */
-    public function __construct($database,$languageLoader)
+    public function __construct($database, $languageLoader)
     {
         $this->database = $database;
         $this->languageLoader = $languageLoader;
@@ -61,7 +61,7 @@ class JournalController extends Controller
 
         $response->setTwigVariables([
             'journals' => $journals
-            ]);
+        ]);
 
         return $response;
 
@@ -78,7 +78,7 @@ class JournalController extends Controller
 
         $response->setTwigVariables([
             'journal' => $journal
-            ]);
+        ]);
 
         return $response;
     }
@@ -91,18 +91,18 @@ class JournalController extends Controller
 
         $bootstrapHTMLGenerator = new BootstrapHTMLGenerator();
 
-        $form = $bootstrapHTMLGenerator->getForm('journal','');
+        $form = $bootstrapHTMLGenerator->getForm('journal', '');
 
         $buttonText = 'Save';
-        if ($entity!=NULL && $entity['id']!=NULL ) {
-            $form->addChildren($bootstrapHTMLGenerator->getHidden('id',$entity['id']));
+        if ($entity != NULL && $entity['id'] != NULL) {
+            $form->addChildren($bootstrapHTMLGenerator->getHidden('id', $entity['id']));
         }
 
-        if ($entity!=NULL) {
+        if ($entity != NULL) {
             $title = $entity['title'];
 
             $content = $entity['content'];
-            $contentHelpText = $content->valid||$content->valid==NULL ? 
+            $contentHelpText = $content->valid || $content->valid == NULL ?
                 NULL :
                 $languageContainer->getStringWithAttributes(
                     'content_too_short',
@@ -112,12 +112,12 @@ class JournalController extends Controller
         } else {
             $title = $content = $contentHelpText = NULL;
         }
-        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title','Title',$title,'Title',NULL,true,['autofocus'=>true]));
+        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title', 'Title', $title, 'Title', NULL, true, ['autofocus' => true]));
 
-        $content = $entity!=NULL ? $entity['content'] : NULL;
-        $form->addChildren($bootstrapHTMLGenerator->getTextarea('content','Content',$content,'Content',$contentHelpText,true));
+        $content = $entity != NULL ? $entity['content'] : NULL;
+        $form->addChildren($bootstrapHTMLGenerator->getTextarea('content', 'Content', $content, 'Content', $contentHelpText, true));
 
-        $form->addChildren($bootstrapHTMLGenerator->getButton('submit',NULL,$buttonText));
+        $form->addChildren($bootstrapHTMLGenerator->getButton('submit', NULL, $buttonText));
 
         $response->setTwigVariables(['form' => $form->render()]);
 
@@ -132,23 +132,23 @@ class JournalController extends Controller
         $id = $request->matches['id'];
         $journal = $journalRepository->findById($id);
 
-        return $this->formAction($request,$journal);
+        return $this->formAction($request, $journal);
     }
 
     public function submitAction($request)
     {
-        $id = array_key_exists('id', $request->POST) ? $request->POST['id']:NULL;
+        $id = array_key_exists('id', $request->POST) ? $request->POST['id'] : NULL;
         $title = $request->POST['title'];
         $content = $request->POST['content'];
 
-        $journal = new Journal($id,$title,$content);
+        $journal = new Journal($id, $title, $content);
         $repo = new JournalRepository($this->database);
         $success = $repo->update($journal);
         if ($success) {
-            $redirectId = $id==NULL ? $repo->lastInsertId : $id;
+            $redirectId = $id == NULL ? $repo->lastInsertId : $id;
             return new RedirectResponse('/journal/' . $redirectId);
         } else {
-            return $this->formAction($request,$journal);
+            return $this->formAction($request, $journal);
         }
     }
 }
