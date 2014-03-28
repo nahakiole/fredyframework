@@ -19,6 +19,7 @@ interface HTMLGenerator
      * @param $placeholder String Placeholder html attribute
      * @param $helperText String Text under the input field
      * @param $required Boolean
+     * @param $hasError
      * @param $options Array
      * @return HTMLElement
      */
@@ -31,6 +32,9 @@ interface HTMLGenerator
      * @param $label String The label for the input field
      * @param $value String
      * @param $placeholder String Placeholder html attribute
+     * @param $helperText
+     * @param $required
+     * @param $hasError
      * @param $options Array
      * @return HTMLElement
      */
@@ -42,6 +46,7 @@ interface HTMLGenerator
      * @param $checked Boolean
      * @param $helperText String Text under the input field
      * @param $required Boolean
+     * @param $hasError
      * @param $options Array
      * @return HTMLElement
      */
@@ -53,6 +58,7 @@ interface HTMLGenerator
      * @param $values Array
      * @param $helperText String Text under the input field
      * @param $required Boolean
+     * @param $hasError
      * @param $options
      * @return HTMLElement
      */
@@ -64,6 +70,7 @@ interface HTMLGenerator
      * @param $values Array
      * @param $helperText String Text under the input field
      * @param $required Boolean
+     * @param $hasError
      * @param $options
      * @return HTMLElement
      */
