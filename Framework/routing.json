@@ -61,6 +61,11 @@
             "action": "serverError",
             "controller": "error",
             "match": ":^/Error/500:"
+        },
+        {
+            "action": "indexAction",
+            "controller": "test",
+            "match": ":^/testpage/?$:"
         }
     ]
 }
