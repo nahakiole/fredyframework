@@ -46,6 +46,16 @@ class JournalController extends Controller
 
         $journalRepository = new JournalRepository($this->database);
 
+        $journals = $journalRepository->findAll();
+
+        $response->setTwigVariables([
+            'journals' => $journals
+            ]);
+
+        return $response;
+
+
+
         // $insertJournal = new \Model\Entity\Journal(NULL,'title','content');
         // $journalRepository->update($insertJournal);
 
@@ -56,14 +66,6 @@ class JournalController extends Controller
         // $filter = new Filter($this->database);
         // $filter->addCondition(new Condition('content','<>','content'));
         // $journals = $journalRepository->findByFilter($filter);
-
-        $journals = $journalRepository->findAll();
-
-        $response->setTwigVariables([
-            'journals' => $journals
-            ]);
-
-        return $response;
 
     }
 
@@ -102,20 +104,25 @@ class JournalController extends Controller
             $title = $entity['title'];
 
             $content = $entity['content'];
-            $contentHelpText = $content->valid||$content->valid==NULL ? 
-                NULL :
-                $languageContainer->getStringWithAttributes(
-                    'content_too_short',
-                    [
-                        $content->dataType->minLength
-                    ]);
+            if ($content->valid||($content->valid===NULL)) {
+                $contentHelpText = null;
+                $contentHasError = false;
+            } else {
+                $contentHelpText = 
+                    $languageContainer->getStringWithAttributes(
+                        'content_too_short',
+                        [
+                            $content->dataType->minLength
+                        ]);
+                $contentHasError = true;
+            }
         } else {
             $title = $content = $contentHelpText = NULL;
         }
-        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title','Title',$title,'Title',NULL,true,['autofocus'=>true]));
+        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title','Title',$title,'Title',NULL,true,false,['autofocus'=>true]));
 
         $content = $entity!=NULL ? $entity['content'] : NULL;
-        $form->addChildren($bootstrapHTMLGenerator->getTextarea('content','Content',$content,'Content',$contentHelpText,true));
+        $form->addChildren($bootstrapHTMLGenerator->getTextarea('content','Content',$content,'Content',$contentHelpText,true, $contentHasError));
 
         $form->addChildren($bootstrapHTMLGenerator->getButton('submit',NULL,$buttonText));
 

@@ -24,10 +24,11 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      * @param $options Array
      * @return HTMLElement
      */
-    function getTextfield($id, $label, $value, $placeholder, $helperText, $required, $options = [])
+    function getTextfield($id, $label, $value, $placeholder, $helperText, $required, $hasError = false, $options = [])
     {
+        $formGroupClass = $hasError ? 'form-group has-error' : 'form-group';
         $formGroup = new HTMLElement('div', false, [
-            'class' => 'form-group'
+            'class' => $formGroupClass
         ]);
         $colInput = new HTMLElement('div', false, [
             'class' => 'col-md-8'
@@ -92,10 +93,11 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      * @param $options Array
      * @return HTMLElement
      */
-    function getTextarea($id, $label, $value, $placeholder, $helperText, $required, $options = [])
+    function getTextarea($id, $label, $value, $placeholder, $helperText, $required, $hasError = false, $options = [])
     {
+        $formGroupClass = $hasError ? 'form-group has-error' : 'form-group';
         $formGroup = new HTMLElement('div', false, [
-            'class' => 'form-group'
+            'class' => $formGroupClass
         ]);
         $colInput = new HTMLElement('div', false, [
             'class' => 'col-md-8'
@@ -146,10 +148,11 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      * @param $options Array
      * @return HTMLElement
      */
-    function getCheckbox($id, $label, $checked, $helperText, $required, $options = [])
+    function getCheckbox($id, $label, $checked, $helperText, $required, $hasError = false, $options = [])
     {
+        $formGroupClass = $hasError ? 'form-group has-error' : 'form-group';
         $formGroup = new HTMLElement('div', false, [
-            'class' => 'form-group'
+            'class' => $formGroupClass
         ]);
         $colInput = new HTMLElement('div', false, [
             'class' => 'col-md-8'
@@ -197,10 +200,11 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      * @param $options
      * @return HTMLElement
      */
-    function getCheckboxes($id, $label, $values, $helperText, $required, $options = [])
+    function getCheckboxes($id, $label, $values, $helperText, $required, $hasError = false, $options = [])
     {
+        $formGroupClass = $hasError ? 'form-group has-error' : 'form-group';
         $formGroup = new HTMLElement('div', false, [
-            'class' => 'form-group'
+            'class' => $formGroupClass
         ]);
         $colInput = new HTMLElement('div', false, [
             'class' => 'col-md-8'
@@ -252,10 +256,11 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      * @param $options
      * @return HTMLElement
      */
-    function getRadiobuttons($id, $label, $values, $helperText, $required, $options = [])
+    function getRadiobuttons($id, $label, $values, $helperText, $required, $hasError = false, $options = [])
     {
+        $formGroupClass = $hasError ? 'form-group has-error' : 'form-group';
         $formGroup = new HTMLElement('div', false, [
-            'class' => 'form-group'
+            'class' => $formGroupClass
         ]);
         $colInput = new HTMLElement('div', false, [
             'class' => 'col-md-8'
