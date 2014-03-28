@@ -112,7 +112,7 @@ class JournalController extends Controller
                 $contentHasError = true;
             }
         } else {
-            $title = $content = $contentHelpText = NULL;
+            $contentHasError = $title = $content = $contentHelpText = NULL;
         }
         $form->addChildren($bootstrapHTMLGenerator->getTextfield('title', 'Title', $title, 'Title', NULL, true, false, ['autofocus' => true]));
 
