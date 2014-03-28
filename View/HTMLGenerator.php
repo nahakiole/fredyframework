@@ -22,7 +22,7 @@ interface HTMLGenerator
      * @param $options Array
      * @return HTMLElement
      */
-    function getTextfield($id, $label, $value, $placeholder, $helperText, $required, $options);
+    function getTextfield($id, $label, $value, $placeholder, $helperText, $required, $hasError, $options);
 
     function getHidden($id, $value, $options);
 
@@ -34,7 +34,7 @@ interface HTMLGenerator
      * @param $options Array
      * @return HTMLElement
      */
-    function getTextarea($id, $label, $value, $placeholder, $helperText, $required, $options);
+    function getTextarea($id, $label, $value, $placeholder, $helperText, $required, $hasError, $options);
 
     /**
      * @param $id String The Id and the name attribute for the input field
@@ -45,7 +45,7 @@ interface HTMLGenerator
      * @param $options Array
      * @return HTMLElement
      */
-    function getCheckbox($id, $label, $checked, $helperText, $required, $options);
+    function getCheckbox($id, $label, $checked, $helperText, $required, $hasError, $options);
 
     /**
      * @param $id String The Id and the name attribute for the input field
@@ -56,7 +56,7 @@ interface HTMLGenerator
      * @param $options
      * @return HTMLElement
      */
-    function getCheckboxes($id, $label, $values, $helperText, $required, $options);
+    function getCheckboxes($id, $label, $values, $helperText, $required, $hasError, $options);
 
     /**
      * @param $id String The Id and the name attribute for the input field
@@ -67,7 +67,7 @@ interface HTMLGenerator
      * @param $options
      * @return HTMLElement
      */
-    function getRadiobuttons($id, $label, $values, $helperText, $required, $options);
+    function getRadiobuttons($id, $label, $values, $helperText, $required, $hasError, $options);
 
     /**
      * @param $id String The Id and the name attribute for the button
