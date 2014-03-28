@@ -75,26 +75,7 @@ header .container {
     position: relative;
 }
 
-.navigation-right {
-    position: absolute;
-    right: 0;
-    bottom: 5px;
-}
 
-.nav > li {
-    float: left;
-}
-
-.nav > li > a {
-    color: #fff;
-    font-weight: normal;
-    font-size: 18px;
-}
-
-.nav > li > a:hover, .nav > li > a:focus {
-    background: transparent;
-    color: #598fe8;
-}
 
 .form-group .text-left {
     text-align: left;
@@ -406,4 +387,7 @@ pre {
 
 .blog-post-title-small:hover {
     text-decoration: none;
+}
+.features h2 {
+    font-size: 29px;
 }
