@@ -15,8 +15,8 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
         $request = new Request(null, 'error', 'notFound', null);
         $request->SERVER['REQUEST_URI'] = '/ThisPageDoesntExist';
         $errorController = new \Controller\Error();
-        $errorController->notFound($request);
-        $this->assertInstanceOf("Twig_Template", $errorController->view);
+        $response = $errorController->notFound($request);
+        $this->assertInstanceOf("\\View\\Response", $response);
     }
 }
  

@@ -16,6 +16,7 @@ abstract class TwigResponse extends Response
      * @var \Twig_TemplateInterface
      */
     protected $view;
+    protected $header = [];
 
     /**
      * @var array
@@ -36,6 +37,20 @@ abstract class TwigResponse extends Response
 
     public function render()
     {
+        foreach ($this->header as $field => $value) {
+            header($field.' '.$value);
+        }
+
         echo $this->view->render($this->variables);
+    }
+
+    public function addHeaderField($field, $value)
+    {
+        $this->header[$field] = $value;
+    }
+
+    public function unsetHeaderField($field)
+    {
+        unset($this->header[$field]);
     }
 }

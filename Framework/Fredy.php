@@ -17,6 +17,7 @@ class Fredy
         $configuration->loadConfiguration();
         $configuration->loadServices();
         $router = new Router($_SERVER, 'Framework/routing.json');
+
         try {
             $request = $router->getRequest();
             $controller = $configuration->container[$request->controllerName];

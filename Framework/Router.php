@@ -45,7 +45,7 @@ class Router
 
     public function __construct($serverOptions, $routingFilePath = 'Framework/routing.json')
     {
-        $this->requestURL = substr($serverOptions['REQUEST_URI'], strlen(Configuration::$OFFSETPATH));
+        $this->requestURL = substr(isset($serverOptions['REDIRECT_URL']) ? $serverOptions['REDIRECT_URL'] : $serverOptions['REQUEST_URI'], strlen(Configuration::$OFFSETPATH));
         $this->routingFilePath = $routingFilePath;
         $this->requestMethod = $serverOptions['REQUEST_METHOD'];
         $this->fullRequestURL = $this->getFullURL($serverOptions);

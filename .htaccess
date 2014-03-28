@@ -1,7 +1,6 @@
 RewriteEngine On
-<FilesMatch "\.(routing.json)$">
-Order Allow,Deny
-Deny from all
-</FilesMatch>
+ErrorDocument 403 /Error/403
+ErrorDocument 404 /Error/404
+ErrorDocument 500 /Error/500
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]

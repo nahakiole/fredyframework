@@ -63,6 +63,11 @@
             "match": ":^/Error/500:"
         },
         {
+            "action": "noAccess",
+            "controller": "error",
+            "match": ":^/Error/403:"
+        },
+        {
             "action": "indexAction",
             "controller": "test",
             "match": ":^/testpage/?$:"
