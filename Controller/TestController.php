@@ -14,7 +14,6 @@ class TestController extends Controller
     {
         $response = new HTMLResponse('test.twig');
 
-
         return $response;
     }
 }
