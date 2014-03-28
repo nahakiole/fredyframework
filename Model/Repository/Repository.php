@@ -106,6 +106,7 @@ abstract class Repository
 
     /**
      * @param $entity \Model\Entity\Entity
+     * @return bool
      */
     public function create($entity)
     {
@@ -114,6 +115,7 @@ abstract class Repository
 
     /**
      * @param $entity \Model\Entity\Entity
+     * @return bool
      */
     public function update($entity)
     {
@@ -124,7 +126,7 @@ abstract class Repository
      * @param $entity \Model\Entity\Entity
      *
      * @param $update
-     * @return void
+     * @return boolean
      */
     private function applyEntityToDatabase($entity, $update)
     {
@@ -160,7 +162,7 @@ abstract class Repository
 
     /**
      * Remove an entity from the database using the id of the entity.
-     * @param $entity
+     * @param $entity \Model\Entity\Entity
      *
      * @return void
      */

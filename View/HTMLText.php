@@ -9,8 +9,6 @@
 namespace View;
 
 
-use View\HTMLElement;
-
 class HTMLText extends HTMLElement
 {
 

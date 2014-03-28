@@ -3,7 +3,6 @@
 namespace Model\Entity;
 
 use Model\Entity\DataType\Id;
-use Model\Entity\DataType\Integer;
 use Model\Entity\DataType\Text;
 
 class Journal extends Entity

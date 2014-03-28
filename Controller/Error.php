@@ -21,7 +21,7 @@ class Error extends Controller
 
         $response->setTwigVariables([
             'title' => 'Diese Seite wurde nicht gefunden.',
-            'message' => 'Die Seite unter <a href="'.$request->SERVER['REQUEST_URI'].'"> ' . $request->SERVER['REQUEST_URI'] . '</a> wurde nicht gefunden. Möchtest du zurück auf die <a href="/">Startseite</a>?'
+            'message' => 'Die Seite unter <a href="' . $request->SERVER['REQUEST_URI'] . '"> ' . $request->SERVER['REQUEST_URI'] . '</a> wurde nicht gefunden. Möchtest du zurück auf die <a href="/">Startseite</a>?'
         ]);
 
         $response->addHeaderField('HTTP/1.0', ' 404 Not Found');

@@ -9,8 +9,6 @@
 namespace View;
 
 
-use View\HTMLText;
-
 class BootstrapHTMLGenerator implements HTMLGenerator
 {
 
