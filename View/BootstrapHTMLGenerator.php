@@ -21,6 +21,7 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      * @param $placeholder String Placeholder html attribute
      * @param $helperText String Text under the input field
      * @param $required Boolean
+     * @param bool $hasError
      * @param $options Array
      * @return HTMLElement
      */
@@ -90,6 +91,9 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      * @param $label String The label for the input field
      * @param $value String
      * @param $placeholder String Placeholder html attribute
+     * @param $helperText
+     * @param $required
+     * @param bool $hasError
      * @param $options Array
      * @return HTMLElement
      */
@@ -145,6 +149,7 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      * @param $checked Boolean
      * @param $helperText String Text under the input field
      * @param $required Boolean
+     * @param bool $hasError
      * @param $options Array
      * @return HTMLElement
      */
@@ -197,7 +202,8 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      * @param $values Array
      * @param $helperText String Text under the input field
      * @param $required Boolean
-     * @param $options
+     * @param bool $hasError
+     * @param array $options
      * @return HTMLElement
      */
     function getCheckboxes($id, $label, $values, $helperText, $required, $hasError = false, $options = [])
@@ -253,7 +259,8 @@ class BootstrapHTMLGenerator implements HTMLGenerator
      * @param $values Array
      * @param $helperText String Text under the input field
      * @param $required Boolean
-     * @param $options
+     * @param bool $hasError
+     * @param array $options
      * @return HTMLElement
      */
     function getRadiobuttons($id, $label, $values, $helperText, $required, $hasError = false, $options = [])
