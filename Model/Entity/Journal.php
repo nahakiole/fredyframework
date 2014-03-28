@@ -14,7 +14,7 @@ class Journal extends Entity
         $this->addField(new Field('content', new Text(20), 'textarea', true,  $content, 3));
         $this->addField(new Field('id', new Id(), 'input', true, $id, 1));
         $this->addField(new Field('title', new Text(0,50), 'textarea', true, $title, 2));
-        $parent::__construct();
+        parent::__construct();
     }
 
 }

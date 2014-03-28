@@ -3,6 +3,7 @@
 {% block content %}
     
 <div class="col-sm-offset-2 col-sm-8">
+    <a href="{{ offset }}/journal/new">Create another journal</a><br>
     {% for journal in journals %}
         <div class="col-md-12">
             <h3><a href="/journal/{{ journal.id }}">{{ journal.title }}</a></h3>

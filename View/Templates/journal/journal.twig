@@ -7,9 +7,8 @@
         <h3>{{ journal.title }}</h3>
         <p>{{ journal.content | nl2br }}</p>
     </div>
-    <a href="/journal/edit/{{ journal.id }}">Edit this journal</a><br>
-    <a href="/journal/new">Create another journal</a><br>
-    <a href="/journal">Go back to the journal list</a><br>
+    <a href="{{ offset }}/journal/edit/{{ journal.id }}">Edit this journal</a><br>
+    <a href="{{ offset }}/journal">Go back to the journal list</a><br>
 </div>
 
 {% endblock %}
