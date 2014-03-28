@@ -46,6 +46,11 @@
             "method": "POST"
         },
         {
+            "action": "deleteAction",
+            "controller": "journal",
+            "match": ":^/journal/remove/(?P<id>\\d+)/?$:"
+        },
+        {
             "action": "notFound",
             "controller": "error",
             "match": ":^/Error/404:"

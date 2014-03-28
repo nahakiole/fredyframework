@@ -158,4 +158,17 @@ class JournalController extends Controller
             return $this->formAction($request, $journal);
         }
     }
+
+    public function deleteAction($request)
+    {
+        $id = $request->matches['id'];
+
+        $repo = new JournalRepository($this->database);
+
+        $journalToRemove = $repo->findById($id);
+
+        $success = $repo->remove($journalToRemove);
+
+        return new RedirectResponse('/journal');
+    }
 }

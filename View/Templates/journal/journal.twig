@@ -9,9 +9,15 @@
                 <p>{{ journal.content | nl2br }}</p>
                 <a class="btn btn-primary" href="{{ offset }}/journal/edit/{{ journal.id }}"><i
                             class="fa fa-pencil-square-o"></i> Edit this journal</a>
-                <a class="btn btn-default" href="{{ offset }}/journal"><i class="fa fa-arrow-left"></i> Go back to the
-                    journal list</a><br>
+                <a class="btn btn-default" href="{{ offset }}/journal">
+                    <i class="fa fa-arrow-left"></i>
+                    Go back to the journal list</a>
+                <a class="btn btn-default" href="{{ offset }}/journal/remove/{{ journal.id }}">
+                    <i class="fa fa-trash-o"></i>
+                    Delete this Journal
+                </a><br>
             </div>
+            fa-trash-o
         </div>
     </div>
 {% endblock %}

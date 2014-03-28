@@ -170,7 +170,7 @@ abstract class Repository
             $query = 'DELETE FROM `' . $this->tableName . '` WHERE `id`=:id';
             $statement = $this->database->prepare($query);
             $statement->bindParam(':id', $entity['id']->value);
-            $statement->execute();
+            return $statement->execute();
             // #@todo throw and exception if $stmt->errorInfo() has an error?
             // var_dump($stmt->errorInfo());
         } else {
