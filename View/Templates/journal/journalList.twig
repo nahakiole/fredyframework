@@ -4,21 +4,24 @@
 
     <div class="container">
         <div class="row">
-
             <div class="col-md-12 "><a class="btn btn-primary"
                                        href="{{ offset }}/journal/new"><i
                             class="fa fa-pencil-square-o"></i> Create another
                     journal</a><br></div>
+        </div>
+        <section  class="row tiles">
+
+
             {% for journal in journals %}
-                <div class="col-md-4 col-sm-6 clearfix">
+                <section  class="col-md-4 col-sm-6 clearfix">
                     <h3>
                         <a href="/journal/{{ journal.id }}">{{ journal.title }}</a>
                     </h3>
 
                     <p>{{ journal.content | nl2br }}</p>
-                </div>
+                </section >
             {% endfor %}
-        </div>
+        </section >
     </div>
 
 {% endblock %}
