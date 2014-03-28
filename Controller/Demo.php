@@ -1,17 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Robin
- * Date: 21.03.14
- * Time: 22:48
- */
 
 namespace Controller;
 
 
 use Framework\Configuration;
 use Framework\LanguageLoader;
-use View\BootstrapHTMLGenerator;
 use View\HTMLResponse;
 
 class Demo extends Controller
@@ -61,16 +54,6 @@ class Demo extends Controller
 
     }
 
-    /**
-     * @param $request \Model\Entity\Request
-     * @return \View\Response
-     */
-    function postAction($request)
-    {
-        $this->loadTemplate('demo.twig');
-
-        return array('response' => ['success' => true]);
-    }
 
     /**
      * @param $request \Model\Entity\Request
@@ -78,7 +61,8 @@ class Demo extends Controller
      */
     function subdomainAction($request)
     {
-        $this->loadTemplate('subdomain.twig');
-        return array('subdomain' => $request->matches['subdomain']);
+        $response = new HTMLResponse('subdomain.twig');
+        $response->setTwigVariables(['subdomain' => $request->matches['subdomain']]);
+        return $response;
     }
 }
