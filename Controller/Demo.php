@@ -54,46 +54,9 @@ class Demo extends Controller
             ]
 
         ];
-        $HTMlGenerator = new BootstrapHTMLGenerator();
-
-        $form = $HTMlGenerator->getForm('test', $request->matches[0], 'POST');
-        $form->addChildren( $HTMlGenerator->getTextfield('title', 'Title', '', 'Type in your title', 'This is where you have to type in your Title', true, []));
-        $form->addChildren(  $HTMlGenerator->getTextarea('content', 'Content', 'Test', 'Here goes your content', 'This is where you have to type in your content', true, []));
-        $form->addChildren( $HTMlGenerator->getRadiobuttons(
-            'radio',
-            'Radiobuttons',
-            [
-                1 => [
-                    'label' => 'Test'
-                ],
-                2 => [
-                    'label' => 'Test'
-                ],
-                3 => [
-                    'label' => 'Test'
-                ]
-            ],
-            'Type in your title',
-            'This is where you have to type in your Title',
-            []
-        ));
-        $form->addChildren( $HTMlGenerator->getCheckbox('scheckbox', 'Single Checkbox', '', 'Type in your title', 'This is where you have to type in your Title', true, []));
-        $form->addChildren( $HTMlGenerator->getCheckboxes('mscheckbox', 'Checkboxes', [
-            1 => [
-                'label' => 'Test'
-            ],
-            2 => [
-                'label' => 'Test'
-            ],
-            3 => [
-                'label' => 'Test'
-            ]
-        ], 'Type in your title', 'This is where you have to type in your Title', true, []));
-
-        $form->addChildren($HTMlGenerator->getButton('test', '', 'Absenden', []));
 
 
-        $response->setTwigVariables(['features' => $features, 'offset' => Configuration::$OFFSETPATH, 'title' => 'Demo', 'form' => $form->render()]);
+        $response->setTwigVariables(['features' => $features, 'offset' => Configuration::$OFFSETPATH, 'title' => 'Demo']);
         return $response;
 
     }
