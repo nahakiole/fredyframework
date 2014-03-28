@@ -64,6 +64,10 @@ class Configuration
             return new \Framework\LanguageLoader($c['language.default'],$c['language.array'],$c['language.directory'], $_SERVER['HTTP_ACCEPT_LANGUAGE']);
         };
 
+        $this->container['test'] = function ($c)
+        {
+            return new \Controller\TestController();
+        };
 
     }
 

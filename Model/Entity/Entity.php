@@ -11,6 +11,11 @@ abstract class Entity implements \ArrayAccess, \Iterator
      */
     protected $fields;
 
+    public function __construct()
+    {
+        uksort($this->fields, array($this, 'sortByFieldsIndex'));
+    }
+
     public function addField($field)
     {
         $this->fields[$field->name] = $field;
@@ -181,5 +186,9 @@ abstract class Entity implements \ArrayAccess, \Iterator
         return $fields;
     }
 
+    function sortByFieldsIndex($a, $b)
+    {
+        return $this->fields[$a]->index >= $this->fields[$b]->index ? 1 : -1;
+    }
 
 }
