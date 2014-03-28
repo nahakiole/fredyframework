@@ -2,17 +2,11 @@
 
 namespace Controller;
 
+use Model\Entity\Journal;
+use Model\Repository\JournalRepository;
+use View\BootstrapHTMLGenerator;
 use View\HTMLResponse;
 use View\RedirectResponse;
-
-use View\BootstrapHTMLGenerator;
-
-use Model\Repository\Filter;
-use Model\Repository\Condition;
-
-use Model\Repository\JournalRepository;
-use Model\Factory\JournalFactory;
-use Model\Entity\Journal;
 
 class JournalController extends Controller
 {
@@ -50,10 +44,9 @@ class JournalController extends Controller
 
         $response->setTwigVariables([
             'journals' => $journals
-            ]);
+        ]);
 
         return $response;
-
 
 
         // $insertJournal = new \Model\Entity\Journal(NULL,'title','content');
@@ -104,11 +97,11 @@ class JournalController extends Controller
             $title = $entity['title'];
 
             $content = $entity['content'];
-            if ($content->valid||($content->valid===NULL)) {
+            if ($content->valid || ($content->valid === NULL)) {
                 $contentHelpText = null;
                 $contentHasError = false;
             } else {
-                $contentHelpText = 
+                $contentHelpText =
                     $languageContainer->getStringWithAttributes(
                         'content_too_short',
                         [
@@ -119,10 +112,10 @@ class JournalController extends Controller
         } else {
             $title = $content = $contentHelpText = NULL;
         }
-        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title', 'Title', $title, 'Title', NULL, true, false, ['autofocus'=>true]));
+        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title', 'Title', $title, 'Title', NULL, true, false, ['autofocus' => true]));
 
-        $content = $entity!=NULL ? $entity['content'] : NULL;
-        $form->addChildren($bootstrapHTMLGenerator->getTextarea('content', 'Content', $content, 'Content', $contentHelpText, true,  $contentHasError));
+        $content = $entity != NULL ? $entity['content'] : NULL;
+        $form->addChildren($bootstrapHTMLGenerator->getTextarea('content', 'Content', $content, 'Content', $contentHelpText, true, $contentHasError));
 
         $form->addChildren($bootstrapHTMLGenerator->getButton('submit', NULL, $buttonText));
 
