@@ -1,73 +1,138 @@
 {% extends "index.twig" %}
 
 {% block content %}
-    <div class="col-md-12">
-        <h2>About this Framework</h2>
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Read the documentation</h2>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-            est
-            laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-            est
-            laborum. </p>
+                <p>
+                    You best start using the framework by reading the <a href="#">documentation</a>. Far far away, behind
+                    the word
+                    mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they
+                    live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.
+                </p>
+
+                <p><a class="btn btn-default" href="#" role="button">Read the documentation</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Installation</h2>
+
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a
+                    paradisematic country, in which roasted parts of sentences fly into your mouth. </p>
+
+                <p><a class="btn btn-default" href="#" role="button">Read the installation manual</a></p>
+            </div>
+        </div>
+
     </div>
-    <div class="clearfix"></div>
-    <div class="features">
-        {% for feature in features %}
-            {% include "features.twig" %}
-        {% endfor %}
+    <div class="features top30">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Why you should use <span class="brand">FredyFramework</span></h2>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12  text-center feature top30">
+                    <a class="btn-link popover-link" data-container="body" data-toggle="popover"
+                       data-placement="bottom"
+                       data-content="No singletons, global objects whatsoever. We prefer clean code over a messy codebase. ">
+
+                        <i class="fa fa-code fa-7x"></i>
+
+                        <h3>Clean code</h3>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12  text-center feature top30">
+                    <a class="btn-link popover-link" data-container="body" data-toggle="popover"
+                       data-placement="bottom"
+                       data-content="Our project is hosted on GitHub and licenced under the The MIT License (MIT)">
+                        <i class="fa fa-github fa-7x"></i>
+
+                        <h3>Open source</h3>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12  text-center feature top30">
+
+                    <a class="btn-link popover-link" data-container="body" data-toggle="popover"
+                       data-placement="bottom"
+                       data-content="Do you want a speedy framework? Because this is a really fast one.">
+                        <i class="fa fa-bolt fa-7x"></i>
+
+                        <h3>Blazing fast</h3>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12  text-center feature top30">
+                    <a class="btn-link popover-link" data-container="body" data-toggle="popover"
+                       data-placement="bottom"
+                       data-content="Our code is produce with 100% natural coffee.">
+                        <i class="fa fa-coffee fa-7x"></i>
+
+                        <h3>Made with coffee</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
     </div>
 
-    <div class="clearfix"></div>
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
 
-    <div class="col-md-6 top15 ">
-            <legend>Field Test</legend>
-            {{ form|raw }}
+            <div class="col-md-12 ">
+                <h2>Latest Tutorials</h2>
+            </div>
+            <div class="col-md-4 col-xs-6">
+                <h3>Create a simple blog</h3>
+
+                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic
+                    life. </p>
+
+                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4 col-xs-6">
+                <h3>Create a contact form</h3>
+
+                <p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question
+                    Marks. </p>
+
+                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h3>Routing for beginners</h3>
+
+                <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her
+                    hometown Bookmarksgrove, </p>
+
+                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+
+            <div class="col-md-4">
+                <h3>Routing II</h3>
+
+                <p>The copy warned the Little Blind Text, that where it came from it would have been rewritten a
+                    thousand</p>
+
+                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h3>Dependency Injection</h3>
+
+                <p>But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy
+                    Writers ambushed her.. </p>
+
+                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h3>Repositories and factories</h3>
+
+                <p>And if she hasn’t been rewritten, then they are still using her. Far far away, behind the word
+                    mountains. </p>
+
+                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+        </div>
     </div>
 
-    <div class="col-md-12 top15">
-        <h2>Start using it</h2>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-            est
-            laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-            est
-            laborum. </p>
-    </div>
-
-    <div class="col-md-4">
-
-        <h2>Documentation</h2>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore
-            magna aliqua. </p>
-    </div>
-    <div class="col-md-4 nopadding">
-
-        <h2>Tutorials</h2>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore
-            magna aliqua. </p>
-    </div>
-    <div class="col-md-4 nopadding">
-
-        <h2>Blog</h2>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore
-            magna aliqua. </p>
-    </div>
 {% endblock %}
