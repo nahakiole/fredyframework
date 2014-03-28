@@ -3,6 +3,7 @@
 namespace Controller;
 
 
+use View\HTMLResponse;
 use View\HTMLView;
 
 class Error extends Controller
@@ -16,13 +17,13 @@ class Error extends Controller
      */
     public function notFound($request)
     {
-        $this->loadTemplate('error.twig');
+        $response = new HTMLResponse('error.twig');
 
-
-        return [
+        $response->setTwigVariables( [
             'title' => 'Die Seite unter ' . $request->SERVER['REQUEST_URI'] . ' wurde nicht gefunden.',
             'message' => 'Die Seite unter ' . $request->SERVER['REQUEST_URI'] . ' wurde nicht gefunden. Möchtest du zurück auf die <a href="/">Startseite</a>?'
-        ];
+        ]);
+        return $response;
     }
 
     /**
@@ -31,12 +32,14 @@ class Error extends Controller
      */
     public function serverError($request)
     {
-        $this->loadTemplate('error.twig');
+        $response = new HTMLResponse('error.twig');
 
-        return [
+        $response->setTwigVariables( [
             'title' => $this->errorMessage,
             'message' => 'Da ging etwas daneben'
-        ];
+        ]);
+
+        return $response;
     }
 
     /**

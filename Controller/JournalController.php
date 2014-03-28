@@ -26,6 +26,7 @@ class JournalController extends Controller
 
     /**
      * @param \PDO $database
+     * @param \Framework\LanguageLoader $languageLoader
      */
     public function __construct($database,$languageLoader)
     {
@@ -92,10 +93,9 @@ class JournalController extends Controller
 
         $form = $bootstrapHTMLGenerator->getForm('journal','');
 
-        $buttonText = 'Send';
+        $buttonText = 'Save';
         if ($entity!=NULL && $entity['id']!=NULL ) {
             $form->addChildren($bootstrapHTMLGenerator->getHidden('id',$entity['id']));
-            $buttonText = 'Update';
         }
 
         if ($entity!=NULL) {
