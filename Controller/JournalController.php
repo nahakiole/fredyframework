@@ -42,6 +42,8 @@ class JournalController extends Controller
 
         $journals = $journalRepository->findAll();
 
+        $journals = array_reverse($journals);
+
         $response->setTwigVariables([
             'journals' => $journals
         ]);
