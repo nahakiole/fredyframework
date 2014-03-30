@@ -7,6 +7,5 @@
     ],
     "require": {
         "nahakiole/fredyframework": "dev-master"
-    },
-    "minimum-stability": "dev"
+    }
 }
