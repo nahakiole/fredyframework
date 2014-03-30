@@ -2,7 +2,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/nahakiole/fredyframework/tree/dev/steve"
+            "url": "https://github.com/nahakiole/fredyframework"
         }
     ],
     "require": {
