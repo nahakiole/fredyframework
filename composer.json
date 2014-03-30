@@ -10,10 +10,5 @@
         "pimple/pimple": "2.0.0",
         "twig/twig": "1.15.1",
         "filp/whoops": "1.0.10"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "dev/steve"
-        }
     }
 }
