@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Fredy\Framework;
+namespace Fredy;
 
 
 use  Fredy\Exception\PageNotFoundException;
