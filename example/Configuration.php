@@ -6,9 +6,6 @@
  * Time: 13:11
  */
 
-namespace Fredy;
-
-
 class Configuration
 {
     public static $ROOTPATH;
@@ -20,7 +17,7 @@ class Configuration
     {
 
         $this->container = new \Pimple();
-        self::$ROOTPATH = substr(__DIR__, 0, -9);
+        self::$ROOTPATH = __DIR__.'/';
         self::$OFFSETPATH = '';
     }
 
@@ -69,7 +66,7 @@ class Configuration
         };
 
         $this->container['languageLoader'] = function ($c) {
-            return new \Framework\LanguageLoader($c['language.default'], $c['language.array'], $c['language.directory'], $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+            return new \Fredy\LanguageLoader($c['language.default'], $c['language.array'], $c['language.directory'], $_SERVER['HTTP_ACCEPT_LANGUAGE']);
         };
 
 

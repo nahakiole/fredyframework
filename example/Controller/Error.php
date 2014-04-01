@@ -1,6 +1,6 @@
 <?php
 
-namespace Fredy\Controller;
+namespace Controller;
 
 
 use  Fredy\View\HTMLResponse;

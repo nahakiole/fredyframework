@@ -14,9 +14,10 @@ class Fredy
      */
     public function __construct($configuration)
     {
+        require_once __DIR__.'/Autoloader.php';
         $configuration->loadConfiguration();
         $configuration->loadServices();
-        $router = new Router($_SERVER, 'Framework/routing.json');
+        $router = new Router($_SERVER, 'routing.json');
         try {
             $request = $router->getRequest();
             $controller = $configuration->container[$request->controllerName];

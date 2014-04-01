@@ -1,9 +1,10 @@
 <?php
 
-namespace Fredy\Controller;
+namespace Controller;
 
 
 use  Fredy\Configuration;
+use Fredy\Controller\Controller;
 use  Fredy\LanguageLoader;
 use  Fredy\View\HTMLResponse;
 
@@ -31,7 +32,7 @@ class Demo extends Controller
 
         $response->setTwigVariables(
             [
-                'offset' => Configuration::$OFFSETPATH,
+                'offset' => \Configuration::$OFFSETPATH,
                 'title' => 'Demo',
                 'navigation' => [
                     [
