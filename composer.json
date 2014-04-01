@@ -2,7 +2,7 @@
     "name": "nahakiole/fredyframework",
     "autoload": {
         "psr-0" : {
-            "nahakiole\\fredyframework" : "src"
+            "Fredy" : "src"
         }
     },
     "require": {
