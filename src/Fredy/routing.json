@@ -1,0 +1,84 @@
+{
+    "routes": [
+        {
+            "action": "subdomainAction",
+            "controller": "demo",
+            "match": ":(?P<subdomain>[a-zA-Z0-9]+)\\.fredyframework:",
+            "fullDomainMatch": true
+        },
+        {
+            "action": "indexAction",
+            "controller": "demo",
+            "match": ":^/(Test/(?P<id>[0-9]+))?$:"
+        },
+        {
+            "action": "indexAction",
+            "controller": "test",
+            "match": ":^/presentation:"
+        },
+        {
+            "action": "indexAction",
+            "controller": "oliver",
+            "match": ":^/oliver:"
+        },
+        {
+            "action": "indexAction",
+            "controller": "journal",
+            "match": ":^/journal/?$:"
+        },
+        {
+            "action": "journalAction",
+            "controller": "journal",
+            "match": ":^/journal/(?P<id>\\d+)/?$:"
+        },
+        {
+            "action": "formAction",
+            "controller": "journal",
+            "match": ":^/journal/new/?$:",
+            "method": "GET"
+        },
+        {
+            "action": "submitAction",
+            "controller": "journal",
+            "match": ":^/journal/new/?$:",
+            "method": "POST"
+        },
+        {
+            "action": "editAction",
+            "controller": "journal",
+            "match": ":^/journal/edit/(?P<id>\\d+)/?$:",
+            "method": "GET"
+        },
+        {
+            "action": "submitAction",
+            "controller": "journal",
+            "match": ":^/journal/edit/(\\d+)/?$:",
+            "method": "POST"
+        },
+        {
+            "action": "deleteAction",
+            "controller": "journal",
+            "match": ":^/journal/remove/(?P<id>\\d+)/?$:"
+        },
+        {
+            "action": "notFound",
+            "controller": "error",
+            "match": ":^/Error/404:"
+        },
+        {
+            "action": "serverError",
+            "controller": "error",
+            "match": ":^/Error/500:"
+        },
+        {
+            "action": "noAccess",
+            "controller": "error",
+            "match": ":^/Error/403:"
+        },
+        {
+            "action": "indexAction",
+            "controller": "test",
+            "match": ":^/testpage/?$:"
+        }
+    ]
+}

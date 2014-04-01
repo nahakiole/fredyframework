@@ -1,0 +1,34 @@
+{% extends 'index.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h3>{{ journal.title }}</h3>
+
+                <p>{{ journal.content | nl2br }}</p>
+                <a class="btn btn-primary top7"
+                   href="{{ offset }}/journal/edit/{{ journal.id }}"><i
+                            class="fa fa-pencil-square-o"></i> Edit this journal</a>
+                <a class="btn btn-default top7" href="{{ offset }}/journal">
+                    <i class="fa fa-arrow-left"></i>
+                    Go back to the journal list</a>
+                <a class="btn btn-default top7"
+                   href="{{ offset }}/journal/remove/{{ journal.id }}">
+                    <i class="fa fa-trash-o"></i>
+                    Delete this Journal
+                </a><br>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block header %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Show Journal</h1>
+        </div>
+    </div>
+
+{% endblock %}

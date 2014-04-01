@@ -1,0 +1,17 @@
+{% macro menu(navigation, menuid, all) %}
+    <ul class="{{ menuid }}">
+        {% for link in navigation %}
+            <li {% if link.active %} class="{% if link.children %}dropdown {% endif %}{{ link.active_class }}" {% endif %}>
+                <a {% if link.children %} class="dropdown-toggle"   {% endif %}
+                        href="{{ link.url }}">{{ link.text }}
+                    {% if link.children %}
+                        <b class="caret"></b>
+                    {% endif %}
+                </a>
+                {% if link.children %}
+                    {{ _self.menu(link.children, 'dropdown-menu', all) }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
