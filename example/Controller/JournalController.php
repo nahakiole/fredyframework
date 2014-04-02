@@ -2,7 +2,7 @@
 
 namespace Controller;
 
-use  Fredy\Model\Entity\Journal;
+use  Model\Entity\Journal;
 use  Model\Repository\JournalRepository;
 use  Fredy\View\BootstrapHTMLGenerator;
 use  Fredy\View\HTMLResponse;
