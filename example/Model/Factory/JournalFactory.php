@@ -1,10 +1,11 @@
 <?php
 
 
-namespace Fredy\Model\Factory;
+namespace Model\Factory;
 
 
-use  Fredy\Model\Entity\Journal;
+use Fredy\Model\Factory\Factory;
+use  Model\Entity\Journal;
 
 class JournalFactory extends Factory
 {

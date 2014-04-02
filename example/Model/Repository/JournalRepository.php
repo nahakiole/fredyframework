@@ -1,9 +1,10 @@
 <?php
 
-namespace Fredy\Model\Repository;
+namespace Model\Repository;
 
-use  Fredy\Model\Entity\Journal;
-use  Fredy\Model\Factory\JournalFactory;
+use  Model\Entity\Journal;
+use  Model\Factory\JournalFactory;
+use Fredy\Model\Repository\Repository;
 
 class JournalRepository extends Repository
 {

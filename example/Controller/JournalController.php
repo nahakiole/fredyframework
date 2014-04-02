@@ -1,12 +1,13 @@
 <?php
 
-namespace Fredy\Controller;
+namespace Controller;
 
 use  Fredy\Model\Entity\Journal;
-use  Fredy\Model\Repository\JournalRepository;
+use  Model\Repository\JournalRepository;
 use  Fredy\View\BootstrapHTMLGenerator;
 use  Fredy\View\HTMLResponse;
 use  Fredy\View\RedirectResponse;
+use Fredy\Controller\Controller;
 
 class JournalController extends Controller
 {
