@@ -3,8 +3,9 @@
 namespace Controller;
 
 
-use  Fredy\View\HTMLResponse;
-use  Fredy\View\HTMLView;
+use Fredy\View\HTMLResponse;
+use Fredy\View\HTMLView;
+use Fredy\Controller\Controller;
 
 class Error extends Controller
 {
