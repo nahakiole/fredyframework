@@ -21,7 +21,7 @@ class Demo extends Controller
 
     /**
      * @param $request \Model\Entity\Request
-     * @return \View\Response
+     * @return \Fredy\View\Response
      */
     function indexAction($request)
     {
@@ -32,7 +32,6 @@ class Demo extends Controller
 
         $response->setTwigVariables(
             [
-                'offset' => \Configuration::$OFFSETPATH,
                 'title' => 'Demo',
                 'navigation' => [
                     [
@@ -65,7 +64,7 @@ class Demo extends Controller
 
     /**
      * @param $request \Model\Entity\Request
-     * @return \View\Response
+     * @return \Fredy\View\Response
      */
     function subdomainAction($request)
     {

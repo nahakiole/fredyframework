@@ -21,7 +21,7 @@ class JournalController extends Controller
 
     /**
      * @param \PDO $database
-     * @param \Framework\LanguageLoader $languageLoader
+     * @param \Fredy\LanguageLoader $languageLoader
      */
     public function __construct($database, $languageLoader)
     {
@@ -31,7 +31,7 @@ class JournalController extends Controller
 
     /**
      * [indexAction description]
-     * @param  \Model\Entity\Request $request
+     * @param  \Fredy\Model\Entity\Request $request
      * @return array    TwigContext
      */
     function indexAction($request)

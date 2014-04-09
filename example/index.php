@@ -1,11 +1,13 @@
 <?php
+
 session_start();
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/Configuration.php';
 
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
+require_once 'Services.php';
+new \Fredy\FredyAutoloader();
+$configuration = new \Fredy\Configuration('Configuration.php');
 
-$configuration = new Configuration();
-new \Fredy\Fredy($configuration);
+new \Fredy\Fredy($configuration, new Pimple(array_merge($services,$configuration->config) ));

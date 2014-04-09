@@ -28,6 +28,7 @@ abstract class TwigResponse extends Response
         $loader = new \Twig_Loader_Filesystem('View/Templates');
         $twig = new \Twig_Environment($loader);
         $this->view = $twig->loadTemplate($templatePath);
+        $this->variables['offset'] = OFFSETPATH;
     }
 
     public function setTwigVariables($variables)

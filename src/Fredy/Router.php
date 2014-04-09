@@ -4,6 +4,7 @@
 namespace Fredy;
 
 
+use Fredy\Configuration;
 use  Fredy\Exception\PageNotFoundException;
 use  Fredy\Model\Entity\Request;
 
@@ -45,7 +46,7 @@ class Router
 
     public function __construct($serverOptions, $routingFilePath = 'routing.json')
     {
-        $this->requestURL = substr(isset($serverOptions['REDIRECT_URL']) ? $serverOptions['REDIRECT_URL'] : $serverOptions['REQUEST_URI'], strlen(\Configuration::$OFFSETPATH));
+        $this->requestURL = substr(isset($serverOptions['REDIRECT_URL']) ? $serverOptions['REDIRECT_URL'] : $serverOptions['REQUEST_URI'], strlen(OFFSETPATH));
         $this->routingFilePath = $routingFilePath;
         $this->requestMethod = $serverOptions['REQUEST_METHOD'];
         $this->fullRequestURL = $this->getFullURL($serverOptions);
