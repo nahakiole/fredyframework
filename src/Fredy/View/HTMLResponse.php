@@ -10,6 +10,8 @@
 namespace Fredy\View;
 
 
+use Twig_SimpleFilter;
+
 class HTMLResponse extends TwigResponse
 {
 
@@ -19,6 +21,15 @@ class HTMLResponse extends TwigResponse
         parent::__construct($templatePath);
     }
 
+    protected function addFilter() {
+
+        $filter = new Twig_SimpleFilter('minifyjs', array($this, 'minifyjs'));
+        $this->twig->addFilter($filter);
+    }
+
+    function minifyjs($url){
+        return strtoupper($url);
+    }
 
     function render()
     {
