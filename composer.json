@@ -1,0 +1,15 @@
+{
+    "name": "nahakiole/fredyframework",
+    "autoload": {
+        "psr-0" : {
+            "Fredy" : "src"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "pimple/pimple": "2.0.0",
+        "twig/twig": "1.15.1",
+        "filp/whoops": "1.0.10"
+    },
+    "minimum-stability": "dev"
+}
