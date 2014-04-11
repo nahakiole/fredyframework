@@ -10,7 +10,7 @@
         "pimple/pimple": "2.0.0",
         "twig/twig": "1.15.1",
         "filp/whoops": "1.0.10",
-        "nitra/php-min": "dev-master"
+        "kriswallsmith/assetic": "1.1.2"
     },
     "minimum-stability": "dev"
 }
