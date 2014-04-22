@@ -16,6 +16,7 @@ abstract class TwigResponse extends Response
      * @var \Twig_TemplateInterface
      */
     protected $view;
+    protected $twig;
     protected $header = [];
 
     /**
@@ -26,8 +27,14 @@ abstract class TwigResponse extends Response
     public function __construct($templatePath)
     {
         $loader = new \Twig_Loader_Filesystem('View/Templates');
-        $twig = new \Twig_Environment($loader);
-        $this->view = $twig->loadTemplate($templatePath);
+        $this->twig = new \Twig_Environment($loader);
+        $this->addFilter();
+        $this->view = $this->twig->loadTemplate($templatePath);
+        $this->variables['offset'] = OFFSETPATH;
+    }
+
+    protected function addFilter() {
+
     }
 
     public function setTwigVariables($variables)

@@ -3,7 +3,7 @@
 use Model\Entity\Request;
 
 require_once '/Framework/Configuration.php';
-require_once '/Framework/Autoloader.php';
+require_once '/Framework/FredyAutoloader.php';
 require_once '/Framework/vendor/autoload.php';
 
 

@@ -12,22 +12,20 @@ class Fredy
     /**
      * @param $configuration Configuration
      */
-    public function __construct($configuration)
+    public function __construct(\Fredy\Configuration $configuration, $services)
     {
-        require_once __DIR__.'/Autoloader.php';
-        $configuration->loadConfiguration();
-        $configuration->loadServices();
+        require_once __DIR__ . '/FredyAutoloader.php';
         $router = new Router($_SERVER, 'routing.json');
         try {
             $request = $router->getRequest();
-            $controller = $configuration->container[$request->controllerName];
+            $controller = $services[$request->controllerName];
             $response = $this->callAction($controller, $request->actionName, $request);
         } catch (PageNotFoundException $e) {
-            $controller = $configuration->container[$e->getController()];
+            $controller = $services[$e->getController()];
             $controller->setErrorMessage($e->getMessage());
             $response = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
         } catch (ServerErrorException $e) {
-            $controller = $configuration->container[$e->getController()];
+            $controller = $services[$e->getController()];
             $response = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
         }
         $response->render();

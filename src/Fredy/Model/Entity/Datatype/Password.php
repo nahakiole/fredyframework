@@ -14,7 +14,7 @@ class Password extends Datatype
 
     public function isValid($value, $parentField)
     {
-        if (!strlen($value) >= $this->minLength) {
+        if (strlen($value) < $this->minLength) {
             $parentField->error = 'password_too_short';
         } else {
             return true;

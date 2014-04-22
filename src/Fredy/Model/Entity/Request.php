@@ -35,7 +35,10 @@ class Request
         $this->SERVER = $_SERVER;
         $this->COOKIES = $_COOKIE;
 
-        $this->SESSION = isset($_SESSION) ? $_SESSION : null;
+        $this->SESSION = null;
+        if (isset($_SESSION) ){
+            $this->SESSION = & $_SESSION;
+        }
     }
 
 }

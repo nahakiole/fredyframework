@@ -7,7 +7,7 @@
  */
 
 require_once '/Framework/Configuration.php';
-require_once '/Framework/Autoloader.php';
+require_once '/Framework/FredyAutoloader.php';
 
 class RouterTest extends PHPUnit_Framework_TestCase
 {
