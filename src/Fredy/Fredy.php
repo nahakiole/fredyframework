@@ -11,6 +11,7 @@ class Fredy
 
     /**
      * @param $configuration Configuration
+     * @param $services
      */
     public function __construct(\Fredy\Configuration $configuration, $services)
     {
@@ -37,7 +38,7 @@ class Fredy
      * @param $request string
      * @throws Exception\PageNotFoundException
      *
-     * @return \View\Response
+     * @return \Fredy\View\Response
      */
     private function callAction($controller, $actionName, $request = null)
     {

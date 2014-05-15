@@ -54,7 +54,7 @@ class Router
 
     /**
      * @throws Exception\PageNotFoundException
-     * @return \Model\Entity\Request
+     * @return \Fredy\Model\Entity\Request
      */
     public function getRequest()
     {
@@ -72,7 +72,7 @@ class Router
 
     /**
      * @param $route array
-     * @return \Model\Entity\Request
+     * @return \Fredy\Model\Entity\Request
      */
     private function buildRequest($route)
     {
@@ -96,6 +96,10 @@ class Router
         return preg_match($route['match'], $requestURL, $this->matches);
     }
 
+    /**
+     * @param $serverOptions
+     * @return string
+     */
     private function getFullURL($serverOptions)
     {
         $ssl = (!empty($serverOptions['HTTPS']) && $serverOptions['HTTPS'] == 'on') ? true : false;
