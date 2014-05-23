@@ -7,6 +7,7 @@ use  Fredy\Configuration;
 use Fredy\Controller\Controller;
 use  Fredy\LanguageLoader;
 use  Fredy\View\HTMLResponse;
+use View\FrontendResponse;
 
 class Demo extends Controller
 {
@@ -30,38 +31,13 @@ class Demo extends Controller
      */
     function indexAction($request)
     {
-        $response = new HTMLResponse('demo.twig');
+        $response = new FrontendResponse('demo.twig', $request);
         $journalRepository = $this->em->getRepository("Journal");
         $journalEntities =  $journalRepository->findAll(6);
-
-        //echo $languageContainer->getString('password_too_short');
-        //echo $languageContainer->getStringWithAttributes('integer_min_max',[ 10, 11]);
-
         $response->setTwigVariables(
             [
                 'title' => 'Demo',
-                'journal' => $journalEntities,
-                'navigation' => [
-                    [
-                        'text' => 'Home',
-                        'url' => '/',
-
-                        'active' => 'active',
-                        'active_class' => 'active'
-                    ],
-                    [
-                        'text' => 'Journal',
-                        'url' => '/journal',
-                        'active_class' => 'active',
-                        'children' => [
-                            [
-                                'text' => 'Home',
-                                'url' => '/journal',
-                                'active_class' => 'active'
-                            ],
-                        ]
-                    ]
-                ]
+                'journal' => $journalEntities
             ]
 
         );

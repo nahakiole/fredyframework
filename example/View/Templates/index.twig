@@ -32,7 +32,7 @@
         </div>
         <div class="navbar-collapse collapse" style="height: 1px;">
                 {% import "navigation.twig" as navigationGenerator %}
-                {{ navigationGenerator.menu(navigation, 'nav navbar-nav navbar-right', all) }}
+                {{ navigationGenerator.menu(Navigation.getNavigation('navigation.json'), 'nav navbar-nav navbar-right', all) }}
         </div>
 
     </div>
