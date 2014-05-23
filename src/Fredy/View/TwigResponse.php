@@ -48,7 +48,7 @@ abstract class TwigResponse extends Response
     public function render()
     {
         foreach ($this->header as $field => $value) {
-            header($field . ' ' . $value);
+            header($field . ' ' . $value, false);
         }
 
         return $this->view->render($this->variables);
