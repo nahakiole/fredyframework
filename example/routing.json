@@ -13,16 +13,6 @@
         },
         {
             "action": "indexAction",
-            "controller": "test",
-            "match": ":^/presentation:"
-        },
-        {
-            "action": "indexAction",
-            "controller": "oliver",
-            "match": ":^/oliver:"
-        },
-        {
-            "action": "indexAction",
             "controller": "journal",
             "match": ":^/journal/?$:"
         },
@@ -74,11 +64,6 @@
             "action": "noAccess",
             "controller": "error",
             "match": ":^/Error/403:"
-        },
-        {
-            "action": "indexAction",
-            "controller": "test",
-            "match": ":^/testpage/?$:"
         }
     ]
 }
