@@ -6,8 +6,8 @@ namespace Fredy\Controller;
 abstract class Controller
 {
     /**
-     * @param $request \Model\Entity\Request
-     * @return \View\Response
+     * @param $request \Fredy\Model\Entity\Request
+     * @return \Fredy\View\Response
      */
     abstract function indexAction($request);
 }
