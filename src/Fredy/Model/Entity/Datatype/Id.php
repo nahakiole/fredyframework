@@ -1,6 +1,6 @@
 <?php
 
-namespace Fredy\Model\Entity\DataType;
+namespace Fredy\Model\Entity\Datatype;
 
 class Id extends Datatype
 {

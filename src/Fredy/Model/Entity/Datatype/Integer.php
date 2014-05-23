@@ -23,7 +23,7 @@ class Integer extends Datatype
 
     function isValid($value, $parentField)
     {
-        if (!filter_var($value, FILTER_VALIDATE_INT)) {
+        if (isset($inputvariable) && (filter_var($inputvariable, FILTER_VALIDATE_INT) === 0 || !filter_var($inputvariable, FILTER_VALIDATE_INT) === False)) {
             $parentField->error = 'must_be_integer';
         } else if ($this->min != null && intval($value) < $this->min) {
             $parentField->error = 'integer_too_small';

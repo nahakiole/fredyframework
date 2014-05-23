@@ -47,6 +47,7 @@ class JournalController extends Controller
 
         $response->setTwigVariables([
             'journals' => $journals,
+            //#@discuss isn't this awfully redundant? 
             'navigation' => [
                 [
                     'text' => 'Home',

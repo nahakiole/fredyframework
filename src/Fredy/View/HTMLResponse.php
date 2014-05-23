@@ -41,7 +41,7 @@ class HTMLResponse extends TwigResponse
             $minifiedFileName = substr($url, 0, -strlen($fileFullName)) . $fileName . '.min.' . $fileExtension;
             $changeDate = filectime($file);
             $changeDateMinified = file_exists(ROOTPATH.$minifiedFileName) ? filectime(ROOTPATH.$minifiedFileName) : 0;
-            if ($changeDate < $changeDateMinified){
+            if ($changeDateMinified == 0 || $changeDate < $changeDateMinified){
                 $fileContent = file_get_contents($file);
                 file_put_contents(ROOTPATH.$minifiedFileName, JSMin::minify($fileContent));
             }
