@@ -10,12 +10,17 @@ use  Fredy\View\HTMLResponse;
 
 class Demo extends Controller
 {
+    /**
+     * @var \Fredy\Model\Repository\EntityManager
+     */
+    private $em;
 
-
-    public function __construct($database, LanguageLoader $languageLoader)
+    /**
+     * @param $em \Fredy\Model\Repository\EntityManager
+     */
+    public function __construct($em)
     {
-        $this->database = $database;
-        $this->languageLoader = $languageLoader;
+        $this->em = $em;
     }
 
 
@@ -26,13 +31,16 @@ class Demo extends Controller
     function indexAction($request)
     {
         $response = new HTMLResponse('demo.twig');
-        $languageContainer = $this->languageLoader->loadLanguageFile('demo');
+        $journalRepository = $this->em->getRepository("Journal");
+        $journalEntities =  $journalRepository->findAll(6);
+
         //echo $languageContainer->getString('password_too_short');
         //echo $languageContainer->getStringWithAttributes('integer_min_max',[ 10, 11]);
 
         $response->setTwigVariables(
             [
                 'title' => 'Demo',
+                'journal' => $journalEntities,
                 'navigation' => [
                     [
                         'text' => 'Home',
