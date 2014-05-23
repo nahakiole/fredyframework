@@ -39,7 +39,7 @@ class HTMLResponse extends TwigResponse {
     /**
      * @param $file
      * Relative path to file
-     * @return bool
+     * @return string
      */
     function minifyjs($file)
     {
@@ -47,10 +47,8 @@ class HTMLResponse extends TwigResponse {
         if ($minifiedFileName) {
             $fileContent = file_get_contents(ROOTPATH . $file);
             file_put_contents(ROOTPATH . $minifiedFileName, JSMin::minify($fileContent));
-
             return $minifiedFileName;
         }
-
         return $file;
     }
 
@@ -58,7 +56,7 @@ class HTMLResponse extends TwigResponse {
      * @param $file
      * Relative path to file
      *
-     * @return bool
+     * @return string
      */
     function minifycss($file)
     {
@@ -80,13 +78,13 @@ class HTMLResponse extends TwigResponse {
      */
     function checkIfFileWasUpdated($file)
     {
-        $file = ROOTPATH . $file;
-        if (file_exists($file)) {
+        $absoluteFilePath = ROOTPATH . $file;
+        if (file_exists($absoluteFilePath)) {
             $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
             $fileName = pathinfo($file, PATHINFO_FILENAME);
             $fileFullName = pathinfo($file, PATHINFO_BASENAME);
             $minifiedFileName = substr($file, 0, -strlen($fileFullName)) . $fileName . '.min.' . $fileExtension;
-            $changeDate = filectime($file);
+            $changeDate = filectime($absoluteFilePath);
             $changeDateMinified = file_exists(ROOTPATH . $minifiedFileName) ? filectime(ROOTPATH . $minifiedFileName)
                 : 0;
             if ($changeDateMinified == 0 || $changeDate < $changeDateMinified) {
