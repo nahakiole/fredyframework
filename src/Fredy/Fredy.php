@@ -13,7 +13,7 @@ class Fredy
      * @param $configuration Configuration
      * @param $services
      */
-    public function __construct(\Fredy\Configuration $configuration, $services)
+    public function __construct($services)
     {
         require_once __DIR__ . '/FredyAutoloader.php';
         $router = new Router($_SERVER, 'routing.json');
