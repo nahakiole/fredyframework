@@ -189,11 +189,6 @@ body {
     font-size: 30px;
 }
 
-.navbar-inverse .navbar-brand, .brand {
-
-    font-family: "lobster";
-}
-
 .navbar-right li a {
     font-style: normal;
     font-weight: 600;
