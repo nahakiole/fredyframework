@@ -72,6 +72,6 @@ class HTMLResponse extends TwigResponse
 
     function render()
     {
-        parent::render();
+        return parent::render();
     }
 }

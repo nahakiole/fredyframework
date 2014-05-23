@@ -10,5 +10,9 @@ namespace Fredy\View;
 
 interface Viewable
 {
+
+    /**
+     * @return string
+     */
     public function render();
 } 

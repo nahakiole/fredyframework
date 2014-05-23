@@ -42,13 +42,16 @@ abstract class TwigResponse extends Response
         $this->variables = array_merge($this->variables, $variables);
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         foreach ($this->header as $field => $value) {
             header($field . ' ' . $value);
         }
 
-        echo $this->view->render($this->variables);
+        return $this->view->render($this->variables);
     }
 
     public function addHeaderField($field, $value)

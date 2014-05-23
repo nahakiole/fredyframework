@@ -10,13 +10,21 @@ class Fredy
 {
 
     /**
-     * @param $configuration Configuration
      * @param $services
      */
     public function __construct($services)
     {
         require_once __DIR__ . '/FredyAutoloader.php';
         $router = new Router($_SERVER, 'routing.json');
+        /**
+         * Main logic of the framework.
+         * Fetch the controller and method from the router, create the object with it's dependencies and call the method.
+         * If there's no Controller/Method which matches a PageNotFoundException is thrown by the router.
+         *
+         * You can use the PageNotFoundException also in your controller to display a page not found page.
+         *
+         * It's also possible to use the ServerErrorException for 500 Server codes.
+         */
         try {
             $request = $router->getRequest();
             $controller = $services[$request->controllerName];
@@ -29,7 +37,7 @@ class Fredy
             $controller = $services[$e->getController()];
             $response = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
         }
-        $response->render();
+        echo $response->render();
     }
 
     /**

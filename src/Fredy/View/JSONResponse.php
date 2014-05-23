@@ -22,6 +22,6 @@ class JSONResponse extends TwigResponse
     function render()
     {
         header('Content-Type: application/json');
-        parent::render();
+        return parent::render();
     }
 }
