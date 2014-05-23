@@ -24,6 +24,9 @@ abstract class TwigResponse extends Response
      */
     protected $variables = [];
 
+    /**
+     * @param $templatePath Path to Template
+     */
     public function __construct($templatePath)
     {
         $loader = new \Twig_Loader_Filesystem('View/Templates');
@@ -33,9 +36,10 @@ abstract class TwigResponse extends Response
         $this->variables['offset'] = OFFSETPATH;
     }
 
-    protected function addFilter() {
-
-    }
+    /**
+     * @return void
+     */
+    protected function addFilter() {}
 
     public function setTwigVariables($variables)
     {
