@@ -1,6 +1,6 @@
 <?php
 $services['PDO'] = function ($c) {
-    return new \PDO(
+    return new \Fredy\PDO(
         'mysql:host=' . $c['db.host'] . ';dbname=' . $c['db.dbname'] . ';'
         , $c['db.user']
         , $c['db.password']);
