@@ -36,6 +36,7 @@ class LanguageLoader
     function setUserLanguage($acceptLanguage, $defaultLanguage)
     {
         if (isset($acceptLanguage) && strlen($acceptLanguage) > 1) {
+            $lang = [];
             # Split possible languages into array
             $x = explode(",", $acceptLanguage);
             foreach ($x as $val) {

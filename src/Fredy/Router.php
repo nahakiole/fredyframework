@@ -4,7 +4,6 @@
 namespace Fredy;
 
 
-use Fredy\Configuration;
 use  Fredy\Exception\PageNotFoundException;
 use  Fredy\Model\Entity\Request;
 

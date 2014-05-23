@@ -16,7 +16,8 @@ use Twig_SimpleFilter;
 class HTMLResponse extends TwigResponse {
 
     /**
-     * @param $templatePath Path to Template
+     * @param $templatePath
+     * Path to Template
      */
     public function __construct($templatePath)
     {

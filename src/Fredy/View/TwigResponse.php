@@ -25,7 +25,8 @@ abstract class TwigResponse extends Response
     protected $variables = [];
 
     /**
-     * @param $templatePath Path to Template
+     * @param $templatePath
+     * Path to Template
      */
     public function __construct($templatePath)
     {

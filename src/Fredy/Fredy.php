@@ -30,6 +30,9 @@ class Fredy
             $controller = $services[$request->controllerName];
             $response = $this->callAction($controller, $request->actionName, $request);
         } catch (PageNotFoundException $e) {
+            /**
+             * @var $controller \Controller\Error
+             */
             $controller = $services[$e->getController()];
             $controller->setErrorMessage($e->getMessage());
             $response = $this->callAction($controller, $e->getAction(), new Request(null, null, null, null));
