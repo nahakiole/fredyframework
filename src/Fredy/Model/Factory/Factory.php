@@ -25,7 +25,7 @@ abstract class Factory
 
     /**
      * @param $data
-     * @return \Model\Entity\Entity
+     * @return \Fredy\Model\Entity\Entity
      */
     abstract public function build($data);
 } 
