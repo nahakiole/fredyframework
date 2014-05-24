@@ -3,7 +3,7 @@
 namespace Controller;
 
 use  Model\Entity\Journal;
-use  Model\Repository\JournalRepository;
+use  Fredy\Model\Repository\Repository;
 use  Fredy\View\BootstrapHTMLGenerator;
 use  Fredy\View\HTMLResponse;
 use  Fredy\View\RedirectResponse;
@@ -39,7 +39,7 @@ class JournalController extends Controller
 
         $response = new HTMLResponse('journal/journalList.twig');
 
-        $journalRepository = new JournalRepository($this->database);
+        $journalRepository = new Repository(new Journal(),$this->database);
 
         $journals = $journalRepository->findAll();
 
@@ -90,7 +90,7 @@ class JournalController extends Controller
     {
         $response = new HTMLResponse('journal/journal.twig');
 
-        $journalRepository = new JournalRepository($this->database);
+        $journalRepository = new Repository(new Journal(),$this->database);
 
         $id = $request->matches['id'];
         $journal = $journalRepository->findById($id);
@@ -130,43 +130,10 @@ class JournalController extends Controller
 
         $languageContainer = $this->languageLoader->loadLanguageFile('journal');
 
-        $bootstrapHTMLGenerator = new BootstrapHTMLGenerator();
 
-        $form = $bootstrapHTMLGenerator->getForm('journal', '');
-
-        $buttonText = 'Save';
-        if ($entity != NULL && $entity['id'] != NULL) {
-            $form->addChildren($bootstrapHTMLGenerator->getHidden('id', $entity['id']));
-        }
-
-        if ($entity != NULL) {
-            $title = $entity['title'];
-
-            $content = $entity['content'];
-            if ($content->valid || ($content->valid === NULL)) {
-                $contentHelpText = null;
-                $contentHasError = false;
-            } else {
-                $contentHelpText =
-                    $languageContainer->getStringWithAttributes(
-                        'content_too_short',
-                        [
-                            $content->dataType->minLength
-                        ]);
-                $contentHasError = true;
-            }
-        } else {
-            $contentHasError = $title = $content = $contentHelpText = NULL;
-        }
-        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title', 'Title', $title, 'Title', NULL, true, false, ['autofocus' => true]));
-
-        $content = $entity != NULL ? $entity['content'] : NULL;
-        $form->addChildren($bootstrapHTMLGenerator->getTextarea('content', 'Content', $content, 'Content', $contentHelpText, true, $contentHasError));
-
-        $form->addChildren($bootstrapHTMLGenerator->getButton('submit', NULL, $buttonText));
 
         $response->setTwigVariables([
-            'form' => $form->render(),
+            'journal' => $entity,
 
             'navigation' => [
                 [
@@ -197,7 +164,7 @@ class JournalController extends Controller
 
     public function editAction($request)
     {
-        $journalRepository = new JournalRepository($this->database);
+        $journalRepository = new Repository(new Journal(),$this->database);
 
         $id = $request->matches['id'];
         $journal = $journalRepository->findById($id);
@@ -211,9 +178,10 @@ class JournalController extends Controller
         $title = $request->POST['title'];
         $content = $request->POST['content'];
 
-        $journal = new Journal($id, $title, $content);
-        $repo = new JournalRepository($this->database);
-        $success = $repo->update($journal);
+        $journal = new Journal();
+        $journal->fill($request->POST);
+        $repo = new Repository($journal, $this->database);
+        $success = $repo->update();
         if ($success) {
             $redirectId = $id == NULL ? $repo->lastInsertId : $id;
             return new RedirectResponse('/journal/' . $redirectId);
@@ -226,7 +194,7 @@ class JournalController extends Controller
     {
         $id = $request->matches['id'];
 
-        $repo = new JournalRepository($this->database);
+        $repo = new Repository(new Journal(),$this->database);
 
         $journalToRemove = $repo->findById($id);
 

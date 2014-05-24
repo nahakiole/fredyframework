@@ -12,7 +12,6 @@ namespace Fredy\Model\Entity;
 class Field
 {
     public $name;
-    public $databaseField;
     public $value;
 
     public $error;
@@ -26,20 +25,17 @@ class Field
     public $isRequired;
     public $index;
 
-    function __construct($name, $dataType, $element, $isRequired, $value, $index)
+    function __construct($name, $dataType, $value = null, $isRequired = true)
     {
         $this->name = $name;
         $this->dataType = $dataType;
-        $this->element = $element;
         $this->isRequired = $isRequired;
-        $this->databaseField = strtolower($name);
         $this->value = $value;
-        $this->index = $index;
     }
 
     public function toSelectString()
     {
-        return $this->databaseField;
+        return strtolower($this->name);
     }
 
     public function toInsertString()

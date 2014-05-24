@@ -4,7 +4,14 @@
 
     <div class="container">
         <div class="col-md-12">
-            {{ form | raw }}
+            <form method="POST" action="">
+                {% if journal or journal.id %}
+                    <input type="hidden" name="id" value="{{ journal.id }}">
+                {% endif %}
+                <input type="text" name="title" value="{% if journal or journal.title %}{{ journal.title }}{% endif %}">
+                <textarea name="content" cols="30" rows="10">{% if journal or journal.content %}{{ journal.content }}{% endif %}</textarea>
+                <input type="submit">
+            </form>
         </div>
     </div>
 

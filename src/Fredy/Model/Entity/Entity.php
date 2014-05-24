@@ -11,10 +11,7 @@ abstract class Entity implements \ArrayAccess, \Iterator
      */
     protected $fields;
 
-    public function __construct()
-    {
-        uksort($this->fields, array($this, 'sortByFieldsIndex'));
-    }
+    public $tableName;
 
     public function addField($field)
     {
@@ -45,6 +42,14 @@ abstract class Entity implements \ArrayAccess, \Iterator
             return true;
         }
         return false;
+    }
+
+    public function fill($data) {
+        foreach ($data as $attribute => $value) {
+            if (array_key_exists($attribute, $this->fields)) {
+                $this->fields[$attribute]->value = $value;
+            }
+        }
     }
 
     /**

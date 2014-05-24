@@ -6,7 +6,7 @@ namespace Fredy\Model\Repository;
 // #@todo: createAll, updateAll, removeAll
 
 
-abstract class Repository
+class Repository
 {
 
     public $lastInsertId;
@@ -37,8 +37,11 @@ abstract class Repository
     /**
      * @internal param \PDO $database
      */
-    public function __construct($database)
+    public function __construct($entity,$database)
     {
+
+        $this->entity = $entity;
+        $this->tableName = $this->entity->tableName;
         if (empty($this->tableName)) {
             throw new NoTableNameDefinedException();
         }
@@ -60,7 +63,7 @@ abstract class Repository
                   ' . $limit . ' ;';
         $statement = $this->database->prepare($query);
         $statement->execute();
-        return $this->factory->buildAll($statement->fetchAll());
+        return $this->buildAll($statement->fetchAll());
     }
 
     /**
@@ -78,7 +81,8 @@ abstract class Repository
         $statement = $this->database->prepare($query);
         $statement->bindParam(':id', $id);
         $statement->execute();
-        return $this->factory->build($statement->fetch());
+        $this->entity->fill($statement->fetch());
+        return $this->entity;
     }
 
     /**
@@ -101,15 +105,18 @@ abstract class Repository
             ' ' . $limit . ';';
         $statement = $this->database->prepare($query);
         $statement->execute();
-        return $this->factory->buildAll($statement->fetchAll());
+        return $this->buildAll($statement->fetchAll());
     }
 
     /**
      * @param $entity \Model\Entity\Entity
      * @return bool
      */
-    public function create($entity)
+    public function create($entity = NULL)
     {
+        if ($entity===NULL) {
+            $entity = $this->entity;
+        }
         return $this->applyEntityToDatabase($entity, false);
     }
 
@@ -117,8 +124,11 @@ abstract class Repository
      * @param $entity \Model\Entity\Entity
      * @return bool
      */
-    public function update($entity)
+    public function update($entity = NULL)
     {
+        if ($entity===NULL) {
+            $entity = $this->entity;
+        }
         return $this->applyEntityToDatabase($entity, true);
     }
 
@@ -199,6 +209,19 @@ abstract class Repository
     {
         return join($glue, $this->entityFields);
     }
+
+    public function buildAll($rawEntityData)
+    {
+        $entities = [];
+        $entityClass = get_class($this->entity);
+        foreach ($rawEntityData as $key => $singleRawEntityData) {
+            $entity = new $entityClass;
+            $entity->fill($singleRawEntityData);
+            $entities[] = $entity;
+        }
+        return $entities;
+    }
+
 }
 
 Class NoTableNameDefinedException extends \Exception
