@@ -94,9 +94,37 @@ class JournalController extends Controller {
         $response = new FrontendResponse('journal/journalForm.twig', $request);
 
         $languageContainer = $this->languageLoader->loadLanguageFile('journal');
-
-
+        $bootstrapHTMLGenerator = new BootstrapHTMLGenerator();
+         
+        $form = $bootstrapHTMLGenerator->getForm('journal', '');
+        $buttonText = 'Save';
+        if ($entity != NULL && $entity['id'] != NULL) {
+            $form->addChildren($bootstrapHTMLGenerator->getHidden('id', $entity['id']));
+        }
+        if ($entity != NULL) {
+            $title = $entity['title'];
+            $content = $entity['content'];
+            if ($content->valid || ($content->valid === NULL)) {
+                $contentHelpText = null;
+                $contentHasError = false;
+            } else {
+                $contentHelpText =
+                    $languageContainer->getStringWithAttributes(
+                        'content_too_short',
+                        [
+                            $content->dataType->minLength
+                        ]);
+                $contentHasError = true;
+            }
+        } else {
+            $contentHasError = $title = $content = $contentHelpText = NULL;
+        }
+        $form->addChildren($bootstrapHTMLGenerator->getTextfield('title', 'Title', $title, 'Title', NULL, true, false, ['autofocus' => true]));
+        $content = $entity != NULL ? $entity['content'] : NULL;
+        $form->addChildren($bootstrapHTMLGenerator->getTextarea('content', 'Content', $content, 'Content', $contentHelpText, true, $contentHasError));
+        $form->addChildren($bootstrapHTMLGenerator->getButton('submit', NULL, $buttonText));
         $response->setTwigVariables([
+            'form' => $form->render(),
             'journal' => $entity
             ]
         );
