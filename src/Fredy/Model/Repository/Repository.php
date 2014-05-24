@@ -29,10 +29,6 @@ class Repository
      */
     protected $database;
 
-    /**
-     * @var $factory \Fredy\Model\Factory\Factory
-     */
-    protected $factory;
 
     /**
      * @internal param \PDO $database
