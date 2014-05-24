@@ -10,7 +10,8 @@
         "pimple/pimple": "2.0.0",
         "twig/twig": "1.15.1",
         "filp/whoops": "1.0.10",
-        "mrclay/minify": "2.1.7"
+        "mrclay/minify": "2.1.7",
+        "symfony/yaml": "2.4.5"
     },
     "minimum-stability": "dev"
 }
