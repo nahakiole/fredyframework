@@ -11,5 +11,9 @@ namespace Fredy\View;
 
 abstract class Response implements Viewable
 {
+
+    /**
+     * @return string
+     */
     abstract function render();
 } 

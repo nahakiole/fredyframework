@@ -1,7 +1,7 @@
 {% macro menu(navigation, menuid, all) %}
     <ul class="{{ menuid }}">
         {% for link in navigation %}
-            <li {% if link.active %} class="{% if link.children %}dropdown {% endif %}{{ link.active_class }}" {% endif %}>
+            <li {% if link.active %} class="{% if link.children %}dropdown {% endif %} active" {% endif %}>
                 <a {% if link.children %} class="dropdown-toggle"   {% endif %}
                         href="{{ link.url }}">{{ link.text }}
                     {% if link.children %}

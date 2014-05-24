@@ -2,15 +2,15 @@
 
 namespace Controller;
 
-use  Model\Entity\Journal;
-use  Fredy\Model\Repository\Repository;
-use  Fredy\View\BootstrapHTMLGenerator;
-use  Fredy\View\HTMLResponse;
-use  Fredy\View\RedirectResponse;
 use Fredy\Controller\Controller;
+use Fredy\View\BootstrapHTMLGenerator;
+use Fredy\View\HTMLResponse;
+use Fredy\View\RedirectResponse;
+use Model\Entity\Journal;
+use Model\Repository\JournalRepository;
+use View\FrontendResponse;
 
-class JournalController extends Controller
-{
+class JournalController extends Controller {
 
     /**
      * @var \PDO
@@ -31,13 +31,15 @@ class JournalController extends Controller
 
     /**
      * [indexAction description]
+     *
      * @param  \Fredy\Model\Entity\Request $request
+     *
      * @return array    TwigContext
      */
     function indexAction($request)
     {
 
-        $response = new HTMLResponse('journal/journalList.twig');
+        $response = new FrontendResponse('journal/journalList.twig', $request);
 
         $journalRepository = new Repository(new Journal(),$this->database);
 
@@ -45,31 +47,13 @@ class JournalController extends Controller
 
         $journals = array_reverse($journals);
 
-        $response->setTwigVariables([
-            'journals' => $journals,
-            //#@discuss isn't this awfully redundant? 
-            'navigation' => [
-                [
-                    'text' => 'Home',
-                    'url' => '/',
-                    'active_class' => 'active'
-                ],
-                [
-                    'text' => 'Journal',
-                    'active' => 'active',
-                    'url' => '/journal',
-                    'active_class' => 'active',
-                    'children' => [
-                        [
-                            'text' => 'Add Journal',
-                            'url' => '/journal/new',
-                            'active_class' => 'active'
-                        ],
-                    ]
-                ]
-            ]
+        $response->setTwigVariables(
+            [
+                'journals' => $journals
 
-        ]);
+            ]
+        );
+
         return $response;
 
 
@@ -95,68 +79,28 @@ class JournalController extends Controller
         $id = $request->matches['id'];
         $journal = $journalRepository->findById($id);
 
-        $response->setTwigVariables([
-            'journal' => $journal,
+        $response->setTwigVariables(
+            [
+                'journal' => $journal,
 
-            'navigation' => [
-                [
-                    'text' => 'Home',
-                    'url' => '/',
-                    'active_class' => 'active'
-                ],
-                [
-                    'text' => 'Journal',
-                    'active' => 'active',
-                    'url' => '/journal',
-                    'active_class' => 'active',
-                    'children' => [
-                        [
-                            'text' => 'Add Journal',
-                            'url' => '/journal/new',
-                            'active_class' => 'active'
-                        ],
-                    ]
-                ]
+
             ]
-
-        ]);
+        );
 
         return $response;
     }
 
-    public function formAction($request, $entity = NULL)
+    public function formAction($request, $entity = null)
     {
-        $response = new HTMLResponse('journal/journalForm.twig');
+        $response = new FrontendResponse('journal/journalForm.twig', $request);
 
         $languageContainer = $this->languageLoader->loadLanguageFile('journal');
 
 
-
         $response->setTwigVariables([
-            'journal' => $entity,
-
-            'navigation' => [
-                [
-                    'text' => 'Home',
-                    'url' => '/',
-                    'active_class' => 'active'
-                ],
-                [
-                    'text' => 'Journal',
-                    'active' => 'active',
-                    'url' => '/journal',
-                    'active_class' => 'active',
-                    'children' => [
-                        [
-                            'text' => 'Add Journal',
-                            'url' => '/journal/new',
-                            'active_class' => 'active'
-                        ],
-                    ]
-                ]
+            'journal' => $entity
             ]
-
-        ]);
+        );
 
         return $response;
 
@@ -174,7 +118,7 @@ class JournalController extends Controller
 
     public function submitAction($request)
     {
-        $id = array_key_exists('id', $request->POST) ? $request->POST['id'] : NULL;
+        $id = array_key_exists('id', $request->POST) ? $request->POST['id'] : null;
         $title = $request->POST['title'];
         $content = $request->POST['content'];
 
@@ -183,7 +127,8 @@ class JournalController extends Controller
         $repo = new Repository($journal, $this->database);
         $success = $repo->update();
         if ($success) {
-            $redirectId = $id == NULL ? $repo->lastInsertId : $id;
+            $redirectId = $id == null ? $repo->lastInsertId : $id;
+
             return new RedirectResponse('/journal/' . $redirectId);
         } else {
             return $this->formAction($request, $journal);

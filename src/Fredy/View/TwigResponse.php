@@ -24,6 +24,10 @@ abstract class TwigResponse extends Response
      */
     protected $variables = [];
 
+    /**
+     * @param $templatePath
+     * Path to Template
+     */
     public function __construct($templatePath)
     {
         $loader = new \Twig_Loader_Filesystem('View/Templates');
@@ -33,22 +37,26 @@ abstract class TwigResponse extends Response
         $this->variables['offset'] = OFFSETPATH;
     }
 
-    protected function addFilter() {
-
-    }
+    /**
+     * @return void
+     */
+    protected function addFilter() {}
 
     public function setTwigVariables($variables)
     {
         $this->variables = array_merge($this->variables, $variables);
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         foreach ($this->header as $field => $value) {
-            header($field . ' ' . $value);
+            header($field . ' ' . $value, false);
         }
 
-        echo $this->view->render($this->variables);
+        return $this->view->render($this->variables);
     }
 
     public function addHeaderField($field, $value)

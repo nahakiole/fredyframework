@@ -18,7 +18,7 @@ class Repository
     protected $tableName = '';
 
     /**
-     * @var \Model\Entity\Entity
+     * @var \Fredy\Model\Entity\Entity
      */
     protected $entity;
 
@@ -30,7 +30,7 @@ class Repository
     protected $database;
 
     /**
-     * @var $factory \Model\Factory\Factory
+     * @var $factory \Fredy\Model\Factory\Factory
      */
     protected $factory;
 
@@ -53,7 +53,7 @@ class Repository
      * @param $limit
      * @param $offset
      *
-     * @return \Model\Entity\Entity[]
+     * @return \Fredy\Model\Entity\Entity[]
      */
     public function findAll($limit = 0, $offset = 0)
     {
@@ -69,7 +69,7 @@ class Repository
     /**
      * @param $id
      *
-     * @return \Model\Entity\Entity
+     * @return \Fredy\Model\Entity\Entity
      */
     public function findById($id)
     {
@@ -86,11 +86,11 @@ class Repository
     }
 
     /**
-     * @param $filter \Model\Repository\Filter
+     * @param $filter \Fredy\Model\Repository\Filter
      *
      * @param int $limit
      * @param int $offset
-     * @return \Model\Entity\Entity
+     * @return \Fredy\Model\Entity\Entity
      */
     public function findByFilter($filter, $limit = 0, $offset = 0)
     {
@@ -109,7 +109,7 @@ class Repository
     }
 
     /**
-     * @param $entity \Model\Entity\Entity
+     * @param $entity \Fredy\Model\Entity\Entity
      * @return bool
      */
     public function create($entity = NULL)
@@ -121,7 +121,7 @@ class Repository
     }
 
     /**
-     * @param $entity \Model\Entity\Entity
+     * @param $entity \Fredy\Model\Entity\Entity
      * @return bool
      */
     public function update($entity = NULL)
@@ -133,7 +133,7 @@ class Repository
     }
 
     /**
-     * @param $entity \Model\Entity\Entity
+     * @param $entity \Fredy\Model\Entity\Entity
      *
      * @param $update
      * @return boolean
@@ -172,7 +172,7 @@ class Repository
 
     /**
      * Remove an entity from the database using the id of the entity.
-     * @param $entity \Model\Entity\Entity
+     * @param $entity \Fredy\Model\Entity\Entity
      *
      * @return void
      */

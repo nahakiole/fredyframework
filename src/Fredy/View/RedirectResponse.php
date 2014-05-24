@@ -24,6 +24,9 @@ class RedirectResponse extends Response
         $this->header = 'Location: ' . $url;
     }
 
+    /**
+     * @return void
+     */
     public function render()
     {
         header($this->header);

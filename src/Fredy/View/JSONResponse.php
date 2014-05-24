@@ -12,16 +12,21 @@ namespace Fredy\View;
 class JSONResponse extends TwigResponse
 {
 
-
+    /**
+     * @param $templatePath
+     * Path to Template
+     */
     public function __construct($templatePath)
     {
         parent::__construct($templatePath);
     }
 
-
+    /**
+     * @return string
+     */
     function render()
     {
         header('Content-Type: application/json');
-        parent::render();
+        return parent::render();
     }
 }

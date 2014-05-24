@@ -15,6 +15,9 @@ class Configuration
     function __construct($filePath)
     {
         require_once $filePath;
+        /**
+         * @var $configuration String
+         */
         $this->config = $configuration;
     }
 

@@ -14,6 +14,7 @@ Class FredyAutoloader
     {
         $file = ROOTPATH . str_replace("\\", "/", $class) . ".php";
         if (file_exists($file)) {
+            /** @noinspection PhpIncludeInspection */
             require_once($file);
         }
     }

@@ -34,6 +34,24 @@
                         installation manual</a></p>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>10 best entries</h2>
+            </div>
+            {% for entry in journal %}
+
+            <div class="col-md-4">
+                <h3>{{ entry.title }}</h3>
+                {{ entry.content|slice(0, 50) }}...
+                <br/>
+                <br/>
+                <p><a class="btn btn-default" href="{{ offset }}/journal/{{ entry.id }}" role="button">Show Entry</a></p>
+            </div>
+
+            {% endfor %}
+        </div>
+
+
 
     </div>
     <div class="features top30">
@@ -87,6 +105,7 @@
                 </div>
             </div>
             <div class="clearfix"></div>
+
         </div>
     </div>
 
