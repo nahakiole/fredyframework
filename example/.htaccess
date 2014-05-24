@@ -5,3 +5,6 @@ ErrorDocument 404 /Error/404
 ErrorDocument 500 /Error/500
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]
+<FilesMatch ".*\.yaml">
+   Order allow,deny
+ </FilesMatch>

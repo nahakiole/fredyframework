@@ -6,6 +6,7 @@ namespace Fredy;
 
 use  Fredy\Exception\PageNotFoundException;
 use  Fredy\Model\Entity\Request;
+use Symfony\Component\Yaml\Parser;
 
 class Router
 {
@@ -43,7 +44,7 @@ class Router
      */
     public $requestMethod;
 
-    public function __construct($serverOptions, $routingFilePath = 'routing.json')
+    public function __construct($serverOptions, $routingFilePath = 'routing.yaml')
     {
         $this->requestURL = substr(isset($serverOptions['REDIRECT_URL']) ? $serverOptions['REDIRECT_URL'] : $serverOptions['REQUEST_URI'], strlen(OFFSETPATH));
         $this->routingFilePath = $routingFilePath;
@@ -58,8 +59,8 @@ class Router
     public function getRequest()
     {
         $routes = file_get_contents($this->routingFilePath);
-        $routes = json_decode($routes, true);
-        $this->routingTable = $routes['routes'];
+        $yaml = new Parser();
+        $this->routingTable = $yaml->parse($routes);
         foreach ($this->routingTable as $route) {
             $matches = [];
             if ($this->matchesRequest($route)) {

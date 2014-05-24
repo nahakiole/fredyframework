@@ -9,6 +9,8 @@
 namespace Controller;
 
 
+use Symfony\Component\Yaml\Parser;
+
 class Navigation {
 
     /**
@@ -28,15 +30,17 @@ class Navigation {
 
     public function getNavigation($file){
 
-        $navigation = json_decode( file_get_contents(ROOTPATH.$file), true);
+        $yaml = new Parser();
+        $navigation = $yaml->parse(( file_get_contents(ROOTPATH.$file)));
+
         $this->cachedNavigation[$file] = $navigation;
 
-        foreach ($navigation['navigation'] as &$link) {
+        foreach ($navigation as &$link) {
             if (preg_match(':^'.$link['url'].':', $this->request->matches[0]) && $link['url'] != '/' || ($this->request->matches[0] == '/' &&  $link['url'] == '/') ){
 
                 $link['active'] = 'active';
             }
         }
-        return $navigation['navigation'];
+        return $navigation;
     }
 } 

@@ -5,9 +5,10 @@ if (MODE == 'dev'){
     $whoops->register();
 }
 elseif (MODE == 'prod'){
+    ini_set('display_errors', 'Off');
     error_reporting(0);
 }
 $configuration = require_once ROOTPATH . "/Configuration.php";
 $services = require_once ROOTPATH . '/Services.php';
-new \Fredy\FredyAutoloader();
-new \Fredy\Fredy(new Pimple(array_merge($services, $configuration)));
+$autoloader = new \Fredy\FredyAutoloader();
+return new Pimple(array_merge($services, $configuration));
