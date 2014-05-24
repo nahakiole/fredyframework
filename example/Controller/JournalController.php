@@ -7,7 +7,7 @@ use Fredy\View\BootstrapHTMLGenerator;
 use Fredy\View\HTMLResponse;
 use Fredy\View\RedirectResponse;
 use Model\Entity\Journal;
-use Model\Repository\JournalRepository;
+use Fredy\Model\Repository\Repository;
 use View\FrontendResponse;
 
 class JournalController extends Controller {
@@ -50,7 +50,6 @@ class JournalController extends Controller {
         $response->setTwigVariables(
             [
                 'journals' => $journals
-
             ]
         );
 
