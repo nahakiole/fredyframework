@@ -83,7 +83,7 @@ class HTMLResponse extends TwigResponse {
             $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
             $fileName = pathinfo($file, PATHINFO_FILENAME);
             $fileFullName = pathinfo($file, PATHINFO_BASENAME);
-            $minifiedFileName = substr($file, 0, -strlen($fileFullName)) . $fileName . '.min.' . $fileExtension;
+            $minifiedFileName = substr($file, 0, -strlen($fileFullName)) . $fileName . '.minified.' . $fileExtension;
             $changeDate = filectime($absoluteFilePath);
             $changeDateMinified = file_exists(ROOTPATH . $minifiedFileName) ? filectime(ROOTPATH . $minifiedFileName)
                 : 0;
