@@ -37,7 +37,8 @@ class EntityManager {
             return $this->cachedRepository[$entityName];
         }
         $className = "Fredy\\Model\\Repository\\Repository";
-        return new $className(new $entityName(),$this->db);
+        $entityClassName = 'Model\\Entity\\'.$entityName;
+        return new $className(new $entityClassName(),$this->db);
     }
 
 

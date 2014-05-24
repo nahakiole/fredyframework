@@ -32,7 +32,7 @@ class Demo extends Controller
     function indexAction($request)
     {
         $response = new FrontendResponse('demo.twig', $request);
-        $journalRepository = $this->em->getRepository("Model\\Entity\\Journal");
+        $journalRepository = $this->em->getRepository("Journal");
         $journalEntities =  $journalRepository->findAll(6);
         $response->setTwigVariables(
             [
