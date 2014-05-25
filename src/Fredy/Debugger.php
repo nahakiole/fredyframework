@@ -13,6 +13,7 @@ class Debugger {
 
     private static $whoops;
     private static $fileHandler;
+    private static $mode;
 
     private function __construct()
     {
@@ -26,6 +27,7 @@ class Debugger {
      */
     public static function setMode($mode)
     {
+        self::$mode = $mode;
         if ($mode == 'dev') {
             self::$whoops = new \Whoops\Run;
             self::$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
@@ -46,10 +48,14 @@ class Debugger {
 
     public static function log($string)
     {
-        if (self::$fileHandler) {
-            fwrite(self::$fileHandler, date('l jS \of F Y h:i:s ') . " " . $string);
+        if (self::$mode != 'prod'){
+            if (self::$fileHandler) {
+                fwrite(self::$fileHandler, date('l jS \of F Y h:i:s ') . " " . $string."\n");
+            }
+            else {
+                self::showMessage($string);
+            }
         }
-        self::showMessage($string);
     }
 
     private static function showMessage($message)

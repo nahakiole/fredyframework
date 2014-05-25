@@ -4,5 +4,5 @@ define("OFFSETPATH", '');
 require_once __DIR__ . '/vendor/autoload.php';
 $config = require_once __DIR__ . '/vendor/nahakiole/fredyframework/src/Fredy/Run.php';
 \Fredy\Debugger::setMode('dev');
-//\Fredy\Debugger::setFileOutput(true);
+//\Fredy\Debugger::enableFileOutput();
 new \Fredy\Fredy($config);
