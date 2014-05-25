@@ -1,13 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Robin
- * Date: 25.03.14
- * Time: 11:01
- */
 
-require_once '/Framework/Configuration.php';
-require_once '/Framework/FredyAutoloader.php';
+
+use Fredy\Router;
 
 class RouterTest extends PHPUnit_Framework_TestCase
 {
@@ -20,11 +14,10 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $serverOptions['SERVER_PROTOCOL'] = 'http';
         $serverOptions['SERVER_PORT'] = '80';
         $serverOptions['SERVER_NAME'] = 'test';
-        $router = new \Framework\Router($serverOptions, 'Test/test.json');
+        $router = new Router($serverOptions, 'Test/test.yaml');
         $request = $router->getRequest();
         $this->assertStringMatchesFormat('demo', $request->controllerName);
-        \Framework\Configuration::$OFFSETPATH = '/freddyframework';
-        $router->requestURL = substr('/freddyframework/', strlen(\Framework\Configuration::$OFFSETPATH));
+        $router->requestURL = substr('/', strlen(OFFSETPATH));
         $request = $router->getRequest();
         $this->assertStringMatchesFormat('demo', $request->controllerName);
 

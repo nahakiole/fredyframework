@@ -1,11 +1,6 @@
 <?php
 
-use Model\Entity\Request;
-
-require_once '/Framework/Configuration.php';
-require_once '/Framework/FredyAutoloader.php';
-require_once '/Framework/vendor/autoload.php';
-
+use Fredy\Model\Entity\Request;
 
 class ErrorTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +11,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
         $request->SERVER['REQUEST_URI'] = '/ThisPageDoesntExist';
         $errorController = new \Controller\Error();
         $response = $errorController->notFound($request);
-        $this->assertInstanceOf("\\View\\Response", $response);
+        $this->assertInstanceOf("\\Fredy\\View\\Response", $response);
     }
 }
  
