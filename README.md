@@ -12,6 +12,8 @@ Features
 - Dependency injection
 - MVC Pattern
 - Easy to setup entities and repositories (WIP)
+- CSS and JS minifier
+
 
 Installation
 ------------
