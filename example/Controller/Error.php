@@ -13,7 +13,7 @@ class Error extends Controller
     private $errorMessage = '';
 
     /**
-     * @param $request \Model\Entity\Request
+     * @param $request \Fredy\Model\Entity\Request
      * @return null
      */
     public function notFound($request)
@@ -31,7 +31,7 @@ class Error extends Controller
     }
 
     /**
-     * @param $request \Model\Entity\Request
+     * @param $request \Fredy\Model\Entity\Request
      * @return null
      */
     public function serverError($request)
