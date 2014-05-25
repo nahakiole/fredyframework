@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+
+
+require __DIR__.'/vendor/autoload.php';
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Application;
+
+class CreateCommand extends Command
+{
+    protected function configure()
+    {
+        $this
+            ->setName('create')
+            ->setDescription('Create your sql files from your entities')->addArgument(
+                'type',
+                InputArgument::REQUIRED,
+                'Type of entity to generate sql for'
+            )
+        ;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $output->writeln($input->getArgument('type'));
+    }
+}
+
+$application = new Application('FredyFramework', '0.2-dev');
+$application->add(new CreateCommand());
+$application->run();
