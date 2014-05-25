@@ -15,7 +15,7 @@ class Fredy
     public function __construct($services)
     {
         require_once __DIR__ . '/FredyAutoloader.php';
-        $router = new Router($_SERVER, 'routing.json');
+        $router = new Router($_SERVER);
         /**
          * Main logic of the framework.
          * Fetch the controller and method from the router, create the object with it's dependencies and call the method.

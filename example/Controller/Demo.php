@@ -5,9 +5,11 @@ namespace Controller;
 
 use  Fredy\Configuration;
 use Fredy\Controller\Controller;
+use Fredy\Debugger;
 use  Fredy\LanguageLoader;
 use  Fredy\View\HTMLResponse;
 use View\FrontendResponse;
+use Whoops\Example\Exception;
 
 class Demo extends Controller
 {
@@ -41,6 +43,8 @@ class Demo extends Controller
             ]
 
         );
+        //Debugger::log("Test");
+        //Debugger::log("sdfdsf");
         return $response;
 
     }

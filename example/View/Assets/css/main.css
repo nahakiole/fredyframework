@@ -3,7 +3,6 @@
    ========================================================================== */
 
 body {
-    padding-top: 40px;
     font-family: "open-sans", "open sans", sans-serif;
     font-weight: normal;
     font-size: 16px;
@@ -141,7 +140,6 @@ html {
    ========================================================================== */
 
 body {
-    padding-top: 40px;
     font-family: "open-sans", "open sans", sans-serif;
     font-weight: normal;
     font-size: 16px;
@@ -388,6 +386,11 @@ pre {
 
 .navbar-fixed-top {
     border: none;
+}
+
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
 }
 
 ul.nav li.dropdown:hover > ul.dropdown-menu {
