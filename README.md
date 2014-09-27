@@ -29,7 +29,7 @@ Install fredyframework with composer. At the moment you should use the latest ve
 Contribute
 ----------
 
-- Issue Tracker: https://github.com/nahakiole/fredyframework/issueses
+- Issue Tracker: https://github.com/nahakiole/fredyframework/issues
 - Source Code: https://github.com/nahakiole/fredyframework
 
 Support
